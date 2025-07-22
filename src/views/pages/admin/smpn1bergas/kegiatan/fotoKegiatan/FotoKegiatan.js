@@ -29,7 +29,7 @@ function FotoKegiatan() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/foto_kegiatan/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/foto_kegiatan/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -61,7 +61,7 @@ function FotoKegiatan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/foto_kegiatan/` + id, {
+          .delete(`${API_DUMMY}/api/foto_kegiatan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

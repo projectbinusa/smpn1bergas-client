@@ -21,7 +21,7 @@ function CategoryProgram() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/category_program/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/category_program/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -53,7 +53,7 @@ function CategoryProgram() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/category_program/` + id, {
+          .delete(`${API_DUMMY}/api/category_program/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

@@ -43,7 +43,7 @@ function KotakMasuk() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kotak_saran/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/kotak_saran/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -75,7 +75,7 @@ function KotakMasuk() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/kotak_saran/` + id, {
+          .delete(`${API_DUMMY}/api/kotak_saran/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

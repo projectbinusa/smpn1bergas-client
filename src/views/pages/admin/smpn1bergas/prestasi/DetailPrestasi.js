@@ -23,7 +23,7 @@ function DetailPrestasi() {
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/prestasi/get/` + param.id, {
+      .get(`${API_DUMMY}/api/prestasi/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -106,7 +106,7 @@ function EditKegiatan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/all/terbaru?page=${
+        `${API_DUMMY}/api/kegiatan/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -159,7 +159,7 @@ function EditKegiatan() {
       category: kategori,
     };
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/kegiatan/put/` + param.id, data, {
+      .put(`${API_DUMMY}/api/kegiatan/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -168,7 +168,7 @@ function EditKegiatan() {
         if (image) {
           axios
             .put(
-              `${API_DUMMY}/smpn1bergas/api/kegiatan/put/foto/` + param.id,
+              `${API_DUMMY}/api/kegiatan/put/foto/` + param.id,
               formData,
               {
                 headers: {
@@ -215,7 +215,7 @@ function EditKegiatan() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id, {
+      .get(`${API_DUMMY}/api/kegiatan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

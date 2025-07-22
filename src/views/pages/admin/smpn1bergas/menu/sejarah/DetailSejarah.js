@@ -36,7 +36,7 @@ function DetailSejarah() {
   // get by id berita
   // useEffect(() => {
   //   axios
-  //     .get(`${API_DUMMY}/smpn1bergas/api/sejarah/get/` + param.id, {
+  //     .get(`${API_DUMMY}/api/sejarah/get/` + param.id, {
   //       headers: {
   //         Authorization: `Bearer ${localStorage.getItem("token")}`,
   //       },
@@ -56,7 +56,7 @@ function DetailSejarah() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=0&size=1`,
+        `${API_DUMMY}/api/sejarah/all/terbaru?page=0&size=1`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -92,7 +92,7 @@ function DetailSejarah() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/sejarah/` + id, {
+          .delete(`${API_DUMMY}/api/sejarah/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

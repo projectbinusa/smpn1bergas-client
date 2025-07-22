@@ -30,7 +30,7 @@ function KegiatanSekolah() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY}/smpn1bergas/api/kegiatan/all`
+          `${API_DUMMY}/api/kegiatan/all`
         );
         const data = response.data.data.content;
         setKegiatan(data);

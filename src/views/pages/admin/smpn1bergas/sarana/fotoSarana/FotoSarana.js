@@ -22,7 +22,7 @@ function FotoSarana() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/foto_sarana/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/foto_sarana/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -54,7 +54,7 @@ function FotoSarana() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/foto_sarana/` + id, {
+          .delete(`${API_DUMMY}/api/foto_sarana/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

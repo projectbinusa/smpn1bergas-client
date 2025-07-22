@@ -28,7 +28,7 @@ function AddTenagaKependidikan() {
       // formData.append("file", image);
 
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/add`,
+        `${API_DUMMY}/api/tenaga_kependidikan/add`,
         {
           nama: nama,
           status: status,

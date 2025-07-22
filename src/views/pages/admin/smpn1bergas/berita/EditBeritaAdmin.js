@@ -87,14 +87,14 @@ function EditBeritaAdmin() {
     }
 
     axios
-      .put(`${API_DUMMY}/smpn1bergas/api/berita/put/` + param.id, data, {
+      .put(`${API_DUMMY}/api/berita/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((response) => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/berita/put/foto/` + param.id, formData, {
+          axios.put(`${API_DUMMY}/api/berita/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -134,7 +134,7 @@ function EditBeritaAdmin() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/berita/get/` + param.id, {
+      .get(`${API_DUMMY}/api/berita/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

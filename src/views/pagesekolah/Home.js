@@ -168,7 +168,7 @@ function Home() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=6&sort=created_date`
+        `${API_DUMMY}/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=6&sort=created_date`
       );
       setBerita(response.data.data.content);
       console.log(response.data.data.content);
@@ -187,7 +187,7 @@ function Home() {
   const getAllEkskul = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/terbaru?page=0&size=8`
+        `${API_DUMMY}/api/ekstrakulikuler/all/terbaru?page=0&size=8`
       );
       setEkstrakurikuler(response.data.data.content);
     } catch (error) {
@@ -205,7 +205,7 @@ function Home() {
   const getAllGuru = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=0&size=20`
+        `${API_DUMMY}/api/guru/all/terbaru?page=0&size=20`
       );
       setGurus(response.data.data.content);
     } catch (error) {
@@ -223,7 +223,7 @@ function Home() {
   const getAllAlumni = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=0&size=6`
+        `${API_DUMMY}/api/alumni/all/terbaru?page=0&size=6`
       );
       setAlumnus(response.data.data.content);
     } catch (error) {
@@ -241,7 +241,7 @@ function Home() {
   const getAllPrestasi = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/all/terbaru?page=0&size=6`
+        `${API_DUMMY}/api/prestasi/all/terbaru?page=0&size=6`
       );
       setPrestasi(response.data.data.content);
     } catch (error) {
@@ -262,7 +262,7 @@ function Home() {
   const getAllKontak = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/api/kontak/all/terbaru?page=0&size=1`
       );
       setEmail(response.data.data.content[0].email);
       setPhone(response.data.data.content[0].phone);
@@ -285,7 +285,7 @@ function Home() {
   const getAllSambutan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/api/sambutan/all/terbaru?page=0&size=1`
       );
       const res = response.data.data.content[0];
       setSambutan(res.isi || "");
@@ -366,7 +366,7 @@ function Home() {
     };
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/kotak_saran/add`, data);
+      await axios.post(`${API_DUMMY}/api/kotak_saran/add`, data);
       Swal.fire({
         icon: "success",
         title: "Kotak Masuk Berhasil Terkirim",

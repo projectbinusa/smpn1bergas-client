@@ -40,7 +40,7 @@ const TenagaKepndidkan = () => {
   const getAllKependidikan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all/terbaru?page=${page1 - 1
+        `${API_DUMMY}/api/tenaga_kependidikan/all/terbaru?page=${page1 - 1
         }&size=${rowsPerPage1}`
       );
       setKry(response.data.data.content);
@@ -56,7 +56,7 @@ const TenagaKepndidkan = () => {
 
   const getById = async (id) => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/guru/get/${id}`)
+      .get(`${API_DUMMY}/api/guru/get/${id}`)
       .then((ress) => {
         const data = ress.data.data;
         console.log("guru", data, "id: ", id);
@@ -74,7 +74,7 @@ const TenagaKepndidkan = () => {
 
   const getByIdKry = async (id) => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/get/${id}`)
+      .get(`${API_DUMMY}/api/tenaga_kependidikan/get/${id}`)
       .then((ress) => {
         const data = ress.data.data;
         console.log("guru", data, "id: ", id);
@@ -111,7 +111,7 @@ const TenagaKepndidkan = () => {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/guru/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`
       );
       setGuru(response.data.data.content);

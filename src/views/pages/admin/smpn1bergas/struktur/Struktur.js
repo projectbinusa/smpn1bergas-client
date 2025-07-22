@@ -45,7 +45,7 @@ function Struktur() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/struktur/all/terbaru?page=${
+        `${API_DUMMY}/api/struktur/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
@@ -78,7 +78,7 @@ function Struktur() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/struktur/` + id, {
+          .delete(`${API_DUMMY}/api/struktur/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

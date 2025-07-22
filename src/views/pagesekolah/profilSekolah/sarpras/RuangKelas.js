@@ -25,7 +25,7 @@ function RuangKelas() {
   const getAllSapras = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sarana/all/category?category=Ruang%20Kelas&page=0&size=1`
+        `${API_DUMMY}/api/sarana/all/category?category=Ruang%20Kelas&page=0&size=1`
       );
       setNamaSarana(response.data.data.content[0].nama_sarana);
       setDeskripsi(response.data.data.content[0].deskripsi);
@@ -44,7 +44,7 @@ function RuangKelas() {
   const getAllSaprasFoto = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/foto_sarana/all/by_id_sarana?id_sarana=${id}&page=${
+        `${API_DUMMY}/api/foto_sarana/all/by_id_sarana?id_sarana=${id}&page=${
           page - 1
         }&size=5`
       );

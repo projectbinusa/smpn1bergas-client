@@ -20,7 +20,7 @@ function DetailPrestasi() {
   const fetchPrestasiDetail = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/get/${param.id}`
+        `${API_DUMMY}/api/prestasi/get/${param.id}`
       );
       console.log(response);
       setFoto(response.data.data.foto);

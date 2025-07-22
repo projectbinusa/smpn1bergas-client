@@ -22,7 +22,7 @@ function SewaLayanan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/program/get/judul?judul_program=Sewa%20Layanan&page=${
+        `${API_DUMMY}/api/program/get/judul?judul_program=Sewa%20Layanan&page=${
           page - 1
         }&size=${rowsPerPage}`
       );

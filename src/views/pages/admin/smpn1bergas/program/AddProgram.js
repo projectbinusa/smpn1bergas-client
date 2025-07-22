@@ -74,7 +74,7 @@ function AddProgram() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/category_program/all/terbaru?page=${
+        `${API_DUMMY}/api/category_program/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -104,7 +104,7 @@ function AddProgram() {
     };
 
     await axios
-      .post(`${API_DUMMY}/smpn1bergas/api/program/add`, data, {
+      .post(`${API_DUMMY}/api/program/add`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -23,7 +23,7 @@ function DetailVisi() {
   // // get by id berita
   // useEffect(() => {
   //   axios
-  //     .get(`${API_DUMMY}/smpn1bergas/api/visiMisi/get/` + param.id, {
+  //     .get(`${API_DUMMY}/api/visiMisi/get/` + param.id, {
   //       headers: {
   //         Authorization: `Bearer ${localStorage.getItem("token")}`,
   //       },
@@ -44,7 +44,7 @@ function DetailVisi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=0&size=1`,
+        `${API_DUMMY}/api/visiMisi/all/terbaru?page=0&size=1`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -81,7 +81,7 @@ function DetailVisi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/visiMisi/` + id, {
+          .delete(`${API_DUMMY}/api/visiMisi/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

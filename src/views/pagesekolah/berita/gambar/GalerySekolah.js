@@ -167,7 +167,7 @@ function GalerySekolah() {
   const getAllGalery = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/galeri/all/terbaru?page=${
+        `${API_DUMMY}/api/galeri/all/terbaru?page=${
           page - 1
         }&size=20`
       );

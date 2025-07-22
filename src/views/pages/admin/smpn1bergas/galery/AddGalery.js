@@ -27,7 +27,7 @@ function AddGalery() {
     formData.append("file", image);
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/galeri/add`, formData, {
+      await axios.post(`${API_DUMMY}/api/galeri/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,

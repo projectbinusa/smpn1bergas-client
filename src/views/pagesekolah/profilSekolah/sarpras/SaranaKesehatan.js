@@ -24,7 +24,7 @@ function SaranaKesehatan() {
 
     const getAllSapras = async () => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/sarana/all/category?category=Sarana%20Kesehatan&page=0&size=1`);
+            const response = await axios.get(`${API_DUMMY}/api/sarana/all/category?category=Sarana%20Kesehatan&page=0&size=1`);
             setNamaSarana(response.data.data.content[0].nama_sarana);
             setDeskripsi(response.data.data.content[0].deskripsi);
             setId(response.data.data.content[0].id)
@@ -41,7 +41,7 @@ function SaranaKesehatan() {
 
     const getAllSaprasFoto = async (page = 1) => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/foto_sarana/all/by_id_sarana?id_sarana=${id}&page=${page - 1}&size=5`);
+            const response = await axios.get(`${API_DUMMY}/api/foto_sarana/all/by_id_sarana?id_sarana=${id}&page=${page - 1}&size=5`);
             setFoto(response.data.data.content);
             setTotalPage(response.data.data.totalPages)
         } catch (error) {

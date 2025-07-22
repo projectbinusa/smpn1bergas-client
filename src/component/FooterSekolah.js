@@ -17,7 +17,7 @@ function FooterSekolah() {
   const getAllSejarah = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/api/sejarah/all/terbaru?page=0&size=1`
       );
       const content = response.data.data.content[0]?.isi || "";
       const truncatedContent = content.length > 375 ? `${content.substring(0, 375)}...` : content;
@@ -35,7 +35,7 @@ function FooterSekolah() {
   const getAllKontak = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/api/kontak/all/terbaru?page=0&size=1`
       );
       const data = response.data.data.content[0] || {};
 
@@ -57,7 +57,7 @@ function FooterSekolah() {
 
   const getAllBerita = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=4&sort=created_date`);
+      const response = await axios.get(`${API_DUMMY}/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=4&sort=created_date`);
       setBerita(response.data.data.content);
     } catch (error) {
       console.log("Error fetching berita data:", error);

@@ -28,7 +28,7 @@ function AddKontak() {
       phone: phone,
     };
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/kontak/add`, data, {
+      await axios.post(`${API_DUMMY}/api/kontak/add`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

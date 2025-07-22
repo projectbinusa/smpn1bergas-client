@@ -26,7 +26,7 @@ function AddSarana() {
 
     axios
       .get(
-        `${API_DUMMY}/smpn1bergas/api/sarana/all/terbaru?page=${
+        `${API_DUMMY}/api/sarana/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
@@ -74,7 +74,7 @@ function AddSarana() {
 
     try {
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/sarana/add`,
+        `${API_DUMMY}/api/sarana/add`,
         {
           nama_sarana: namaSarana,
           deskripsi: deskripsi,

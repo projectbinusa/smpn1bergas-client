@@ -30,7 +30,7 @@ function AddGuru() {
     formData.append("file", image);
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/guru/add`, {
+      await axios.post(`${API_DUMMY}/api/guru/add`, {
         nama_guru: namaGuru,
         mapel: mapel,
         riwayat: riwayat,

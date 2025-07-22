@@ -35,7 +35,7 @@ function AddPrestasi() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   const formatDateToSlash = (value) => {
     const date = new Date(value);
 
@@ -60,7 +60,7 @@ function AddPrestasi() {
     formData.append("file", image);
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/prestasi/add`, formData, {
+      await axios.post(`${API_DUMMY}/api/prestasi/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,

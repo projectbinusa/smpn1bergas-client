@@ -18,7 +18,7 @@ function DetailKegiatan() {
 
     const getData = async () => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/${param.id}`);
+            const response = await axios.get(`${API_DUMMY}/api/kegiatan/get/${param.id}`);
             const res = response.data.data;
             setJudul(res.judul);
             setIsi(res.isi);
@@ -31,7 +31,7 @@ function DetailKegiatan() {
 
     const getFotoKegiatan = async () => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/foto_kegiatan/all/by_id_kegiatan?id_kegiatan=${param.id}&page=0&size=20`);
+            const response = await axios.get(`${API_DUMMY}/api/foto_kegiatan/all/by_id_kegiatan?id_kegiatan=${param.id}&page=0&size=20`);
             const res = response.data.data.content;
             setFotos(res);
         } catch (error) {

@@ -18,7 +18,7 @@ function DetailBOS() {
 
     const getBOS = async () => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/keuangan/get/${param.id}`);
+            const response = await axios.get(`${API_DUMMY}/api/keuangan/get/${param.id}`);
             const res = response.data.data;
             setJudul(res.judul);
             setIsi(res.isi);

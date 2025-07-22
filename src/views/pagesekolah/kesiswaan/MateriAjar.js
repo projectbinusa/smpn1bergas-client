@@ -21,7 +21,7 @@ function MateriAjarView() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/materi_ajar/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`
       );
       setMateri(response.data.data.content);

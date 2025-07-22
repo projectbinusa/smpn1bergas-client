@@ -43,7 +43,7 @@ function Osis() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/osis/all/terbaru?page=${
+        `${API_DUMMY}/api/osis/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
@@ -75,7 +75,7 @@ function Osis() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/osis/` + id, {
+          .delete(`${API_DUMMY}/api/osis/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

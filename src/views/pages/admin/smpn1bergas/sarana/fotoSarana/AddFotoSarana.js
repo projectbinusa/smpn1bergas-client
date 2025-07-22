@@ -26,7 +26,7 @@ function AddFotoSarana() {
 
     try {
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/foto_sarana/add`,
+        `${API_DUMMY}/api/foto_sarana/add`,
         formData,
         {
           headers: {
@@ -65,7 +65,7 @@ function AddFotoSarana() {
   const getKegiatan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sarana/all`,
+        `${API_DUMMY}/api/sarana/all`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

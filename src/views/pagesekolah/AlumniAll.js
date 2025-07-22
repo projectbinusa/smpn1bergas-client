@@ -18,7 +18,7 @@ function AlumniAll() {
 
     const getAll = async (page = 1) => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=${page - 1}&size=18`);
+            const response = await axios.get(`${API_DUMMY}/api/alumni/all/terbaru?page=${page - 1}&size=18`);
             setData(response.data.data.content);
             setTotalPage(response.data.data.totalPages);
         } catch (error) {

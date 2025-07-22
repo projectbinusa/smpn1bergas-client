@@ -38,7 +38,7 @@ function VisiMisi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/visiMisi/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -74,7 +74,7 @@ function VisiMisi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/visiMisi/` + id, {
+          .delete(`${API_DUMMY}/api/visiMisi/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

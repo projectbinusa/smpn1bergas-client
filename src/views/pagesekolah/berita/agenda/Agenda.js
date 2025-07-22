@@ -47,7 +47,7 @@ const Agenda = () => {
 
     const getAllAgenda = async (page = 1) => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Agenda%20Sekolah&order=desc&page=${page - 1}&size=5&sort=created_date`);
+            const response = await axios.get(`${API_DUMMY}/api/berita/by-category?category=Agenda%20Sekolah&order=desc&page=${page - 1}&size=5&sort=created_date`);
             setAgenda(response.data.data.content);
             setTotalPage(response.data.data.totalPages);
         } catch (error) {

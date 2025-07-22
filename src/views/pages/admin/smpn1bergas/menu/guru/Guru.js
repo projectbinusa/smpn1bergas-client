@@ -24,7 +24,7 @@ function Berita() {
   const getAll = async (page1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/guru/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -56,7 +56,7 @@ function Berita() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/guru/` + id, {
+          .delete(`${API_DUMMY}/api/guru/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

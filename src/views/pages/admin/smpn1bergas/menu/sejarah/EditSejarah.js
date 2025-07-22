@@ -72,7 +72,7 @@ function EditSejarah() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sejarah/get/` + param.id, {
+      .get(`${API_DUMMY}/api/sejarah/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -96,7 +96,7 @@ function EditSejarah() {
     };
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/sejarah/put/` + param.id, data, {
+      .put(`${API_DUMMY}/api/sejarah/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

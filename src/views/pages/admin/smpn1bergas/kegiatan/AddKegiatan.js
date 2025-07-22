@@ -104,7 +104,7 @@ function AddKegiatan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/all/terbaru?page=${
+        `${API_DUMMY}/api/kegiatan/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -158,7 +158,7 @@ function AddKegiatan() {
       // // formData.append("file", image);
       // formData.append("category", kategori);
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/add`,
+        `${API_DUMMY}/api/kegiatan/add`,
         {
           judul: judul,
           isi: isi,

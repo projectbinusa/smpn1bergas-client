@@ -24,7 +24,7 @@ function Pengembangan() {
   const getAllCategory = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/category_program/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/category_program/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`
       );
       setCategoryProgram(response.data.data.content);
@@ -41,7 +41,7 @@ function Pengembangan() {
     if (!id_category) return; // Ensure a category is selected before fetching data
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/program/all/category?id_category=${id_category}&page=${page - 1
+        `${API_DUMMY}/api/program/all/category?id_category=${id_category}&page=${page - 1
         }&size=${rowsPerPage}`
       );
       setDatas(response.data.data.content);
@@ -56,7 +56,7 @@ function Pengembangan() {
 
   const getByIdCategory = (id) => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/category_program/get/` + id)
+      .get(`${API_DUMMY}/api/category_program/get/` + id)
       .then((ress) => {
         const response = ress.data.data;
         setCategory(response.category);

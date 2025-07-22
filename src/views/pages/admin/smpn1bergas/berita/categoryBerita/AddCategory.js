@@ -24,7 +24,7 @@ function AddCategory() {
         category: category,
       };
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/category-berita/add`,
+        `${API_DUMMY}/api/category-berita/add`,
         newCategory,
         {
           headers: {

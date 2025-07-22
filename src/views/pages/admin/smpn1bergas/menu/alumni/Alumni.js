@@ -22,7 +22,7 @@ function Alumni() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/alumni/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -54,7 +54,7 @@ function Alumni() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/alumni/` + id, {
+          .delete(`${API_DUMMY}/api/alumni/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

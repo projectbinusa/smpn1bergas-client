@@ -73,7 +73,7 @@ function EditSambutan() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sambutan/get/` + param.id, {
+      .get(`${API_DUMMY}/api/sambutan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -109,14 +109,14 @@ function EditSambutan() {
     }
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/` + param.id, data, {
+      .put(`${API_DUMMY}/api/sambutan/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
         if (file) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/foto/` + param.id, formData, {
+          axios.put(`${API_DUMMY}/api/sambutan/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

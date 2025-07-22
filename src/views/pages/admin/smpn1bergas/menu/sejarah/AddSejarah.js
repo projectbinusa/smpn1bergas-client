@@ -78,7 +78,7 @@ function AddSejarah() {
         isi: isiSejarah,
         judul: judulSejarah,
       };
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/sejarah/add`, data, {
+      await axios.post(`${API_DUMMY}/api/sejarah/add`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

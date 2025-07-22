@@ -20,7 +20,7 @@ function DetailInfo() {
   const getInfo = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/get/${param.id}`
+        `${API_DUMMY}/api/berita/get/${param.id}`
       );
       const res = response.data.data;
       setJudul(res.judulBerita);

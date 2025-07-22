@@ -25,7 +25,7 @@ function DetailSAmbutan() {
   // get by id berita
   // useEffect(() => {
   //   axios
-  //     .get(`${API_DUMMY}/smpn1bergas/api/sambutan/get/` + param.id, {
+  //     .get(`${API_DUMMY}/api/sambutan/get/` + param.id, {
   //       headers: {
   //         Authorization: `Bearer ${localStorage.getItem("token")}`,
   //       },
@@ -49,7 +49,7 @@ function DetailSAmbutan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=0&size=1`,
+        `${API_DUMMY}/api/sambutan/all/terbaru?page=0&size=1`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -106,7 +106,7 @@ function DetailSAmbutan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/sambutan/` + id, {
+          .delete(`${API_DUMMY}/api/sambutan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

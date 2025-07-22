@@ -21,7 +21,7 @@ function EditGuru() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/guru/get/` + param.id, {
+      .get(`${API_DUMMY}/api/guru/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -55,14 +55,14 @@ function EditGuru() {
     }
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/guru/put/` + param.id, data, {
+      .put(`${API_DUMMY}/api/guru/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/guru/put/foto/` + param.id, formData, {
+          axios.put(`${API_DUMMY}/api/guru/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

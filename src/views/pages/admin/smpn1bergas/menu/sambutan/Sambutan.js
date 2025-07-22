@@ -27,7 +27,7 @@ function AdminSambutan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=${
+        `${API_DUMMY}/api/sambutan/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -60,7 +60,7 @@ function AdminSambutan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/sambutan/` + id, {
+          .delete(`${API_DUMMY}/api/sambutan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

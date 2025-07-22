@@ -25,7 +25,7 @@ function EditSarana() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sarana/get/` + param.id, {
+      .get(`${API_DUMMY}/api/sarana/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -65,7 +65,7 @@ function EditSarana() {
      }
     try {
       await axios.put(
-        `${API_DUMMY}/smpn1bergas/api/sarana/put/` + param.id,
+        `${API_DUMMY}/api/sarana/put/` + param.id,
         {
           nama_sarana: namaSarana,
           deskripsi: deskripsi,
@@ -109,7 +109,7 @@ function EditSarana() {
     AOS.init();
     axios
       .get(
-        `${API_DUMMY}/smpn1bergas/api/sarana/all/terbaru?page=${
+        `${API_DUMMY}/api/sarana/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {

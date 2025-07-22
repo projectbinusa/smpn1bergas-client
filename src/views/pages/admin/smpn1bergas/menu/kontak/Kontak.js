@@ -20,7 +20,7 @@ function Kontak() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=0&size=1`,
+        `${API_DUMMY}/api/kontak/all/terbaru?page=0&size=1`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -58,7 +58,7 @@ function Kontak() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/kontak/` + id, {
+          .delete(`${API_DUMMY}/api/kontak/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -216,7 +216,7 @@ function Kontak() {
                     //   "dd MMMM yyyy",
                     //   { locale: idLocale }
                     // )}
-                    value={updateDate}      
+                    value={updateDate}
                   />
                 </div>
               </div>

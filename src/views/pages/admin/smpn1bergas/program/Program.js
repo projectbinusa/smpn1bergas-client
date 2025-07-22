@@ -29,7 +29,7 @@ function Program() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/program/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/program/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -61,7 +61,7 @@ function Program() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/program/` + id, {
+          .delete(`${API_DUMMY}/api/program/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

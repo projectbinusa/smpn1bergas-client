@@ -67,14 +67,14 @@ function EditPrestasi() {
 
     try {
       await axios.put(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/put/` + param.id, data, {
+        `${API_DUMMY}/api/prestasi/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
       );
       if (image) {
-        axios.put(`${API_DUMMY}/smpn1bergas/api/prestasi/put/foto/` + param.id, formData, {
+        axios.put(`${API_DUMMY}/api/prestasi/put/foto/` + param.id, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -112,7 +112,7 @@ function EditPrestasi() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/prestasi/get/` + param.id, {
+      .get(`${API_DUMMY}/api/prestasi/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

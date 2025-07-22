@@ -92,7 +92,7 @@ function AddAlumni() {
     }
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/alumni/add`, data, {
+      await axios.post(`${API_DUMMY}/api/alumni/add`, data, {
         headers: {
           // "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -17,7 +17,7 @@ function EditCategoryProgram() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/category_program/get/` + param.id, {
+      .get(`${API_DUMMY}/api/category_program/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -47,7 +47,7 @@ function EditCategoryProgram() {
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/category_program/put/` + param.id,
+        `${API_DUMMY}/api/category_program/put/` + param.id,
         data,
         // {
         //   judulProgram: judul,

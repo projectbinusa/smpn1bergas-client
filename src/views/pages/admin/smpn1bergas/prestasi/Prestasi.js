@@ -48,7 +48,7 @@ function Prestasi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/prestasi/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -80,7 +80,7 @@ function Prestasi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/prestasi/` + id, {
+          .delete(`${API_DUMMY}/api/prestasi/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

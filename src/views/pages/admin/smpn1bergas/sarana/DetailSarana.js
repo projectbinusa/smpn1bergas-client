@@ -19,7 +19,7 @@ function DetailSarana() {
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sarana/get/` + param.id, {
+      .get(`${API_DUMMY}/api/sarana/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

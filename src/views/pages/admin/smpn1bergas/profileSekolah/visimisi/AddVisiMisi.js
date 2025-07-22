@@ -95,7 +95,7 @@ function AddVisiMisi() {
         misi: misi,
         tujuan: tujuan,
       };
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/visiMisi/add`, data, {
+      await axios.post(`${API_DUMMY}/api/visiMisi/add`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

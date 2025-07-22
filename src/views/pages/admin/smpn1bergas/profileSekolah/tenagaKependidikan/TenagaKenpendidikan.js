@@ -22,7 +22,7 @@ function TenagaKenpendidikan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/tenaga_kependidikan/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -54,7 +54,7 @@ function TenagaKenpendidikan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/` + id, {
+          .delete(`${API_DUMMY}/api/tenaga_kependidikan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

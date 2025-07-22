@@ -30,7 +30,7 @@ function AddCategoryProgram() {
     };
 
     await axios
-      .post(`${API_DUMMY}/smpn1bergas/api/category_program/add`, data, {
+      .post(`${API_DUMMY}/api/category_program/add`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -84,7 +84,7 @@ function EditKeuangan() {
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/keuangan/put/` +
+        `${API_DUMMY}/api/keuangan/put/` +
           param.id +
           `?category=${categoryKeuangan}&isi=${isi}&judul=${judul}`,
         data,
@@ -98,7 +98,7 @@ function EditKeuangan() {
         if (image) {
           axios
             .put(
-              `${API_DUMMY}/smpn1bergas/api/keuangan/put/foto/` + param.id,
+              `${API_DUMMY}/api/keuangan/put/foto/` + param.id,
               formData,
               {
                 headers: {
@@ -263,7 +263,7 @@ function EditKeuangan() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/keuangan/get/` + param.id, {
+      .get(`${API_DUMMY}/api/keuangan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
