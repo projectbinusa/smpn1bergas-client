@@ -33,7 +33,7 @@ function AddMateriAjar() {
     formData.append("jenis", jenis);
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/materi_ajar/add`, formData, {
+      await axios.post(`${API_DUMMY}/api/materi_ajar/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,

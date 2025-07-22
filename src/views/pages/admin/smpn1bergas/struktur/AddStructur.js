@@ -45,7 +45,7 @@ function AddStructur() {
     // formData.append("nama", nama);
     // formData.append("jabatan", jabatan);
 
-    await axios.post(`${API_DUMMY}/smpn1bergas/api/struktur/add`, {
+    await axios.post(`${API_DUMMY}/api/struktur/add`, {
       tugas: tugas,
       nama: nama,
       jabatan: jabatan,

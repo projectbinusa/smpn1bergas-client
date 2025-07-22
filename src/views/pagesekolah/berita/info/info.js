@@ -125,7 +125,7 @@ const Info = () => {
   const getAllInfo = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Info%20Sekolah&order=desc&page=${
+        `${API_DUMMY}/api/berita/by-category?category=Info%20Sekolah&order=desc&page=${
           page - 1
         }&size=5&sort=created_date`
       );

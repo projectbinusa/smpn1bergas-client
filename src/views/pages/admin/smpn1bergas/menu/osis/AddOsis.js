@@ -55,7 +55,7 @@ function AddOsis() {
 
     try {
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/osis/add`,
+        `${API_DUMMY}/api/osis/add`,
         {
           nama: nama,
           kelas: kelas,

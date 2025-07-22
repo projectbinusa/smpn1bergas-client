@@ -22,7 +22,7 @@ function StrukturOrganisasi() {
   const getAllStruktur = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/struktur/all?page=${page - 1}&size=10`
+        `${API_DUMMY}/api/struktur/all?page=${page - 1}&size=10`
       );
       setStruktur(response.data.data.content);
       setTotalPage(response.data.data.totalPages);

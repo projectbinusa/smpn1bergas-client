@@ -12,7 +12,7 @@ function SejarahSekolah() {
   const getAllSejarah = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/api/sejarah/all/terbaru?page=0&size=1`
       );
       const sejarahContent = response.data.data.content[0] || {};
       setSejarah({

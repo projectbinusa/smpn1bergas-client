@@ -27,7 +27,7 @@ function Keuangan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/keuangan/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/keuangan/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -59,7 +59,7 @@ function Keuangan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/keuangan/` + id, {
+          .delete(`${API_DUMMY}/api/keuangan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

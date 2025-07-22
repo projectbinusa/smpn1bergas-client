@@ -25,7 +25,7 @@ function Galery() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/galeri/all/terbaru?page=${page - 1}&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/galeri/all/terbaru?page=${page - 1}&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -56,7 +56,7 @@ function Galery() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/galeri/` + id, {
+          .delete(`${API_DUMMY}/api/galeri/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

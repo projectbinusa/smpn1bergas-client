@@ -22,7 +22,7 @@ function PerawatanRutin() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/program/get/judul?judul_program=Perawatan%20Rutin&page=${
+        `${API_DUMMY}/api/program/get/judul?judul_program=Perawatan%20Rutin&page=${
           page - 1
         }&size=${rowsPerPage}`
       );

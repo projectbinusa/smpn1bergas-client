@@ -70,7 +70,7 @@ function EditKondisiSekolah() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/get/` + param.id, {
+      .get(`${API_DUMMY}/api/kondisi_sekolah/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -99,7 +99,7 @@ function EditKondisiSekolah() {
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/` + param.id, data,
+        `${API_DUMMY}/api/kondisi_sekolah/put/` + param.id, data,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -108,7 +108,7 @@ function EditKondisiSekolah() {
       )
       .then(() => {
         if (foto) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/foto/` + param.id, formData, {
+          axios.put(`${API_DUMMY}/api/kondisi_sekolah/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -16,7 +16,7 @@ function VisiMisiSekolah() {
     const fetchVisiMisiData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY}/smpn1bergas/api/visiMisi/all`
+          `${API_DUMMY}/api/visiMisi/all`
         );
         console.log("API Response:", response.data);
         const data = response.data.data.content[0] || {};

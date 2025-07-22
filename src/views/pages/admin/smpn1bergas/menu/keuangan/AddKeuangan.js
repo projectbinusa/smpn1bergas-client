@@ -80,7 +80,7 @@ function AddKeuangan() {
     // formData.append("file", image);
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/keuangan/add`, {
+      await axios.post(`${API_DUMMY}/api/keuangan/add`, {
         judul: judul,
         isi: isi,
         category: categoryKeuangan

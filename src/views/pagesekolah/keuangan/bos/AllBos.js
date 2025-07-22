@@ -24,7 +24,7 @@ function AllBOS() {
   const getAllBOS = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/keuangan/category?category=BOS&order=asc&page=${
+        `${API_DUMMY}/api/keuangan/category?category=BOS&order=asc&page=${
           page - 1
         }&size=5&sort=created_date`
       );

@@ -81,7 +81,7 @@ function AddBeritaAdmin() {
 
     try {
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/berita/add?author=${author}&category=${categoryBerita}&isiBerita=${isiBerita}&judulBerita=${judulBerita}`,
+        `${API_DUMMY}/api/berita/add?author=${author}&category=${categoryBerita}&isiBerita=${isiBerita}&judulBerita=${judulBerita}`,
         {
           author: author,
           judulBerita: judulBerita,

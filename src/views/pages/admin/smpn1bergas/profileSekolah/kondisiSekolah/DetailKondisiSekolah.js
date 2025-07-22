@@ -20,7 +20,7 @@ function DetailKondisiSekolah() {
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/get/` + param.id, {
+      .get(`${API_DUMMY}/api/kondisi_sekolah/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

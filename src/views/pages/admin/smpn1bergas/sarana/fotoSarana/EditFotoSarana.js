@@ -21,7 +21,7 @@ function EditFotoSarana() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/foto_sarana/get/` + param.id, {
+      .get(`${API_DUMMY}/api/foto_sarana/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -48,7 +48,7 @@ function EditFotoSarana() {
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/foto_sarana/put/` + param.id,
+        `${API_DUMMY}/api/foto_sarana/put/` + param.id,
         {
           id_sarana: idSarana
         },
@@ -61,7 +61,7 @@ function EditFotoSarana() {
       )
       .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/foto_sarana/put/foto/` + param.id, formData, {
+          axios.put(`${API_DUMMY}/api/foto_sarana/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -102,7 +102,7 @@ function EditFotoSarana() {
   const getsarana = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sarana/all`,
+        `${API_DUMMY}/api/sarana/all`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

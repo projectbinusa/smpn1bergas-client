@@ -16,7 +16,7 @@ function EditCategory() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/category-berita/get/` + param.id, {
+      .get(`${API_DUMMY}/api/category-berita/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -35,7 +35,7 @@ function EditCategory() {
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/category-berita/put/` + param.id,
+        `${API_DUMMY}/api/category-berita/put/` + param.id,
         {
           category,
           category,

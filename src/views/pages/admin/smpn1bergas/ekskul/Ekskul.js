@@ -21,7 +21,7 @@ function Ekskul() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/ekstrakulikuler/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}&sort=createdDate`,
         {
           headers: {
@@ -53,7 +53,7 @@ function Ekskul() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/` + id, {
+          .delete(`${API_DUMMY}/api/ekstrakulikuler/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

@@ -12,7 +12,7 @@ function KonsidisiSekolahView() {
   const [dataAvailable, setDataAvailable] = useState(true);
 
   useEffect(() => {
-    axios.get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all/terbaru?page=0&size=1`)
+    axios.get(`${API_DUMMY}/api/kondisi_sekolah/all/terbaru?page=0&size=1`)
       .then(response => {
         if (response.data.data.content.length > 0) {
           setFoto(response.data.data.content[0].foto);

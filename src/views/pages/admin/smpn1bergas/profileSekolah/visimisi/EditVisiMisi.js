@@ -73,7 +73,7 @@ function EditVisiMisi() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/visiMisi/get/` + param.id, {
+      .get(`${API_DUMMY}/api/visiMisi/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -100,7 +100,7 @@ function EditVisiMisi() {
     };
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/visiMisi/put/` + param.id, data, {
+      .put(`${API_DUMMY}/api/visiMisi/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

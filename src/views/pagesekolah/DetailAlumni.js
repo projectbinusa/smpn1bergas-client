@@ -19,7 +19,7 @@ function DetailAlumni() {
 
     const getData = async () => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/alumni/get/${param.id}`);
+            const response = await axios.get(`${API_DUMMY}/api/alumni/get/${param.id}`);
             const res = response.data.data;
             setNama(res.nama);
             setTahun(res.tahunLulus);

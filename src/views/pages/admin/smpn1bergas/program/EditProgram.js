@@ -77,7 +77,7 @@ function EditProgram() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/category_program/all/terbaru?page=${
+        `${API_DUMMY}/api/category_program/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -99,7 +99,7 @@ function EditProgram() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/program/get/` + param.id, {
+      .get(`${API_DUMMY}/api/program/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -134,7 +134,7 @@ function EditProgram() {
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/program/put/` + param.id,
+        `${API_DUMMY}/api/program/put/` + param.id,
         data,
         // {
         //   judulProgram: judul,

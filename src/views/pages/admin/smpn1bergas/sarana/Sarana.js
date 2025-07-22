@@ -29,7 +29,7 @@ function Sarana() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sarana/all/terbaru?page=${
+        `${API_DUMMY}/api/sarana/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
@@ -62,7 +62,7 @@ function Sarana() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/sarana/` + id, {
+          .delete(`${API_DUMMY}/api/sarana/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -232,7 +232,7 @@ function Sarana() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length>0? 
+                  {filteredList.length>0?
                   filteredList.map((berita, no) => {
                     return (
                       <tr key={no}>

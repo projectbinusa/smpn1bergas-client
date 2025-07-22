@@ -16,7 +16,7 @@ function Kontak() {
   const getAllKontak = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/api/kontak/all/terbaru?page=0&size=1`
       );
       setEmail(response.data.data.content[0].email);
       setPhone(response.data.data.content[0].phone);

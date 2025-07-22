@@ -26,7 +26,7 @@ function EditFotoKegiatan() {
     const fetchKegiatan = async () => {
       try {
         const ress = await axios.get(
-          `${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id,
+          `${API_DUMMY}/api/kegiatan/get/` + param.id,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -53,7 +53,7 @@ function EditFotoKegiatan() {
   const getKegiatan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/all`,
+        `${API_DUMMY}/api/kegiatan/all`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -77,7 +77,7 @@ function EditFotoKegiatan() {
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/foto_kegiatan/put/` + param.id,
+        `${API_DUMMY}/api/foto_kegiatan/put/` + param.id,
         formData,
         {
           headers: {

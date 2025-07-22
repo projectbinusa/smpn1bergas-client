@@ -24,7 +24,7 @@ function DetailMateriAjar() {
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/materi_ajar/get/` + param.id, {
+      .get(`${API_DUMMY}/api/materi_ajar/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

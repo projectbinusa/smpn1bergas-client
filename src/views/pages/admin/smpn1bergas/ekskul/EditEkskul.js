@@ -27,7 +27,7 @@ function EditEkskul() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/get/` + param.id, {
+      .get(`${API_DUMMY}/api/ekstrakulikuler/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -67,7 +67,7 @@ function EditEkskul() {
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/put/` + param.id, data,
+        `${API_DUMMY}/api/ekstrakulikuler/put/` + param.id, data,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -76,7 +76,7 @@ function EditEkskul() {
       )
       .then(() => {
         if (file) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/put/foto/` + param.id, formData, {
+          axios.put(`${API_DUMMY}/api/ekstrakulikuler/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

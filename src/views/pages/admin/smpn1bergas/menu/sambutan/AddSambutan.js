@@ -81,7 +81,7 @@ function AddSambutan() {
       formData.append("judul", judulSambutan);
       formData.append("nip", nip);
       formData.append("file", file);
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/sambutan/add`, formData, {
+      await axios.post(`${API_DUMMY}/api/sambutan/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -258,7 +258,7 @@ function AddSambutan() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   return (
     <div
       className={`page-wrapper chiller-theme ${

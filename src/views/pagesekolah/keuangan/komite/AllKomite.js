@@ -23,7 +23,7 @@ function AllKomite() {
 
     const getAllKomite = async (page = 1) => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/keuangan/category?category=Komite&order=asc&page=${page - 1}&size=5&sort=created_date`);
+            const response = await axios.get(`${API_DUMMY}/api/keuangan/category?category=Komite&order=asc&page=${page - 1}&size=5&sort=created_date`);
             setKomite(response.data.data.content);
             setTotalPage(response.data.data.totalPages);
         } catch (error) {

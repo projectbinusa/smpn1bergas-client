@@ -30,7 +30,7 @@ function AddFotoKegiatan() {
 
     try {
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/foto_kegiatan/add`,
+        `${API_DUMMY}/api/foto_kegiatan/add`,
         formData,
         {
           headers: {
@@ -63,7 +63,7 @@ function AddFotoKegiatan() {
   const getKegiatan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/all`,
+        `${API_DUMMY}/api/kegiatan/all`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

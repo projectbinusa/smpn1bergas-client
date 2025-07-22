@@ -21,7 +21,7 @@ function Ekstrakurikuler() {
   const getAllEkstrakurikuler = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/terbaru?page=${
+        `${API_DUMMY}/api/ekstrakulikuler/all/terbaru?page=${
           page - 1
         }&size=12`
       );

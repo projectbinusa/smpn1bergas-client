@@ -49,7 +49,7 @@ function Perpustakaan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/perpustakaan/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/perpustakaan/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -81,7 +81,7 @@ function Perpustakaan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/perpustakaan/` + id, {
+          .delete(`${API_DUMMY}/api/perpustakaan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

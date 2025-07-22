@@ -79,7 +79,7 @@ function AddKondisiSekolah() {
 
     try {
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/add`,
+        `${API_DUMMY}/api/kondisi_sekolah/add`,
         formData,
         {
           headers: {

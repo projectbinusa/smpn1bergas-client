@@ -19,7 +19,7 @@ function DetailAgenda() {
 
     const getData = async () => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/berita/get/${param.id}`);
+            const response = await axios.get(`${API_DUMMY}/api/berita/get/${param.id}`);
             const res = response.data.data;
             setJudul(res.judulBerita);
             setIsi(res.isiBerita);

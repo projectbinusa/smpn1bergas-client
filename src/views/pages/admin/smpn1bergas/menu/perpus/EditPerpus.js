@@ -76,7 +76,7 @@ function EditPerpus() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/perpustakaan/get/` + param.id, {
+      .get(`${API_DUMMY}/api/perpustakaan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -112,7 +112,7 @@ function EditPerpus() {
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/perpustakaan/put/` + param.id, data, {
+        `${API_DUMMY}/api/perpustakaan/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -120,7 +120,7 @@ function EditPerpus() {
       )
       .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/perpustakaan/put/foto/` + param.id, formData, {
+          axios.put(`${API_DUMMY}/api/perpustakaan/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -48,7 +48,7 @@ function MateriAjar() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/materi_ajar/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -80,7 +80,7 @@ function MateriAjar() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/materi_ajar/` + id, {
+          .delete(`${API_DUMMY}/api/materi_ajar/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

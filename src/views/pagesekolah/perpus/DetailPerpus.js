@@ -19,7 +19,7 @@ function DetailPerpus() {
 
     const getData = async () => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/perpustakaan/get/${param.id}`);
+            const response = await axios.get(`${API_DUMMY}/api/perpustakaan/get/${param.id}`);
             const res = response.data.data;
             setNama(res.nama_buku);
             setPengarang(res.pengarang);

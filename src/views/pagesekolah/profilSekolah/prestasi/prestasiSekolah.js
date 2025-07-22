@@ -19,7 +19,7 @@ function PrestasiSekolah() {
   const getAllPrestasi = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/all/terbaru?page=${page - 1}&size=18`
+        `${API_DUMMY}/api/prestasi/all/terbaru?page=${page - 1}&size=18`
       );
       setPrestasi(response.data.data.content);
       setTotalPage(response.data.data.totalPages);

@@ -27,7 +27,7 @@ function Sejarah() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=${
+        `${API_DUMMY}/api/sejarah/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -60,7 +60,7 @@ function Sejarah() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/sejarah/` + id, {
+          .delete(`${API_DUMMY}/api/sejarah/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

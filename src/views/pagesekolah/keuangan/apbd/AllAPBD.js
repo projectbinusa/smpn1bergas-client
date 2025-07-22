@@ -23,7 +23,7 @@ function AllAPBD() {
 
     const getAllAPBD = async (page = 1) => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/keuangan/category?category=APBD&order=asc&page=${page - 1}&size=5&sort=created_date`);
+            const response = await axios.get(`${API_DUMMY}/api/keuangan/category?category=APBD&order=asc&page=${page - 1}&size=5&sort=created_date`);
             setAPBD(response.data.data.content);
             setTotalPage(response.data.data.totalPages);
         } catch (error) {

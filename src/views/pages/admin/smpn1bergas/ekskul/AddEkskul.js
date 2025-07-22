@@ -37,7 +37,7 @@ function AddEkskul() {
       // formData.append("prestasi", prestasi);
       // formData.append("file", file);
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/add`,
+        `${API_DUMMY}/api/ekstrakulikuler/add`,
         {
           koordinator: koordinator,
           pembimbing: pembimbing,

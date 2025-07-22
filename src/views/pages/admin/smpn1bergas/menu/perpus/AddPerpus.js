@@ -88,7 +88,7 @@ function AddPerpus() {
 
     try {
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/perpustakaan/add`,
+        `${API_DUMMY}/api/perpustakaan/add`,
         formData,
         {
           headers: {

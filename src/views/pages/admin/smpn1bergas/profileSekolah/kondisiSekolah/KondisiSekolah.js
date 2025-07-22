@@ -28,7 +28,7 @@ function KondisiSekolah() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/kondisi_sekolah/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -60,7 +60,7 @@ function KondisiSekolah() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/` + id, {
+          .delete(`${API_DUMMY}/api/kondisi_sekolah/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
