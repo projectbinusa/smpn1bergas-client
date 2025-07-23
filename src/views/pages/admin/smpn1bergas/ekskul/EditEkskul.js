@@ -11,6 +11,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 
 import Sidebar1 from "../../../../../component/Sidebar1";
+import { uploadFileToS3 } from "../../../../../utils/s2";
 
 function EditEkskul() {
   const [name, setName] = useState("");

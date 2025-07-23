@@ -17,6 +17,7 @@ import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
 import news from "../../aset/smpn1bergas/News-rafiki.png"
 import user from "../../aset/smpn1bergas/user_df.jpg"
+import banner from "../../aset/slbcpelita/banner1.jpg"
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -54,7 +55,7 @@ function Home() {
     position: "relative",
     width: "100%",
     height: "100vh",
-    overflow: "hidden",
+    overflow: "hidden"
   };
 
   const buttonStylesss = {
@@ -407,7 +408,7 @@ function Home() {
       <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
         <img
-          src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
+          src={banner}
           style={imageStyle}
           alt=""
         />
@@ -422,11 +423,11 @@ function Home() {
           }}
         />
         <div style={textOverlayStyle}>
-          <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
+          <p style={{ color: "white" }}>SLB C PELITA ILMU</p>
         </div>
       </div>
 
-      <div className="about-area pd-top-90 pd-bottom-120">
+      {/* <div className="about-area pd-top-90 pd-bottom-120">
         <div className="container">
           <div className="row">
             <div data-aos="fade-right" className="col-lg-6">
@@ -473,17 +474,19 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* BERITA */}
-      <div class="blog-area bg-blue pd-top-115 pd-bottom-60">
+      <div class="blog-area  pd-top-115 pd-bottom-60">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-7 col-md-10">
               <div
-                class="section-title style-white text-center"
+                class="section-title text-center"
                 data-aos="fade-down">
-                <h5 class="sub-title double-line">Berita Terbaru</h5>
+                <h5 class="sub-title double-line" style={{ color: "black" }}>Berita Terbaru</h5>
+                {/* <h2 class="title">Bertemu dengan Guru Kami</h2> */}
+                <p class="content">Informasi terkini seputar aktivitas siswa, pengumuman resmi, hingga agenda pendidikan di SLB C Pelita Ilmu</p>
               </div>
             </div>
           </div>
@@ -551,20 +554,20 @@ function Home() {
       </div>
 
       {/* PRESTASI */}
-      <div class="project-area pd-top-115 pd-bottom-90">
+      <div class="project-area bg-blue pd-top-115 pd-bottom-90">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
               <div
                 data-aos="fade-down"
                 class="section-title style-white text-center">
-                <h5 class="sub-title double-line" style={{ color: "black" }}>
+                <h5 class="sub-title double-line">
                   Prestasi Unggulan
                 </h5>
-                <h2 class="title" style={{ color: "black" }}>
+                <h2 class="title">
                   Temui Para Juara Kami
                 </h2>
-                <p class="content" style={{ color: "black" }}>
+                <p class="content">
                   Kami terus mengukir prestasi di berbagai bidang, dengan
                   dedikasi dan kerja keras, kami siap untuk terus berkembang dan
                   mencapai yang terbaik.
@@ -600,7 +603,7 @@ function Home() {
       </div>
 
       {/* EKSTRAKULIKULER */}
-      <div class="how-it-work-area bg-blue pd-top-110 pd-top-110">
+      {/* <div class="how-it-work-area bg-blue pd-top-110 pd-top-110">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
@@ -658,7 +661,7 @@ function Home() {
           </div>
           <div class="client-slider pd-top-90 owl-carousel"></div>
         </div>
-      </div>
+      </div> */}
 
       {/* GURU */}
       <div class="team-area pd-top-115 pd-bottom-90">
@@ -723,7 +726,7 @@ function Home() {
               <div class="col-lg-3 col-md-6">
                 <div class="single-team-inner style-4 text-center">
                   <div class="thumb alumni-thumb">
-                    <img src={data.foto ? data.foto : user} alt="img"/>
+                    <img src={data.foto ? data.foto : user} alt="img" />
                   </div>
                   <div class="details-wrap">
                     <div class="details-inner">
@@ -791,7 +794,7 @@ function Home() {
       </div>
 
       {/* KONTAK */}
-      <div className="contact-section-style">
+      {/* <div className="contact-section-style">
         <section id="hubungi-kami" className="contact-section-style">
           <div class="section-title style-white text-center">
             <h5
@@ -1042,7 +1045,6 @@ function Home() {
               </div>
             </Grid>
           </Grid>
-          {/* SARAN */}
           <br /> <br />
           <form
             onSubmit={add}
@@ -1144,7 +1146,9 @@ function Home() {
             </Button>
           </form>
         </section>
-      </div>
+      </div> */}
+
+
       <div class="client-area-area bg-base pt-5 pb-2">
         <div class="container">
           <div class="section-title style-white text-center">
