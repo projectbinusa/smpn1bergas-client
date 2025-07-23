@@ -60,6 +60,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import Sidebar1 from "../../../../../component/Sidebar1";
+import { uploadFileToS3 } from "../../../../../utils/s2";
 
 function EditBeritaAdmin() {
   const [author, setAuthor] = useState("");
@@ -73,18 +74,24 @@ function EditBeritaAdmin() {
   const param = useParams();
   const history = useHistory();
 
-  const updateBerita = (e) => {
+  const updateBerita = async (e) => {
     e.preventDefault();
+    let uploadedImageUrl = null;
 
-    const formData = new FormData();
-    formData.append("file", image);
+    if (image) {
+      const uploadedUrls = await uploadFileToS3([image]);
+      uploadedImageUrl = uploadedUrls[0];
+    }
 
+    const dataImage = {
+      foto: uploadedImageUrl
+    }
     const data = {
       author: author,
       category: categoryBerita,
       judulBerita: judulBerita,
-      isiBerita: isiBerita
-    }
+      isiBerita: isiBerita,
+    };
 
     axios
       .put(`${API_DUMMY}/api/berita/put/` + param.id, data, {
@@ -94,14 +101,16 @@ function EditBeritaAdmin() {
       })
       .then((response) => {
         if (image) {
-          axios.put(`${API_DUMMY}/api/berita/put/foto/` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
+          axios
+            .put(`${API_DUMMY}/api/berita/put/foto/` + param.id, dataImage, {
+              headers: {
+                // "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }
         setShow(false);
         Swal.fire({
@@ -303,8 +312,9 @@ function EditBeritaAdmin() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
