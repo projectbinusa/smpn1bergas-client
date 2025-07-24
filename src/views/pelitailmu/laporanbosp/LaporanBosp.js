@@ -69,7 +69,7 @@ function LaporanBosp() {
           </div>
         ) : (
           <p style={{ textAlign: 'center', fontSize: '1.2em', color: '#666', marginTop: '20px' }}>
-            Prestasi Tidak Tersedia.
+            Laporan BOSP Tidak Tersedia.
           </p>
         )}
           <div className="pagination-container">
