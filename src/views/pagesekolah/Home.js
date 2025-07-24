@@ -17,7 +17,9 @@ import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
 import news from "../../aset/smpn1bergas/News-rafiki.png"
 import user from "../../aset/smpn1bergas/user_df.jpg"
-import banner from "../../aset/slbcpelita/banner1.jpg"
+import banner from "../../aset/slbcpelita/banner.png"
+import Aos from "aos";
+import ImageCard from "./berita/gambar/ImageCard";
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -395,6 +397,36 @@ function Home() {
       sessionStorage.removeItem("scrollToId");
     }
   }, []);
+
+  // GALERY
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (event, pageNumber) => {
+    setCurrentPage(pageNumber);
+    getAllGalery(pageNumber);
+  };
+
+  // GET ALL GALERY
+  const [galery, setGalery] = useState([]);
+  const [totalPages, setTotalPage] = useState(1);
+
+  const getAllGalery = async (page = 1) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/api/galeri/all/terbaru?page=${page - 1
+        }&size=20`
+      );
+      setGalery(response.data.data.content);
+      setTotalPage(response.data.data.totalPages);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllGalery(currentPage);
+    Aos.init();
+  }, [currentPage]);
 
   return (
     <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
@@ -788,6 +820,47 @@ function Home() {
               onMouseEnter={() => setIsHoveredss(true)}
               onMouseLeave={() => setIsHoveredss(false)}>
               Tampilkan Semua Alumni
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-area pd-top-115 pd-bottom-90">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="section-title text-center" data-aos="fade-down">
+                <h5 class="sub-title double-line" style={{ color: "black" }}>
+                  Galeri Foto
+                </h5>
+                <h2 class="title">Kumpulan Kenangan Kami</h2>
+                <p class="content">
+                  Dokumentasi berbagai kegiatan sekolah yang penuh semangat dan kebersamaan, mulai dari pembelajaran hingga acara spesial.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row" data-aos="fade-up">
+            <div>
+              <div className="gallery-container mb-5">
+                {galery.map((item) => (
+                  <ImageCard
+                    key={item.id}
+                    image={item.foto}
+                    title={item.judul}
+                    content={item.deskripsi}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          <div data-aos="fade-up">
+            <Link
+              href="/all-alumni"
+              style={buttonStylesss}
+              onMouseEnter={() => setIsHoveredss(true)}
+              onMouseLeave={() => setIsHoveredss(false)}>
+              Tampilkan Semua Gambar
             </Link>
           </div>
         </div>

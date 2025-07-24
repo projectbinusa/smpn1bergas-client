@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/navbarSekolah.css";
-import logo from "../aset/slbcpelita/logo-slbc.png";
+import logo from "../aset/slbcpelita/slbc-white.png";
 
 const NavbarSekolah2 = () => {
   const [activeMenu, setActiveMenu] = useState("");
@@ -46,6 +46,9 @@ const NavbarSekolah2 = () => {
           <img src={logo} alt="Logo" className="navbars-logo" />
         </a>
         <ul className={`navbars-menu ${isMenuOpen ? "active" : ""}`} style={{ fontSize: "13.8px" }}>
+          <li className="navbars-item">
+            <a href="/" style={{ textTransform: "uppercase", fontWeight: "600" }}>Beranda</a>
+          </li>
           <li className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""}`}>
             <a href="#profil-sekolah" className="has-submenu" onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
               Sekolah <i class="fa-solid fa-caret-down"></i>
@@ -163,7 +166,7 @@ const NavbarSekolah2 = () => {
             <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
           </li>
           <li className="navbars-item btn-bos">
-            <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>Laporan BOSP</a>
+            <a href="/laporanbosp" style={{ textTransform: "uppercase", fontWeight: "600" }}>Laporan BOSP</a>
           </li>
         </ul>
         <div

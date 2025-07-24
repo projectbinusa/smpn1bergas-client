@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../css/navbarSekolah.css";
-import logo from "../aset/slbcpelita/logo-slbc.png"
+import logo from "../aset/slbcpelita/slbc-white.png"
+// import logo from "../aset/slbcpelita/logo-slbc.png"
 
 
 const NavbarSekolah = () => {
@@ -55,6 +56,9 @@ const NavbarSekolah = () => {
           <img src={logo} alt="Logo" className="navbars-logo" />
         </a>
         <ul style={{ fontSize: "13.8px" }} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
+          <li className="navbars-item">
+            <a href="/" style={{ textTransform: "uppercase", fontWeight: "600" }}>Beranda</a>
+          </li>
           <li
             className={`navbars-item `}>
             <a
@@ -238,7 +242,7 @@ const NavbarSekolah = () => {
             <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
           </li>
           <li className="navbars-item btn-bos">
-            <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>Laporan BOSP</a>
+            <a href="/laporanbosp" style={{ textTransform: "uppercase", fontWeight: "600" }}>Laporan BOSP</a>
           </li>
         </ul>
         <div
