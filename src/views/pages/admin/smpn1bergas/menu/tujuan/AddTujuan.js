@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -41,7 +41,6 @@ import {
   PictureEditing,
   RemoveFormat,
   SpecialCharacters,
-  // SpecialCharactersEmoji,
   SpecialCharactersEssentials,
   Strikethrough,
   Style,
@@ -58,21 +57,13 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import Sidebar1 from "../../../../../component/Sidebar1";
+import Sidebar1 from "../../../../../../component/Sidebar1";
 
-function AddBeritaAdmin() {
-  const [author, setAuthor] = useState("");
-  const [judulBerita, setJudulBerita] = useState("");
-  const [image, setImage] = useState(null);
-  const [categoryBerita, setCategoryBerita] = useState(0);
-  const [isiBerita, setIsiBerita] = useState("");
+function AddTujuan() {
+  const [judulTujuan, setJudulTujuan] = useState("");
+  const [isiTujuan, setIsiTujuan] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
-  const [content, setContent] = useState("");
-
-  const handleEditorChange = (isiBerita, editor) => {
-    setIsiBerita(isiBerita);
-  };
 
   //add
   const add = async (e) => {
@@ -80,39 +71,34 @@ function AddBeritaAdmin() {
     e.persist();
 
     try {
-      await axios.post(
-        `${API_DUMMY}/api/berita/add`,
-        {
-          author: author,
-          judulBerita: judulBerita,
-          isiBerita: isiBerita,
-          category: categoryBerita,
+      const data = {
+        isi: isiTujuan,
+        judul: judulTujuan,
+      };
+      await axios.post(`${API_DUMMY}/api/tujuan/add`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      });
       setShow(false);
       Swal.fire({
         icon: "success",
-        title: "Data Berhasil DiTambahkan",
+        title: "Data Tujuan Berhasil Ditambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-berita");
+      history.push("/admin-tujuan");
       setTimeout(() => {
         window.location.reload();
       }, 1500);
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
       } else {
         Swal.fire({
           icon: "error",
-          title: "Tambah Data Gagal!",
+          title: "Tambah Data Tujuan Gagal!",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -120,10 +106,6 @@ function AddBeritaAdmin() {
       }
     }
   };
-
-  useEffect(() => {
-    AOS.init();
-  }, []);
 
   const REDUCED_MATERIAL_COLORS = [
     { label: "Red 50", color: "#ffebee" },
@@ -248,6 +230,10 @@ function AddBeritaAdmin() {
     { label: "Blue grey 900", color: "#263238" },
   ];
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -262,14 +248,14 @@ function AddBeritaAdmin() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
   return (
-    <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+    <div className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -277,86 +263,47 @@ function AddBeritaAdmin() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div
-        style={{ marginTop: "50px" }}
-        className="page-content1 mb-3 app-main__outer"
-        data-aos="fade-left">
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container">
           <div className="row">
             <div className="col-md-12">
               <div className="card shadow">
                 <div className="card-body">
-                  <h1 className="fs-4">Form Tambah Data</h1>
+                  <h1 className="fs-4">Form Tambah Data Tujuan</h1>
                   <hr />
                   <form onSubmit={add}>
                     <div className="row">
-                      <div className="mb-3 col-lg-6">
+                      <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
-                          Judul Berita
+                          Judul Tujuan
                         </label>
                         <input
-                          value={judulBerita}
-                          onChange={(e) => setJudulBerita(e.target.value)}
+                          value={judulTujuan}
+                          onChange={(e) => setJudulTujuan(e.target.value)}
                           type="text"
                           className="form-control"
-                          placeholder="Masukkan Judul Berita"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Kategori Berita
-                        </label>
-                        <select
-                          value={categoryBerita}
-                          className="form-control"
-                          aria-label="Small select example"
-                          onChange={(e) => setCategoryBerita(e.target.value)}>
-                          <option selected>Pilih Kategori</option>
-                          <option value="Berita Sekolah">Berita Terbaru</option>
-                          <option value="Info Sekolah">Info Sekolah</option>
-                          <option value="Agenda Sekolah">Agenda</option>
-                        </select>
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label
-                          for="exampleInputEmail1"
-                          className="form-label  font-weight-bold ">
-                          Penulis Berita
-                        </label>
-                        <input
-                          value={author}
-                          onChange={(e) => setAuthor(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder="Masukkan Penulis Berita"
+                          required
+                          placeholder="Masukkan Judul Tujuan"
                         />
                       </div>
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
-                          Isi Berita
+                          Isi Tujuan
                         </label>
                         <CKEditor
                           editor={ClassicEditor}
-                          data={isiBerita} // Gunakan 'data' untuk set initial value
+                          data={isiTujuan}
                           onChange={(event, editor) => {
-                            const data = editor.getData(); // Ambil data dari editor
-                            setIsiBerita(data); // Set state dengan data dari editor
+                            const data = editor.getData();
+                            setIsiTujuan(data);
                           }}
                           config={{
                             toolbar: [
-                              // --- Text alignment ---------------------------------------------------------------------------
                               "alignment",
                               "|",
-                              // --- Document-wide tools ----------------------------------------------------------------------
                               "undo",
                               "redo",
-                              // "|",
-                              // "alignment:left", // Tambahkan opsi align left
-                              // "alignment:center", // Tambahkan opsi align center
-                              // "alignment:right",
                               "|",
                               "importWord",
                               "exportWord",
@@ -371,9 +318,6 @@ function AddBeritaAdmin() {
                               "insertTemplate",
                               "tableOfContents",
                               "|",
-
-                              // --- "Insertables" ----------------------------------------------------------------------------
-
                               "link",
                               "insertImage",
                               "ckbox",
@@ -385,13 +329,9 @@ function AddBeritaAdmin() {
                               "horizontalLine",
                               "specialCharacters",
                               "-",
-
-                              // --- Block-level formatting -------------------------------------------------------------------
                               "heading",
                               "style",
                               "|",
-
-                              // --- Basic styles, font and inline formatting -------------------------------------------------------
                               "bold",
                               "italic",
                               "underline",
@@ -415,8 +355,6 @@ function AddBeritaAdmin() {
                               },
                               "removeFormat",
                               "|",
-
-                              // --- Lists and indentation --------------------------------------------------------------------
                               "bulletedList",
                               "numberedList",
                               "multilevelList",
@@ -426,8 +364,6 @@ function AddBeritaAdmin() {
                               "indent",
                             ],
                             styles: [
-                              // "full",    // Gambar mengambil lebar penuh konten
-                              // "side",    // Gambar sejajar dengan teks
                               "alignLeft",
                               "alignCenter",
                               "alignRight",
@@ -571,7 +507,7 @@ function AddBeritaAdmin() {
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin-berita">
+                        href="/admin-tujuan">
                         Batal
                       </a>
                     </button>
@@ -586,8 +522,7 @@ function AddBeritaAdmin() {
         </div>
       </div>
     </div>
-    // </div>
   );
 }
 
-export default AddBeritaAdmin;
+export default AddTujuan;

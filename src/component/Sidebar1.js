@@ -92,6 +92,14 @@ function Sidebar1({ toggleSidebar }) {
       //   submenu: ["Dashboard 1", "Dashboard 2", "Dashboard 3"],
     },
     {
+      title: "Laporan",
+      icon: "fa-regular fa-rectangle-list",
+      action: ["/add-berita-admin", "/edit-berita", "/detail-berita"],
+      path: "/admin/laporanbosp",
+      //   badge: { text: "New", type: "warning" },
+      //   submenu: ["Dashboard 1", "Dashboard 2", "Dashboard 3"],
+    },
+    {
       title: "Kontak",
       icon: "fa-solid fa-id-card",
       path: "/admin-kontak",
@@ -253,7 +261,7 @@ function Sidebar1({ toggleSidebar }) {
         <div className="sidebar-content">
           <div className="sidebar-brand">
             <a href="#" style={{ textAlign: "center" }}>
-              SMP N 1 Bergas
+              SLBC PELITA ILMU
             </a>
             <div id="close-sidebar" onClick={toggleSidebar}>
               <i className="fas fa-times"></i>

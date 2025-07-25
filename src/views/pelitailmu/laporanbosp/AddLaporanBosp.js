@@ -5,8 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
-
+import { API_DUMMY } from "../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -58,68 +57,15 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import Sidebar1 from "../../../../../component/Sidebar1";
+import Sidebar1 from "../../../component/Sidebar1";
+import { uploadFileToS3 } from "../../../utils/uploadToS3";
 
-function AddBeritaAdmin() {
-  const [author, setAuthor] = useState("");
-  const [judulBerita, setJudulBerita] = useState("");
-  const [image, setImage] = useState(null);
-  const [categoryBerita, setCategoryBerita] = useState(0);
-  const [isiBerita, setIsiBerita] = useState("");
+function AddLaporanBosp() {
+  const [nama, setNama] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
+  const [documents, setDocuments] = useState([null]);
   const [show, setShow] = useState(false);
   const history = useHistory();
-  const [content, setContent] = useState("");
-
-  const handleEditorChange = (isiBerita, editor) => {
-    setIsiBerita(isiBerita);
-  };
-
-  //add
-  const add = async (e) => {
-    e.preventDefault();
-    e.persist();
-
-    try {
-      await axios.post(
-        `${API_DUMMY}/api/berita/add`,
-        {
-          author: author,
-          judulBerita: judulBerita,
-          isiBerita: isiBerita,
-          category: categoryBerita,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setShow(false);
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil DiTambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      history.push("/admin-berita");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
-        localStorage.clear();
-        history.push("/login");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log(error);
-      }
-    }
-  };
 
   useEffect(() => {
     AOS.init();
@@ -265,11 +211,70 @@ function AddBeritaAdmin() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleFileChange = (index, file) => {
+    const updatedDocuments = [...documents];
+    updatedDocuments[index] = file;
+    setDocuments(updatedDocuments);
+  };
+
+  const addFileInput = () => {
+    setDocuments([...documents, null]);
+  };
+
+  const removeFileInput = (index) => {
+    const updatedDocuments = documents.filter((_, i) => i !== index);
+    setDocuments(updatedDocuments);
+  };
+
+  const add = async (e) => {
+    e.preventDefault();
+
+    let files = [];
+    if (documents && documents.length > 0) {
+      files = await uploadFileToS3(documents.filter((file) => file !== null));
+    }
+
+    const data = {
+      nama: nama,
+      deskripsi: deskripsi,
+      files: files
+    };
+
+    try {
+      await axios.post(`${API_DUMMY}/api/laporanbosp`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil Ditambahkan",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        history.push("/admin/laporanbosp");
+        window.location.reload();
+      }, 1500);
+    } catch (error) {
+      console.error("Gagal menambahkan data laporan:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Terjadi Kesalahan Saat Tambah Data",
+        text:
+          error.response?.data?.description || error.response?.data?.message,
+        showConfirmButton: true,
+      });
+    }
+  };
+
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -277,8 +282,6 @@ function AddBeritaAdmin() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div
         style={{ marginTop: "50px" }}
@@ -295,55 +298,54 @@ function AddBeritaAdmin() {
                     <div className="row">
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
-                          Judul Berita
+                          Judul Laporan
                         </label>
                         <input
-                          value={judulBerita}
-                          onChange={(e) => setJudulBerita(e.target.value)}
+                          value={nama}
+                          onChange={(e) => setNama(e.target.value)}
                           type="text"
                           className="form-control"
-                          placeholder="Masukkan Judul Berita"
+                          placeholder="Masukkan Judul Laporan"
                         />
                       </div>
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Kategori Berita
-                        </label>
-                        <select
-                          value={categoryBerita}
-                          className="form-control"
-                          aria-label="Small select example"
-                          onChange={(e) => setCategoryBerita(e.target.value)}>
-                          <option selected>Pilih Kategori</option>
-                          <option value="Berita Sekolah">Berita Terbaru</option>
-                          <option value="Info Sekolah">Info Sekolah</option>
-                          <option value="Agenda Sekolah">Agenda</option>
-                        </select>
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label
-                          for="exampleInputEmail1"
-                          className="form-label  font-weight-bold ">
-                          Penulis Berita
-                        </label>
-                        <input
-                          value={author}
-                          onChange={(e) => setAuthor(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder="Masukkan Penulis Berita"
-                        />
-                      </div>
+                      {documents.map((file, index) => (
+                        <>
+                          <div className="mb-3 col-lg-6">
+                            <label className="form-label font-weight-bold">
+                              Lampiran {index + 1}
+                            </label>
+                            <div className="d-flex">
+                              <input type="file"
+                                onChange={(e) =>
+                                  handleFileChange(index, e.target.files[0])
+                                }
+                                className="form-control"
+                                placeholder="Masukkan Judul Berita"
+                              />
+                              {index === documents.length - 1 ? (
+                                <button
+                                  className="btn-success ms-2" type="button" style={{fontSize: "20px"}}
+                                  onClick={addFileInput}>+</button>
+                              ) : (
+                                <button
+                                  className="btn-danger ms-2" type="button" style={{fontSize: "20px"}}
+                                  onClick={() => removeFileInput(index)}>-</button>
+                              )}
+                            </div>
+                          </div>
+                          <br />
+                        </>
+                      ))}
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
-                          Isi Berita
+                          Deskripsi
                         </label>
                         <CKEditor
                           editor={ClassicEditor}
-                          data={isiBerita} // Gunakan 'data' untuk set initial value
+                          data={deskripsi} // Gunakan 'data' untuk set initial value
                           onChange={(event, editor) => {
                             const data = editor.getData(); // Ambil data dari editor
-                            setIsiBerita(data); // Set state dengan data dari editor
+                            setDeskripsi(data); // Set state dengan data dari editor
                           }}
                           config={{
                             toolbar: [
@@ -590,4 +592,4 @@ function AddBeritaAdmin() {
   );
 }
 
-export default AddBeritaAdmin;
+export default AddLaporanBosp;

@@ -146,6 +146,16 @@ import { analytics } from "./firebase";
 import EditCategoryProgram from "./views/pages/admin/smpn1bergas/program/category/EditCategoryProgram";
 import AddCategoryProgram from "./views/pages/admin/smpn1bergas/program/category/AddCategoryProgram";
 import DetailSejarah from "./views/pages/admin/smpn1bergas/menu/sejarah/DetailSejarah";
+import LaporanBosp from "./views/pelitailmu/laporanbosp/LaporanBosp";
+import AdminLaporanBosp from "./views/pelitailmu/laporanbosp/AdminLaporanBosp";
+import AddLaporanBosp from "./views/pelitailmu/laporanbosp/AddLaporanBosp";
+import EditLaporanBosp from "./views/pelitailmu/laporanbosp/EditLaporanBosp";
+import DetailLaporanBosp from "./views/pelitailmu/laporanbosp/DetailLaporanBosp";
+import Tujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/Tujuan";
+import AddTujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/AddTujuan";
+import DetailTujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/DetailTujuan";
+import EditTujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/EditTujuan";
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -167,7 +177,7 @@ function App() {
   }, []);
 
   return loading ? (
-   <Loading/>
+    <Loading />
 
   ) : (
     <>
@@ -181,6 +191,11 @@ function App() {
             <Route path="/sidebar1" component={Sidebar1} exact />
             {/* page */}
             <Route path="/" component={Dashbaord} exact />
+            <Route path="/laporanbosp" component={LaporanBosp} exact />
+            <Route path="/laporanbosp/:id" component={DetailLaporanBosp} exact />
+            <PrivateRoute path="/admin/laporanbosp" component={AdminLaporanBosp} exact />
+            <PrivateRoute path="/admin/laporanbosp/add" component={AddLaporanBosp} exact />
+            <PrivateRoute path="/admin/laporanbosp/edit/:id" component={EditLaporanBosp} exact />
             <Route path="/sambutan" component={sambutan} exact />
             <Route path="/visi-misi" component={VisiMisiSekolah} exact />
             <Route path="/sejarah" component={SejarahSekolah} exact />
@@ -269,6 +284,14 @@ function App() {
               exact
             />
             {/* end Sejarah */}
+            {/* Tujuan */}
+            <PrivateRoute path="/admin-tujuan" component={DetailTujuan} exact />
+            <PrivateRoute path="/add-tujuan" component={AddTujuan} exact />
+            <PrivateRoute
+              path="/edit-tujuan/:id"
+              component={EditTujuan}
+              exact
+            />
             {/* tenaga kependidikan */}
             <PrivateRoute
               path="/admin-tenaga-kependidikan"

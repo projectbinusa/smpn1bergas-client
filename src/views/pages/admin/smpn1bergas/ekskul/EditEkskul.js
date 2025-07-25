@@ -11,6 +11,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 
 import Sidebar1 from "../../../../../component/Sidebar1";
+import { uploadFileToS3 } from "../../../../../utils/uploadToS3";
 
 function EditEkskul() {
   const [name, setName] = useState("");
@@ -22,6 +23,7 @@ function EditEkskul() {
   const [deskripsi, setDeskripsi] = useState("");
   const [file, setFile] = useState("");
   const [show, setShow] = useState(false);
+  const [image, setImage] = useState("");
   const history = useHistory();
   const param = useParams();
 
@@ -52,8 +54,19 @@ function EditEkskul() {
   const update = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("file", file);
+    // const formData = new FormData();
+    // formData.append("file", file);
+
+    let uploadedImageUrl = null;
+
+    if (image) {
+      const uploadedUrls = await uploadFileToS3([image]);
+      uploadedImageUrl = uploadedUrls[0];
+    }
+
+    const dataImage = {
+      foto: uploadedImageUrl
+    }
 
     const data = {
       koordinator: koordinator,
@@ -66,24 +79,27 @@ function EditEkskul() {
     };
 
     await axios
-      .put(
-        `${API_DUMMY}/api/ekstrakulikuler/put/` + param.id, data,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
+      .put(`${API_DUMMY}/api/ekstrakulikuler/put/` + param.id, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then(() => {
         if (file) {
-          axios.put(`${API_DUMMY}/api/ekstrakulikuler/put/foto/` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err)
-          })
+          axios
+            .put(
+              `${API_DUMMY}/api/ekstrakulikuler/put/foto/` + param.id,
+              dataImage,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            )
+            .catch((err) => {
+              console.log(err);
+            });
         }
         Swal.fire({
           icon: "success",
@@ -130,12 +146,14 @@ function EditEkskul() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
       }`}>
       <a
         id="show-sidebar"
