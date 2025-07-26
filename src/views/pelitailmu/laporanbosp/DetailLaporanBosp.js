@@ -69,7 +69,7 @@ function DetailLaporanBosp() {
             <li>
               <a href="/all-prestasi">
                 <i className="fas fa-angle-right"></i>{" "}
-                <span style={{ fontWeight: "normal" }}>Prestasi</span>
+                <span style={{ fontWeight: "normal" }}>Laporan BOSP</span>
               </a>
             </li>
             <li>
