@@ -123,12 +123,14 @@ function Sidebar1({ toggleSidebar }) {
       path: "/admin-perpustakaan",
       action: ["/add-perpustakaan", "/edit-perpustakaan"],
     },
-    {
-      title: "Kotak Saran",
-      icon: "fas fa-comment-dots",
-      path: "/admin-kotak-saran",
-      action: ["/add-kotak-saran", "/edit-kotak-saran"],
-    },
+//     {
+//   title: "Kotak Saran",
+//   icon: "fas fa-comment-dots",
+//   path: "/admin-kotak-saran",
+//   action: ["/add-kotak-saran", "/edit-kotak-saran"],
+//   hidden: true,
+// },
+
     {
       title: "Materi Ajar",
       icon: "fas fa-file-alt",
@@ -141,12 +143,13 @@ function Sidebar1({ toggleSidebar }) {
       path: "/admin-galery",
       action: ["/add-galery", "/edit-galery"],
     },
-    {
-      title: "Keuangan",
-      icon: "fa-solid fa-circle-dollar-to-slot",
-      path: "/admin-keuangan",
-      action: ["/add-keuangan", "/edit-keuangan", "/detail-keuangan"],
-    },
+    // {
+    //   title: "Keuangan",
+    //   icon: "fa-solid fa-circle-dollar-to-slot",
+    //   path: "/admin-keuangan",
+    //   action: ["/add-keuangan", "/edit-keuangan", "/detail-keuangan"],
+    //    hidden: true,
+    // },
   ];
 
   const profileItem = [
@@ -197,12 +200,13 @@ function Sidebar1({ toggleSidebar }) {
   ];
 
   const siswaItem = [
-    {
-      title: "Osis",
-      icon: "fa-solid fa-users",
-      path: "/admin-osis",
-      action: ["/add-osis", "/edit-osis", "/detail-osis"],
-    },
+    // {
+    //   title: "Osis",
+    //   icon: "fa-solid fa-users",
+    //   path: "/admin-osis",
+    //   action: ["/add-osis", "/edit-osis", "/detail-osis"],
+    //    hidden: true,
+    // },
     {
       title: "Ekstrakurikuler",
       icon: "fa-solid fa-people-robbery",
@@ -217,12 +221,13 @@ function Sidebar1({ toggleSidebar }) {
   ];
 
   const saprasItem = [
-    {
-      title: "Sarana",
-      icon: "fas fa-tools",
-      path: "/admin-sarana",
-      action: ["/add-sarana", "/edit-sarana", "/detail-sarana"],
-    },
+    // {
+    //   title: "Sarana",
+    //   icon: "fas fa-tools",
+    //   path: "/admin-sarana",
+    //   action: ["/add-sarana", "/edit-sarana", "/detail-sarana"],
+    //    hidden: true,
+    // },
     {
       title: "Kegiatan",
       icon: "fas fa-calendar-alt",
