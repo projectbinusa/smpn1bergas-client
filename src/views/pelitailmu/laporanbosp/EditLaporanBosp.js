@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
-
+import { API_DUMMY } from "../../../utils/base_URL";
 import {
   useHistory,
   useParams,
@@ -8,7 +7,6 @@ import {
 import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
-// import { Editor } from "@tinymce/tinymce-react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -59,102 +57,98 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import Sidebar1 from "../../../../../component/Sidebar1";
-import { uploadFileToS3 } from "../../../../../utils/uploadToS3";
+import Sidebar1 from "../../../component/Sidebar1";
+import { uploadFileToS3 } from "../../../utils/uploadToS3";
 
-function EditBeritaAdmin() {
-  const [author, setAuthor] = useState("");
-  const [judulBerita, setJudulBerita] = useState("");
-  const [image, setImage] = useState("");
-  const [categoryBerita, setCategoryBerita] = useState("");
-  const [isiBerita, setIsiBerita] = useState("");
-  const [show, setShow] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+function EditLaporanBosp() {
+  const [nama, setNama] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
+  const [documents, setDocuments] = useState([null]);
+  const [deletedAttachments, setDeletedAttachments] = useState([]);
+  const [attachments1, setAttachments1] = useState([]);
 
   const param = useParams();
   const history = useHistory();
 
-  const updateBerita = async (e) => {
-    e.preventDefault();
-    let uploadedImageUrl = null;
+  // const updateBerita = async (e) => {
+  //   e.preventDefault();
+  //   let uploadedImageUrl = null;
 
-    if (image) {
-      const uploadedUrls = await uploadFileToS3([image]);
-      uploadedImageUrl = uploadedUrls[0];
-    }
+  //   if (image) {
+  //     const uploadedUrls = await uploadFileToS3([image]);
+  //     uploadedImageUrl = uploadedUrls[0];
+  //   }
 
-    const dataImage = {
-      foto: uploadedImageUrl
-    }
-    const data = {
-      author: author,
-      category: categoryBerita,
-      judulBerita: judulBerita,
-      isiBerita: isiBerita,
-    };
+  //   const dataImage = {
+  //     foto: uploadedImageUrl
+  //   }
+  //   const data = {
+  //     author: author,
+  //     category: categoryBerita,
+  //     judulBerita: judulBerita,
+  //     isiBerita: isiBerita,
+  //   };
 
-    axios
-      .put(`${API_DUMMY}/api/berita/put/` + param.id, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        if (image) {
-          axios
-            .put(`${API_DUMMY}/api/berita/put/foto/` + param.id, dataImage, {
-              headers: {
-                // "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-        setShow(false);
-        Swal.fire({
-          icon: "success",
-          title: "Data Berhasil Diperbarui",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        history.push("/admin-berita");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-        console.log("Berhasil diperbarui", response.data);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
-      });
-  };
+  //   axios
+  //     .put(`${API_DUMMY}/api/berita/put/` + param.id, data, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if (image) {
+  //         axios
+  //           .put(`${API_DUMMY}/api/berita/put/foto/` + param.id, dataImage, {
+  //             headers: {
+  //               // "Content-Type": "multipart/form-data",
+  //               Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //             },
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //           });
+  //       }
+  //       setShow(false);
+  //       Swal.fire({
+  //         icon: "success",
+  //         title: "Data Berhasil Diperbarui",
+  //         showConfirmButton: false,
+  //         timer: 1500,
+  //       });
+  //       history.push("/admin-berita");
+  //       setTimeout(() => {
+  //         window.location.reload();
+  //       }, 1500);
+  //       console.log("Berhasil diperbarui", response.data);
+  //     })
+  //     .catch((error) => {
+  //       if (error.ressponse && error.response.status === 401) {
+  //         localStorage.clear();
+  //         history.push("/login");
+  //       } else {
+  //         Swal.fire({
+  //           icon: "error",
+  //           title: "Edit Data Gagal!",
+  //           showConfirmButton: false,
+  //           timer: 1500,
+  //         });
+  //         console.log(error);
+  //       }
+  //     });
+  // };
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/api/berita/get/` + param.id, {
+      .get(`${API_DUMMY}/api/laporanbosp/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
-        setAuthor(response.author);
-        setJudulBerita(response.judulBerita);
-        setIsiBerita(response.isiBerita);
-        setImageUrl(response.image);
-        setCategoryBerita(response.categoryBerita);
+        setNama(response.nama)
+        setDeskripsi(response.deskripsi)
+        setAttachments1(response.files)
       })
       .catch((error) => {
         console.log(error);
@@ -164,10 +158,6 @@ function EditBeritaAdmin() {
   useEffect(() => {
     AOS.init();
   }, []);
-
-  const handleEditorChange = (isiBerita, editor) => {
-    setIsiBerita(isiBerita);
-  };
 
   const REDUCED_MATERIAL_COLORS = [
     { label: "Red 50", color: "#ffebee" },
@@ -310,11 +300,74 @@ function EditBeritaAdmin() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleFileChange = (index, file) => {
+    const updatedDocuments = [...documents];
+    updatedDocuments[index] = file;
+    setDocuments(updatedDocuments);
+  };
+
+  const addFileInput = () => {
+    setDocuments([...documents, null]);
+  };
+
+  const removeFileInput = (index) => {
+    const updatedDocuments = documents.filter((_, i) => i !== index);
+    setDocuments(updatedDocuments);
+  };
+
+  const handleRemoveOldAttachment = (index) => {
+    const fileToRemove = attachments1[index];
+    setDeletedAttachments((prev) => [...prev, fileToRemove]);
+    const updated = attachments1.filter((_, i) => i !== index);
+    setAttachments1(updated);
+  };
+
+  const updateLaporan = async (e) => {
+    e.preventDefault();
+
+    let files = [];
+    try {
+      const newFiles = await uploadFileToS3(
+        documents.filter((file) => file !== null)
+      );
+      files = [...attachments1, ...newFiles];
+    } catch (err) {
+      Swal.fire("Gagal", "Gagal Mengunggah File", "error");
+      return;
+    }
+
+    const data = {
+      nama: nama,
+      deskripsi: deskripsi,
+      files: files
+    };
+
+    try {
+      await axios.put(`${API_DUMMY}/api/laporanbosp/${param.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil Diedit",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        history.push("/admin/laporanbosp");
+        window.location.reload();
+      }, 1500);
+    } catch (error) {
+      console.error("Gagal edit data:", error);
+    }
+  };
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -322,8 +375,6 @@ function EditBeritaAdmin() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div style={{ marginTop: "10px" }} className="page-content1 absolute">
         <div
@@ -333,89 +384,80 @@ function EditBeritaAdmin() {
             <div className="card-body">
               <h1 className="fs-4">Form Edit Data</h1>
               <hr />
-              <form onSubmit={updateBerita}>
+              <form onSubmit={updateLaporan}>
                 <div className="row">
                   <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
-                      Kategori Berita
-                    </label>
-                    <select
-                      value={categoryBerita}
-                      className="form-control"
-                      aria-label="Small select example"
-                      onChange={(e) => setCategoryBerita(e.target.value)}>
-                      <option selected>Pilih Category</option>
-                      <option value="Berita Sekolah">Berita Sekolah</option>
-                      <option value="Info Sekolah">Info Sekolah</option>
-                      <option value="Agenda Sekolah">Agenda Sekolah</option>
-                    </select>
-                  </div>
-                  <div className="mb-3 col-lg-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold">
-                      Penulis Berita
+                      Judul Laporan
                     </label>
                     <input
-                      value={author}
-                      onChange={(e) => setAuthor(e.target.value)}
+                      value={nama}
+                      onChange={(e) => setNama(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Penulis Berita"
+                      placeholder="Masukkan Judul Laporan"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
-                    <label className="form-label font-weight-bold">
-                      Judul Berita
-                    </label>
-                    <input
-                      value={judulBerita}
-                      onChange={(e) => setJudulBerita(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      placeholder="Masukkan Judul Berita"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-6">
-                    <label className="form-label font-weight-bold">
-                      Gambar
-                    </label>
-                    {/* {image && ( */}
-                    <input
-                      onChange={(e) => {
-                        if (setImage) {
-                          setImage(e.target.files[0]);
-                        } else {
-                          setImageUrl(e.target.value);
-                        }
-                      }}
-                      type="file"
-                      className="form-control"
-                    />
-
-                    {/* )} */}
-
-                    {imageUrl && (
-                      <div className="mt-3">
-                        <img
-                          src={imageUrl}
-                          alt="Current Image"
-                          style={{ maxWidth: "100%", height: "auto" }}
-                        />
+                  {attachments1?.map((fileUrl, index) => (
+                    <>
+                      <div className="mb-3 col-lg-6" key={`existing-file-${index}`}>
+                        <label className="form-label font-weight-bold">
+                          Lampiran Lama {index + 1}
+                        </label>
+                        <div className="d-flex">
+                          <a
+                            href={fileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="me-3">
+                            {fileUrl.split("/").pop()}
+                          </a>
+                          <button
+                            className="btn-danger ms-2" type="button"
+                            onClick={() => handleRemoveOldAttachment(index)}>Hapus</button>
+                        </div>
                       </div>
-                    )}
-                  </div>
-
+                      <br />
+                    </>
+                  ))}
+                  {documents.map((file, index) => (
+                    <>
+                      <div className="mb-3 col-lg-6">
+                        <label className="form-label font-weight-bold">
+                          Lampiran {index + 1}
+                        </label>
+                        <div className="d-flex">
+                          <input type="file"
+                            onChange={(e) =>
+                              handleFileChange(index, e.target.files[0])
+                            }
+                            className="form-control"
+                            placeholder="Masukkan Judul Berita"
+                          />
+                          {index === documents.length - 1 ? (
+                            <button
+                              className="btn-success ms-2" type="button" style={{ fontSize: "20px" }}
+                              onClick={addFileInput}>+</button>
+                          ) : (
+                            <button
+                              className="btn-danger ms-2" type="button" style={{ fontSize: "20px" }}
+                              onClick={() => removeFileInput(index)}>-</button>
+                          )}
+                        </div>
+                      </div>
+                      <br />
+                    </>
+                  ))}
                   <div className="mb-3 col-lg-12">
                     <label className="form-label font-weight-bold">
-                      Isi Berita
+                      Deskripsi
                     </label>
                     <CKEditor
                       editor={ClassicEditor}
-                      data={isiBerita} // Gunakan 'data' untuk set initial value
+                      data={deskripsi} // Gunakan 'data' untuk set initial value
                       onChange={(event, editor) => {
                         const data = editor.getData(); // Ambil data dari editor
-                        setIsiBerita(data); // Set state dengan data dari editor
+                        setDeskripsi(data); // Set state dengan data dari editor
                       }}
                       config={{
                         toolbar: [
@@ -545,7 +587,6 @@ function EditBeritaAdmin() {
                           PictureEditing,
                           RemoveFormat,
                           SpecialCharacters,
-                          // SpecialCharactersEmoji,
                           SpecialCharactersEssentials,
                           Strikethrough,
                           Style,
@@ -637,37 +678,8 @@ function EditBeritaAdmin() {
                             },
                           ],
                         },
-                        // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
                       }}
                     />
-                    {/* <Editor
-                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
-                            value={isiBerita}
-                            init={{
-                              height: 500,
-                              menubar: false,
-                              plugins: [
-                                "advlist",
-                                "anchor",
-                                "autolink",
-                                "help",
-                                "image",
-                                "link",
-                                "lists",
-                                "searchreplace",
-                                "table",
-                                "wordcount",
-                              ],
-                              toolbar:
-                                "undo redo | blocks | " +
-                                "bold italic forecolor | alignleft aligncenter " +
-                                "alignright alignjustify | bullist numlist outdent indent | " +
-                                "removeformat | help | image",
-                              content_style:
-                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                            }}
-                            onEditorChange={handleEditorChange}
-                          /> */}
                   </div>
                 </div>
                 <button type="button" className="btn-danger mt-3">
@@ -690,4 +702,4 @@ function EditBeritaAdmin() {
   );
 }
 
-export default EditBeritaAdmin;
+export default EditLaporanBosp;

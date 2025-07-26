@@ -104,8 +104,8 @@ function FooterSekolah() {
                   <li>
                     <a
                       className="facebook"
-                      href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
-                      target="_blank"
+                      href="#"
+                      // target="_blank"
                       rel="noreferrer"
                     >
                       <i className="fab fa-facebook-f"></i>
@@ -114,7 +114,7 @@ function FooterSekolah() {
                   <li>
                     <a
                       className="instagram"
-                      href="https://www.instagram.com/osisspensagas"
+                      href="https://www.instagram.com/slbbcpelitailmu"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -124,8 +124,8 @@ function FooterSekolah() {
                   <li>
                     <a
                       className="youtube"
-                      href="https://www.youtube.com/@OSIS-SMPN1Bergas"
-                      target="_blank"
+                      href="#"
+                      // target="_blank"
                       rel="noreferrer"
                     >
                       <i className="fab fa-youtube"></i>
@@ -142,9 +142,9 @@ function FooterSekolah() {
                 {isContactAvailable ? (
                   <>
                     <p style={{ color: "white", textAlign: "left" }}>{address}</p>
-                    <p style={{ color: "white", textAlign: "left" }}>Telepon (+62) {phone}</p>
+                    <p style={{ color: "white", textAlign: "left" }}>Telepon {phone}</p>
                     <p style={{ color: "white", textAlign: "left" }}>E-mail {email}</p>
-                    <p style={{ color: "white", textAlign: "left" }}>{fax}</p>
+                    {/* <p style={{ color: "white", textAlign: "left" }}>{fax}</p> */}
                   </>
                 ) : (
                   <p style={{ color: "white", textAlign: "left" }}>Informasi Kontak Tidak Tersedia</p>
@@ -189,8 +189,8 @@ function FooterSekolah() {
                   <li>
                     <a
                       className="facebook"
-                      href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
-                      target="_blank"
+                      href="#"
+                      // target="_blank"
                       rel="noreferrer"
                     >
                       <i className="fab fa-facebook-f"></i>
@@ -199,7 +199,7 @@ function FooterSekolah() {
                   <li>
                     <a
                       className="instagram"
-                      href="https://www.instagram.com/osisspensagas"
+                      href="https://www.instagram.com/slbbcpelitailmu"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -209,15 +209,15 @@ function FooterSekolah() {
                   <li>
                     <a
                       className="youtube"
-                      href="https://www.youtube.com/@OSIS-SMPN1Bergas"
-                      target="_blank"
+                      href="#"
+                      // target="_blank"
                       rel="noreferrer"
                     >
                       <i className="fab fa-youtube"></i>
                     </a>
                   </li>
                 </ul>
-                <p>© 2024. SMP Negeri 1 Bergas.</p>
+                <p>© 2025. SLB C PELITA ILMU.</p>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../css/navbarSekolah.css";
-import logo from "../aset/smpn1bergas/logo.png";
+import logo from "../aset/slbcpelita/slbc-white.png"
+// import logo from "../aset/slbcpelita/logo-slbc.png"
 
 
 const NavbarSekolah = () => {
@@ -55,20 +56,26 @@ const NavbarSekolah = () => {
           <img src={logo} alt="Logo" className="navbars-logo" />
         </a>
         <ul style={{ fontSize: "13.8px" }} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
+          <li className="navbars-item">
+            <a href="/" style={{ textTransform: "uppercase", fontWeight: "600" }}>Beranda</a>
+          </li>
           <li
             className={`navbars-item `}>
             <a
               href="#profil-sekolah"
               className="has-submenu"
               onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
-              Profil Sekolah<i class="fa-solid fa-caret-down"></i>
+              Sekolah<i class="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
             </a>
             <ul className="submenu">
-              <li>
+              {/* <li>
                 <a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a>
-              </li>
+              </li> */}
               <li>
                 <a href="/sejarah">SEJARAH</a>
+              </li>
+              <li>
+                <a href="/sejarah">Tujuan</a>
               </li>
               <li>
                 <a href="/visi-misi">VISI & MISI</a>
@@ -76,15 +83,15 @@ const NavbarSekolah = () => {
               <li>
                 <a href="/struktur-organisasi">STRUKTUR ORGANISASI</a>
               </li>
-              <li>
+              {/* <li>
                 <a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a href="/staff">STAFF</a>
-              </li>
+              </li> */}
             </ul>
           </li>
-          <li
+          {/* <li
             className={`navbars-item ${activeMenu === "berita" ? "active" : ""
               }`}>
             <a
@@ -183,6 +190,59 @@ const NavbarSekolah = () => {
           </li>
           <li className="navbars-item">
             <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
+          </li> */}
+          <li
+            className={`navbars-item ${activeMenu === "jenjang" ? "active" : ""
+              }`}>
+            <a
+              href="#jenjang"
+              className="has-submenu"
+              onClick={(e) => handleMenuClick(e, "jenjang")}>
+              Jenjang<i class="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
+            </a>
+            <ul className="submenu">
+              <li>
+                <a href="/news">SD LB</a>
+              </li>
+              <li>
+                <a href="/info">SMP LB</a>
+              </li>
+              <li>
+                <a href="/agenda">SMA LB</a>
+              </li>
+            </ul>
+          </li>
+          <li className={`navbars-item ${activeMenu === "galeri" ? "active" : ""}`}>
+            <a href="#galeri" className="has-submenu" onClick={(e) => handleMenuClick(e, "galeri")}>
+              Galeri<i class="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
+            </a>
+            <ul className="submenu">
+              <li>
+                <a href="/news">Pembelajaran</a>
+              </li>
+              <li>
+                <a href="/info">Kegiatan Keterampilan</a>
+              </li>
+            </ul>
+          </li>
+          <li className="navbars-item">
+            <a href="/all-prestasi" style={{ textTransform: "uppercase", fontWeight: "600" }}>PRESTASI</a>
+          </li>
+          <li className="navbars-item">
+            <a href="/news" style={{ textTransform: "uppercase", fontWeight: "600" }}>berita</a>
+          </li>
+          {/* <li className="navbars-item">
+            <a
+              href="/perpustakaan"
+              style={{ textTransform: "uppercase", fontWeight: "600" }}>
+              PERPUSTAKAAN
+            </a>
+          </li> */}
+          <li className="navbars-item">
+            <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
+          </li>
+          <li className="navbars-item btn-bos">
+            <a href="/laporanbosp" style={{ textTransform: "uppercase", fontWeight: "600" }}>Laporan BOSP</a>
           </li>
         </ul>
         <div
