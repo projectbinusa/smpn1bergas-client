@@ -155,6 +155,10 @@ import Tujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/Tujuan";
 import AddTujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/AddTujuan";
 import DetailTujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/DetailTujuan";
 import EditTujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/EditTujuan";
+import Jenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/Jenjang";
+import AddJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/AddJenjang";
+import DetailJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/DetailJenjang";
+import EditJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/EditJenjang";
 
 
 function App() {
@@ -287,11 +291,11 @@ function App() {
             {/* Tujuan */}
             <PrivateRoute path="/admin-tujuan" component={DetailTujuan} exact />
             <PrivateRoute path="/add-tujuan" component={AddTujuan} exact />
-            <PrivateRoute
-              path="/edit-tujuan/:id"
-              component={EditTujuan}
-              exact
-            />
+            <PrivateRoute path="/edit-tujuan/:id" component={EditTujuan} exact />
+            {/* Jenjang */}
+            <PrivateRoute path="/admin-jenjang" component={DetailJenjang} exact />
+            <PrivateRoute path="/add-jenjang" component={AddJenjang} exact />
+            <PrivateRoute path="/edit-jenjang/:id" component={EditJenjang} exact />
             {/* tenaga kependidikan */}
             <PrivateRoute
               path="/admin-tenaga-kependidikan"
