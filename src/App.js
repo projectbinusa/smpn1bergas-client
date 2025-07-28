@@ -151,6 +151,11 @@ import AdminLaporanBosp from "./views/pelitailmu/laporanbosp/AdminLaporanBosp";
 import AddLaporanBosp from "./views/pelitailmu/laporanbosp/AddLaporanBosp";
 import EditLaporanBosp from "./views/pelitailmu/laporanbosp/EditLaporanBosp";
 import DetailLaporanBosp from "./views/pelitailmu/laporanbosp/DetailLaporanBosp";
+import Tujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/Tujuan";
+import AddTujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/AddTujuan";
+import DetailTujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/DetailTujuan";
+import EditTujuan from "./views/pages/admin/smpn1bergas/menu/tujuan/EditTujuan";
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -279,6 +284,14 @@ function App() {
               exact
             />
             {/* end Sejarah */}
+            {/* Tujuan */}
+            <PrivateRoute path="/admin-tujuan" component={DetailTujuan} exact />
+            <PrivateRoute path="/add-tujuan" component={AddTujuan} exact />
+            <PrivateRoute
+              path="/edit-tujuan/:id"
+              component={EditTujuan}
+              exact
+            />
             {/* tenaga kependidikan */}
             <PrivateRoute
               path="/admin-tenaga-kependidikan"

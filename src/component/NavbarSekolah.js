@@ -65,7 +65,7 @@ const NavbarSekolah = () => {
               href="#profil-sekolah"
               className="has-submenu"
               onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
-              Sekolah<i class="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
+              Sekolah<i className="fa-solid fa-caret-down dropdown-icon"></i>
             </a>
             <ul className="submenu">
               {/* <li>
