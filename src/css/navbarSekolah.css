@@ -92,8 +92,20 @@
 }
 
 .has-submenu {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-weight: 600;
   text-transform: uppercase;
+}
+
+.dropdown-icon {
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+}
+
+.navbars-item.active .dropdown-icon {
+  transform: rotate(180deg);
 }
 
 .submenu li {
