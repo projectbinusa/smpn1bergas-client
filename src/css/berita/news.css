@@ -156,4 +156,406 @@ body {
         display: grid;
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
+    .news-page {
+  background-color: #f8f9fa;
+}
+
+.container-apbd {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.news-sidebar {
+  flex: 0 0 280px;
+}
+
+.sidebar-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-title {
+  font-weight: 600;
+  color: #002147;
+  margin-bottom: 15px;
+}
+
+.title-underline {
+  width: 50px;
+  height: 3px;
+  background: #0060ff;
+  margin-bottom: 20px;
+}
+
+.category-berita {
+  list-style: none;
+  padding: 0;
+}
+
+.category-berita li {
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.category-berita li:hover {
+  transform: translateX(5px);
+}
+
+.category-berita li a {
+  color: #495057;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-berita li a:hover {
+  color: #0060ff;
+}
+
+.category-berita .active-category a {
+  color: #0060ff;
+  font-weight: 600;
+}
+
+.medsos-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.medsos-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.medsos-icon:hover {
+  transform: translateY(-3px);
+}
+
+.facebook {
+  background: #3b5998;
+}
+
+.instagram {
+  background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+}
+
+.youtube {
+  background: #ff0000;
+}
+
+.popular-news {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.popular-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.popular-number {
+  background: #0060ff;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.popular-title {
+  color: #495057;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.popular-title:hover {
+  color: #0060ff;
+}
+
+.container-all {
+  flex: 1;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 15px;
+}
+
+.no-news {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 15px;
+}
+
+.no-news img {
+  width: 150px;
+  opacity: 0.7;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+@media (max-width: 992px) {
+  .container-apbd {
+    flex-direction: column;
+  }
+  
+  .news-sidebar {
+    flex: 1;
+  }
+}
+.news-page {
+  background-color: #f8f9fa;
+}
+
+.container-apbd {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.news-sidebar {
+  flex: 0 0 280px;
+}
+
+.sidebar-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-title {
+  font-weight: 600;
+  color: #002147;
+  margin-bottom: 15px;
+}
+
+.title-underline {
+  width: 50px;
+  height: 3px;
+  background: #0060ff;
+  margin-bottom: 20px;
+}
+
+.category-berita {
+  list-style: none;
+  padding: 0;
+}
+
+.category-berita li {
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.category-berita li:hover {
+  transform: translateX(5px);
+}
+
+.category-berita li a {
+  color: #495057;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-berita li a:hover {
+  color: #0060ff;
+}
+
+.category-berita .active-category a {
+  color: #0060ff;
+  font-weight: 600;
+}
+
+.category-berita li i {
+  width: 20px;
+  text-align: center;
+}
+
+.medsos-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.medsos-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.medsos-icon:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+}
+
+.facebook {
+  background: #3b5998;
+}
+
+.instagram {
+  background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+}
+
+.youtube {
+  background: #ff0000;
+}
+
+.popular-news {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.popular-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.popular-number {
+  background: #0060ff;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.popular-title {
+  color: #495057;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.popular-title:hover {
+  color: #0060ff;
+}
+
+.container-all {
+  flex: 1;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 15px;
+}
+
+.no-news {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 15px;
+}
+
+.no-news img {
+  width: 150px;
+  opacity: 0.7;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+@media (max-width: 992px) {
+  .container-apbd {
+    flex-direction: column;
+  }
+  
+  .news-sidebar {
+    flex: 1;
+  }
+}
+/* Remove these styles */
+.popular-number {
+  background: #0060ff;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Update this style */
+.popular-item {
+  display: flex;
+  align-items: center;
+  /* Remove gap: 10px; if you want tighter spacing */
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.popular-item:last-child {
+  border-bottom: none;
+}
+
+.popular-title {
+  color: #495057;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: block;
+  width: 100%;
+}
+
+.popular-title:hover {
+  color: #0060ff;
+  padding-left: 5px;
+}
 }

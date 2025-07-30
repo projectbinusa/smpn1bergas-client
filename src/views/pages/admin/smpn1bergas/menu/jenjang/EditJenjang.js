@@ -2,10 +2,14 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -40,7 +44,6 @@ import {
   PictureEditing,
   RemoveFormat,
   SpecialCharacters,
-  // SpecialCharactersEmoji,
   SpecialCharactersEssentials,
   Strikethrough,
   Style,
@@ -57,19 +60,74 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import Sidebar1 from "../../../component/Sidebar1";
-import { uploadFileToS3 } from "../../../utils/uploadToS3";
+import Sidebar1 from "../../../../../../component/Sidebar1";
 
-function AddLaporanBosp() {
-  const [nama, setNama] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
-  const [documents, setDocuments] = useState([null]);
+function EditJenjang() {
+  const [namaJenjang, setNamaJenjang] = useState("");
+  const [deskripsiJenjang, setDeskripsiJenjang] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const param = useParams();
 
   useEffect(() => {
-    AOS.init();
+    axios
+      .get(`${API_DUMMY}/api/jenjang/get/` + param.id, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((ress) => {
+        const response = ress.data.data;
+        setNamaJenjang(response.nama);
+        setDeskripsiJenjang(response.deskripsi);
+        console.log("jenjang : ", ress.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
+
+  const update = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      nama: namaJenjang,
+      deskripsi: deskripsiJenjang,
+    };
+
+    await axios
+      .put(`${API_DUMMY}/api/jenjang/put/` + param.id, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil Mengedit Data Jenjang",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        history.push("/admin-jenjang");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          localStorage.clear();
+          history.push("/login");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Jenjang Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.log(error);
+        }
+      });
+  };
 
   const REDUCED_MATERIAL_COLORS = [
     { label: "Red 50", color: "#ffebee" },
@@ -194,6 +252,10 @@ function AddLaporanBosp() {
     { label: "Blue grey 900", color: "#263238" },
   ];
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -208,73 +270,14 @@ function AddLaporanBosp() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleFileChange = (index, file) => {
-    const updatedDocuments = [...documents];
-    updatedDocuments[index] = file;
-    setDocuments(updatedDocuments);
-  };
-
-  const addFileInput = () => {
-    setDocuments([...documents, null]);
-  };
-
-  const removeFileInput = (index) => {
-    const updatedDocuments = documents.filter((_, i) => i !== index);
-    setDocuments(updatedDocuments);
-  };
-
-  const add = async (e) => {
-    e.preventDefault();
-
-    let files = [];
-    if (documents && documents.length > 0) {
-      files = await uploadFileToS3(documents.filter((file) => file !== null));
-    }
-
-    const data = {
-      nama: nama,
-      deskripsi: deskripsi,
-      files: files
-    };
-
-    try {
-      await axios.post(`${API_DUMMY}/api/laporanbosp`, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      Swal.fire({
-        icon: "success",
-        title: "Berhasil Ditambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        history.push("/admin/laporanbosp");
-        window.location.reload();
-      }, 1500);
-    } catch (error) {
-      console.error("Gagal menambahkan data laporan:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Terjadi Kesalahan Saat Tambah Data",
-        text:
-          error.response?.data?.description || error.response?.data?.message,
-        showConfirmButton: true,
-      });
-    }
-  };
-
-
   return (
-    <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+    <div className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -283,100 +286,46 @@ function AddLaporanBosp() {
         <i className="fas fa-bars"></i>
       </a>
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div
-        style={{ marginTop: "50px" }}
-        className="page-content1 mb-3 app-main__outer"
-        data-aos="fade-left">
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container">
           <div className="row">
             <div className="col-md-12">
               <div className="card shadow">
                 <div className="card-body">
-                  <h1 className="fs-4">Form Tambah Data</h1>
+                  <h1 className="fs-4">Form Edit Jenjang</h1>
                   <hr />
-                  <form onSubmit={add}>
+                  <form onSubmit={update}>
                     <div className="row">
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Judul Laporan
-                        </label>
-                        <input
-                          value={nama}
-                          onChange={(e) => setNama(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder="Masukkan Judul Laporan"
-                        />
-                      </div>
-                      
-                      {documents.map((file, index) => (
-                        <div className="mb-3 col-lg-6" key={index}>
-                          <label className="form-label font-weight-bold">
-                            Lampiran {index + 1}
-                          </label>
-                          <div className="d-flex">
-                            <input
-                              type="file"
-                              onChange={(e) => handleFileChange(index, e.target.files[0])}
-                              className="form-control"
-                              accept="image/*"
-                            />
-                            {index === documents.length - 1 ? (
-                              <button
-                                className="btn-success ms-2"
-                                type="button"
-                                style={{ fontSize: "20px" }}
-                                onClick={addFileInput}
-                              >
-                                +
-                              </button>
-                            ) : (
-                              <button
-                                className="btn-danger ms-2"
-                                type="button"
-                                style={{ fontSize: "20px" }}
-                                onClick={() => removeFileInput(index)}
-                              >
-                                -
-                              </button>
-                            )}
-                          </div>
-
-                          {/* Preview Image */}
-                          {file && (
-                            <img
-                              src={URL.createObjectURL(file)}
-                              alt={`Lampiran ${index + 1}`}
-                              className="img-thumbnail mt-2"
-                              style={{ maxHeight: "200px", objectFit: "contain" }}
-                            />
-                          )}
-                        </div>
-                      ))}
-
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
-                          Deskripsi
+                          Nama Jenjang
+                        </label>
+                        <input
+                          value={namaJenjang}
+                          onChange={(e) => setNamaJenjang(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          required
+                          placeholder="Masukkan Nama Jenjang"
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Deskripsi Jenjang
                         </label>
                         <CKEditor
                           editor={ClassicEditor}
-                          data={deskripsi} // Gunakan 'data' untuk set initial value
+                          data={deskripsiJenjang}
                           onChange={(event, editor) => {
-                            const data = editor.getData(); // Ambil data dari editor
-                            setDeskripsi(data); // Set state dengan data dari editor
+                            const data = editor.getData();
+                            setDeskripsiJenjang(data);
                           }}
                           config={{
                             toolbar: [
-                              // --- Text alignment ---------------------------------------------------------------------------
                               "alignment",
                               "|",
-                              // --- Document-wide tools ----------------------------------------------------------------------
                               "undo",
                               "redo",
-                              // "|",
-                              // "alignment:left", // Tambahkan opsi align left
-                              // "alignment:center", // Tambahkan opsi align center
-                              // "alignment:right",
                               "|",
                               "importWord",
                               "exportWord",
@@ -391,9 +340,6 @@ function AddLaporanBosp() {
                               "insertTemplate",
                               "tableOfContents",
                               "|",
-
-                              // --- "Insertables" ----------------------------------------------------------------------------
-
                               "link",
                               "insertImage",
                               "ckbox",
@@ -405,13 +351,9 @@ function AddLaporanBosp() {
                               "horizontalLine",
                               "specialCharacters",
                               "-",
-
-                              // --- Block-level formatting -------------------------------------------------------------------
                               "heading",
                               "style",
                               "|",
-
-                              // --- Basic styles, font and inline formatting -------------------------------------------------------
                               "bold",
                               "italic",
                               "underline",
@@ -435,8 +377,6 @@ function AddLaporanBosp() {
                               },
                               "removeFormat",
                               "|",
-
-                              // --- Lists and indentation --------------------------------------------------------------------
                               "bulletedList",
                               "numberedList",
                               "multilevelList",
@@ -446,8 +386,6 @@ function AddLaporanBosp() {
                               "indent",
                             ],
                             styles: [
-                              // "full",    // Gambar mengambil lebar penuh konten
-                              // "side",    // Gambar sejajar dengan teks
                               "alignLeft",
                               "alignCenter",
                               "alignRight",
@@ -591,7 +529,7 @@ function AddLaporanBosp() {
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin/laporanbosp">
+                        href="/admin-jenjang">
                         Batal
                       </a>
                     </button>
@@ -606,8 +544,7 @@ function AddLaporanBosp() {
         </div>
       </div>
     </div>
-    // </div>
   );
 }
 
-export default AddLaporanBosp;
+export default EditJenjang;
