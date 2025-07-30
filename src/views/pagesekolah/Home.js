@@ -695,45 +695,64 @@ function Home() {
         </div>
       </div> */}
 
-      {/* GURU */}
-      <div class="team-area pd-top-115 pd-bottom-90">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div class="section-title text-center" data-aos="fade-down">
-                <h5 class="sub-title double-line" style={{ color: "black" }}>
-                  Guru
-                </h5>
-                <h2 class="title">Bertemu dengan Guru Kami</h2>
-                <p class="content">
-                  Para guru kami adalah profesional yang berdedikasi. Dengan
-                  pengalaman dan keahlian yang luas, mereka siap membimbing
-                  setiap siswa menuju kesuksesan. Pembelajaran disampaikan
-                  dengan metode yang efektif dan inovatif, memastikan siswa
-                  memahami materi dengan baik.
-                </p>
+     {/* GURU - Tampilan Sama Persis Struktur Organisasi */}
+<div className="team-area pd-top-115 pd-bottom-90" style={{ backgroundColor: "#f8f9fa" }}>
+  <div className="container">
+    <div className="row justify-content-center">
+      <div className="col-lg-6" data-aos="fade-down">
+        <div className="section-title style-white text-center">
+           <h5 className="sub-title double-line" style={{ color: "black" }}>Guru</h5>
+          <h2 className="title" style={{ color: "black" }}>Bertemu dengan Guru Kami</h2>
+          <p className="content" style={{ color: "black" }}>
+            Para guru kami adalah profesional yang berdedikasi. Dengan pengalaman dan keahlian yang luas,
+            mereka siap membimbing setiap siswa menuju kesuksesan.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div className="row" data-aos="fade-up">
+      {gurus.length > 0 ? (
+        gurus.slice(0, 6).map((item) => (
+          <div className="col-lg-4 col-md-6 mb-4" key={item.id}>
+            <div className="card text-center border-0 shadow-sm h-100">
+              <div className="card-body d-flex flex-column align-items-center">
+                <img
+                  src={item.foto || "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-7190777.png"}
+                  alt={item.nama_guru}
+                  className="rounded-circle mb-3"
+                  style={{
+                    width: "120px",
+                    height: "120px",
+                    objectFit: "cover",
+                  }}
+                />
+                <div
+                  style={{
+                    backgroundColor: "#003366",
+                    color: "white",
+                    padding: "6px 12px",
+                    borderRadius: "6px",
+                    fontWeight: "bold",
+                    marginBottom: "6px",
+                  }}
+                >
+                  {item.nama_guru}
+                </div>
+                <p className="text-muted m-0">{item.mapel}</p>
               </div>
             </div>
           </div>
-          <div class="row" data-aos="fade-up">
-            {gurus.map((data) => (
-              <div class="col-lg-3 col-md-6">
-                <div class="single-team-inner shadow-sm style-1 text-center">
-                  <div class="thumb">
-                    <img src={data.foto ? data.foto : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"} alt="img" />
-                  </div>
-                  <div class="details-wrap">
-                    <div class="details-inner">
-                      <h4>{data.nama_guru}</h4>
-                      <p>{data.mapel}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        ))
+      ) : (
+        <div className="col-12 text-center">
+          <p>Data Guru Tidak Tersedia</p>
         </div>
-      </div>
+      )}
+    </div>
+  </div>
+</div>
+
 
       {/* ALUMNI */}
       <div class="team-area bg-blue pd-top-90 pd-bottom-90">
@@ -824,47 +843,74 @@ function Home() {
           </div>
         </div>
       </div>
-
-      <div class="team-area pd-top-115 pd-bottom-90">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div class="section-title text-center" data-aos="fade-down">
-                <h5 class="sub-title double-line" style={{ color: "black" }}>
+{/* GALERI - Perbaikan tampilan agar tidak gepeng dan lebih modern */}
+<div className="team-area pd-top-115 pd-bottom-90" style={{ backgroundColor: "#f8f9fa" }}>
+  <div className="container">
+    <div className="row justify-content-center">
+      <div className="col-lg-6" data-aos="fade-down">
+        <div className="section-title style-white text-center">
+          <h5 class="sub-title double-line" style={{ color: "black" }}>
                   Galeri Foto
                 </h5>
-                <h2 class="title">Kumpulan Kenangan Kami</h2>
-                <p class="content">
+                <h2 class="title" style={{ color: "black" }}>Kumpulan Kenangan Kami</h2>
+                <p class="content" style={{ color: "black" }}>
                   Dokumentasi berbagai kegiatan sekolah yang penuh semangat dan kebersamaan, mulai dari pembelajaran hingga acara spesial.
                 </p>
-              </div>
-            </div>
-          </div>
-          <div class="row" data-aos="fade-up">
-            <div>
-              <div className="gallery-container mb-5">
-                {galery.map((item) => (
-                  <ImageCard
-                    key={item.id}
-                    image={item.foto}
-                    title={item.judul}
-                    content={item.deskripsi}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-          <div data-aos="fade-up">
-            <Link
-              href="/all-alumni"
-              style={buttonStylesss}
-              onMouseEnter={() => setIsHoveredss(true)}
-              onMouseLeave={() => setIsHoveredss(false)}>
-              Tampilkan Semua Gambar
-            </Link>
-          </div>
         </div>
       </div>
+    </div>
+
+    <div className="row mt-4" data-aos="fade-up">
+      {galery.length > 0 ? (
+        galery.slice(0, 6).map((item) => (
+          <div className="col-lg-4 col-md-6 mb-4" key={item.id}>
+            <div className="card h-100 border-0 shadow-sm">
+              
+              <div style={{ height: "250px", overflow: "hidden", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
+                <img
+                  src={item.foto}
+                  alt={item.nama_kegiatan}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
+              <div className="card-body text-center">
+                <h6 className="mb-0" style={{ fontWeight: "600", color: "#003366" }}>
+                  {item.nama_kegiatan}
+                </h6>
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="col-12 text-center">
+          <p>Data Galeri Tidak Tersedia</p>
+        </div>
+      )}
+    </div>
+
+    <div className="row mt-4" data-aos="fade-up">
+      <div className="col text-center">
+        <a
+          href="/galery"
+          className="btn btn-primary"
+          style={{
+            backgroundColor: "#003366",
+            border: "none",
+            padding: "10px 20px",
+            borderRadius: "6px",
+            fontWeight: "600",
+          }}
+        >
+          Tampilkan Semua Galeri
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
       {/* KONTAK */}
       {/* <div className="contact-section-style">

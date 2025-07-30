@@ -56,7 +56,7 @@ const NavbarSekolah2 = () => {
             <ul className="submenu">
               {/* <li><a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a></li> */}
               <li><a href="/sejarah">SEJARAH</a></li>
-              <li><a href="/sejarah">tujuan</a></li>
+              <li><a href="/tujuan">tujuan</a></li>
               <li><a href="/visi-misi">VISI & MISI</a></li>
               <li><a href="/struktur-organisasi">STRUKTUR ORGANISASI</a></li>
               {/* <li><a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a></li>

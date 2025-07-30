@@ -225,4 +225,67 @@
   .submenu li:first-child {
     padding-top: 10px;
   }
+  .navbars-menu {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 20px;
+  align-items: center;
+}
+
+.navbars-item a {
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13.8px;
+}
+
+.navbars-item a:hover {
+  background-color: #003366;
+  color: white;
+}
+
+.navbars-item.active > a {
+  background-color: #003366;
+  color: white;
+}
+
+.navbars-item .has-submenu i {
+  padding-left: 5px;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  list-style: none;
+  margin-top: 10px;
+  padding: 10px 0;
+  z-index: 1000;
+  border-radius: 6px;
+  min-width: 180px;
+}
+
+.submenu li {
+  padding: 5px 20px;
+}
+
+.submenu li a {
+  color: #333;
+  font-weight: 500;
+  text-transform: none;
+  font-size: 13.5px;
+  transition: all 0.3s ease;
+}
+
+.submenu li a:hover {
+  color: #003366;
+  font-weight: 600;
+}
+
 }
