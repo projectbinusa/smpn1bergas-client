@@ -398,56 +398,87 @@ function EditLaporanBosp() {
                       placeholder="Masukkan Judul Laporan"
                     />
                   </div>
-                  {attachments1?.map((fileUrl, index) => (
-                    <>
-                      <div className="mb-3 col-lg-6" key={`existing-file-${index}`}>
-                        <label className="form-label font-weight-bold">
-                          Lampiran Lama {index + 1}
-                        </label>
-                        <div className="d-flex">
-                          <a
-                            href={fileUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="me-3">
-                            {fileUrl.split("/").pop()}
-                          </a>
-                          <button
-                            className="btn-danger ms-2" type="button"
-                            onClick={() => handleRemoveOldAttachment(index)}>Hapus</button>
-                        </div>
-                      </div>
-                      <br />
-                    </>
-                  ))}
-                  {documents.map((file, index) => (
-                    <>
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Lampiran {index + 1}
-                        </label>
-                        <div className="d-flex">
-                          <input type="file"
-                            onChange={(e) =>
-                              handleFileChange(index, e.target.files[0])
-                            }
-                            className="form-control"
-                            placeholder="Masukkan Judul Berita"
-                          />
-                          {index === documents.length - 1 ? (
-                            <button
-                              className="btn-success ms-2" type="button" style={{ fontSize: "20px" }}
-                              onClick={addFileInput}>+</button>
-                          ) : (
-                            <button
-                              className="btn-danger ms-2" type="button" style={{ fontSize: "20px" }}
-                              onClick={() => removeFileInput(index)}>-</button>
+                  <div className="row">
+                    {attachments1?.map((fileUrl, index) => (
+                      <div className="col-md-4 mb-4" key={`existing-file-${index}`}>
+                        <div className="p-2 border rounded shadow-sm text-center">
+                          <label className="form-label fw-bold d-block mb-2">
+                            Lampiran Lama {index + 1}
+                          </label>
+
+                          {fileUrl.match(/\.(jpeg|jpg|png|gif|webp)$/i) && (
+                            <div>
+                              <img
+                                src={fileUrl}
+                                alt={`Lampiran Lama ${index + 1}`}
+                                className="img-thumbnail mb-2"
+                                style={{
+                                  maxHeight: "150px",
+                                  maxWidth: "100%",
+                                  objectFit: "cover",
+                                }}
+                              />
+                              <br />
+                              <button
+                                className="btn btn-danger btn-sm mt-2"
+                                type="button"
+                                onClick={() => handleRemoveOldAttachment(index)}
+                              >
+                                Hapus
+                              </button>
+                            </div>
                           )}
                         </div>
                       </div>
-                      <br />
-                    </>
+                    ))}
+                  </div>
+
+                  {documents.map((file, index) => (
+                    <div className="mb-3 col-lg-6" key={`new-file-${index}`}>
+                      <label className="form-label font-weight-bold">
+                        Lampiran {index + 1}
+                      </label>
+                      <div className="d-flex flex-column">
+                        <div className="d-flex">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleFileChange(index, e.target.files[0])}
+                            className="form-control"
+                          />
+                          {index === documents.length - 1 ? (
+                            <button
+                              className="btn-success ms-2"
+                              type="button"
+                              style={{ fontSize: "20px" }}
+                              onClick={addFileInput}
+                            >
+                              +
+                            </button>
+                          ) : (
+                            <button
+                              className="btn-danger ms-2"
+                              type="button"
+                              style={{ fontSize: "20px" }}
+                              onClick={() => removeFileInput(index)}
+                            >
+                              -
+                            </button>
+                          )}
+                        </div>
+
+                        {file && (
+                          <img
+                            src={URL.createObjectURL(file)}
+                            alt={`Lampiran ${index + 1}`}
+                            className="img-thumbnail mt-2"
+                            style={{ maxHeight: "200px", objectFit: "contain" }}
+                          />
+                        )}
+                      </div>
+                    </div>
                   ))}
+
                   <div className="mb-3 col-lg-12">
                     <label className="form-label font-weight-bold">
                       Deskripsi
@@ -685,7 +716,7 @@ function EditLaporanBosp() {
                 <button type="button" className="btn-danger mt-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/admin-berita">
+                    href="/admin/laporanbosp">
                     Batal
                   </a>
                 </button>{" "}

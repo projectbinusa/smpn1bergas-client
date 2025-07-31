@@ -308,34 +308,52 @@ function AddLaporanBosp() {
                           placeholder="Masukkan Judul Laporan"
                         />
                       </div>
+                      
                       {documents.map((file, index) => (
-                        <>
-                          <div className="mb-3 col-lg-6">
-                            <label className="form-label font-weight-bold">
-                              Lampiran {index + 1}
-                            </label>
-                            <div className="d-flex">
-                              <input type="file"
-                                onChange={(e) =>
-                                  handleFileChange(index, e.target.files[0])
-                                }
-                                className="form-control"
-                                placeholder="Masukkan Judul Berita"
-                              />
-                              {index === documents.length - 1 ? (
-                                <button
-                                  className="btn-success ms-2" type="button" style={{fontSize: "20px"}}
-                                  onClick={addFileInput}>+</button>
-                              ) : (
-                                <button
-                                  className="btn-danger ms-2" type="button" style={{fontSize: "20px"}}
-                                  onClick={() => removeFileInput(index)}>-</button>
-                              )}
-                            </div>
+                        <div className="mb-3 col-lg-6" key={index}>
+                          <label className="form-label font-weight-bold">
+                            Lampiran {index + 1}
+                          </label>
+                          <div className="d-flex">
+                            <input
+                              type="file"
+                              onChange={(e) => handleFileChange(index, e.target.files[0])}
+                              className="form-control"
+                              accept="image/*"
+                            />
+                            {index === documents.length - 1 ? (
+                              <button
+                                className="btn-success ms-2"
+                                type="button"
+                                style={{ fontSize: "20px" }}
+                                onClick={addFileInput}
+                              >
+                                +
+                              </button>
+                            ) : (
+                              <button
+                                className="btn-danger ms-2"
+                                type="button"
+                                style={{ fontSize: "20px" }}
+                                onClick={() => removeFileInput(index)}
+                              >
+                                -
+                              </button>
+                            )}
                           </div>
-                          <br />
-                        </>
+
+                          {/* Preview Image */}
+                          {file && (
+                            <img
+                              src={URL.createObjectURL(file)}
+                              alt={`Lampiran ${index + 1}`}
+                              className="img-thumbnail mt-2"
+                              style={{ maxHeight: "200px", objectFit: "contain" }}
+                            />
+                          )}
+                        </div>
                       ))}
+
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
                           Deskripsi
@@ -573,7 +591,7 @@ function AddLaporanBosp() {
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin-berita">
+                        href="/admin/laporanbosp">
                         Batal
                       </a>
                     </button>
