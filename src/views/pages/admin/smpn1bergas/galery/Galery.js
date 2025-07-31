@@ -133,9 +133,9 @@ function Galery() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-      }`}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -143,8 +143,6 @@ function Galery() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
@@ -219,15 +217,13 @@ function Galery() {
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" >No</th>
-                    <th >Judul</th>
-                    <th
-                      scope="col"
-                      style={{ minWidth: "150px" }}>
+                    <th scope="col">No</th>
+                    <th>Judul</th>
+                    <th scope="col" style={{ minWidth: "150px" }}>
                       Deskripsi
                     </th>
-                    <th >Image</th>
-                    <th >Aksi</th>
+                    <th>Image</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -245,10 +241,26 @@ function Galery() {
                             {berita.deskripsi}
                           </td>
                           <td data-label="Image">
-                            <img
-                              src={berita.foto}
-                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
-                            />
+                            <div style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              maxWidth: "150px",
+                              maxHeight: "150px",
+                              overflow: "hidden"
+                            }}>
+                              <img
+                                src={berita.foto}
+                                style={{
+                                  maxWidth: "100%",
+                                  maxHeight: "100%",
+                                  width: "auto",
+                                  height: "auto",
+                                  objectFit: "contain"
+                                }}
+                                alt={berita.judul}
+                              />
+                            </div>
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">

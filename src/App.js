@@ -289,13 +289,15 @@ function App() {
             />
             {/* end Sejarah */}
             {/* Tujuan */}
-            <PrivateRoute path="/admin-tujuan" component={DetailTujuan} exact />
+            <PrivateRoute path="/admin-tujuan" component={Tujuan} exact />
             <PrivateRoute path="/add-tujuan" component={AddTujuan} exact />
             <PrivateRoute path="/edit-tujuan/:id" component={EditTujuan} exact />
+            <PrivateRoute path="/detail-tujuan:id" component={DetailTujuan} exact />
             {/* Jenjang */}
-            <PrivateRoute path="/admin-jenjang" component={DetailJenjang} exact />
+            <PrivateRoute path="/admin-jenjang" component={Jenjang} exact />
             <PrivateRoute path="/add-jenjang" component={AddJenjang} exact />
             <PrivateRoute path="/edit-jenjang/:id" component={EditJenjang} exact />
+            <PrivateRoute path="/detail-jenjang:id" component={DetailJenjang} exact />
             {/* tenaga kependidikan */}
             <PrivateRoute
               path="/admin-tenaga-kependidikan"

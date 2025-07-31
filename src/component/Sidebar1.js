@@ -143,6 +143,12 @@ function Sidebar1({ toggleSidebar }) {
       path: "/admin-galery",
       action: ["/add-galery", "/edit-galery"],
     },
+    {
+      title: "Jenjang",
+      icon: "fa-regular fa-rectangle-list",
+      path: "/admin-jenjang",
+      action: ["/add-jenjang", "/edit-jenjang", "/detail-jenjang"]
+    },
     // {
     //   title: "Keuangan",
     //   icon: "fa-solid fa-circle-dollar-to-slot",
