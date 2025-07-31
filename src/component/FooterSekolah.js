@@ -57,7 +57,7 @@ function FooterSekolah() {
 
   const getAllBerita = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=4&sort=created_date`);
+      const response = await axios.get(`${API_DUMMY}/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=3&sort=created_date`);
       setBerita(response.data.data.content);
     } catch (error) {
       console.log("Error fetching berita data:", error);
@@ -105,7 +105,6 @@ function FooterSekolah() {
                     <a
                       className="facebook"
                       href="#"
-                      // target="_blank"
                       rel="noreferrer"
                     >
                       <i className="fab fa-facebook-f"></i>
@@ -125,7 +124,6 @@ function FooterSekolah() {
                     <a
                       className="youtube"
                       href="#"
-                      // target="_blank"
                       rel="noreferrer"
                     >
                       <i className="fab fa-youtube"></i>
@@ -144,7 +142,6 @@ function FooterSekolah() {
                     <p style={{ color: "white", textAlign: "left" }}>{address}</p>
                     <p style={{ color: "white", textAlign: "left" }}>Telepon {phone}</p>
                     <p style={{ color: "white", textAlign: "left" }}>E-mail {email}</p>
-                    {/* <p style={{ color: "white", textAlign: "left" }}>{fax}</p> */}
                   </>
                 ) : (
                   <p style={{ color: "white", textAlign: "left" }}>Informasi Kontak Tidak Tersedia</p>
@@ -156,16 +153,50 @@ function FooterSekolah() {
             <div className="widget widget_news">
               <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Berita Terbaru</h4>
               {berita.length > 0 ? (
-                <div className="details card-container">
+                <div className="details" style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                   {berita.map(news => (
-                    <div className="card" key={news.id}>
-                      <div className="card-body berita ">
-                        <a href={`/detail-news-${news.id}`} className="card-title">{news.judulBerita}</a>
-                        <p className="card-date">{formatDate(news.createdDate)}</p>
-                        <p className="card-content" style={{ fontSize: "14px" }}>
-                          <div dangerouslySetInnerHTML={{ __html: news.isiBerita }} />
-                        </p>
+                    <div key={news.id} style={{ 
+                      backgroundColor: "white",
+                      padding: "15px",
+                      borderRadius: "8px",
+                      boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+                    }}>
+                      <div style={{ 
+                        backgroundColor: "white",
+                        padding: "10px",
+                        marginBottom: "8px"
+                      }}>
+                        <a 
+                          href={`/detail-news-${news.id}`} 
+                          style={{ 
+                            color: "#333", 
+                            textDecoration: "none", 
+                            fontWeight: "600", 
+                            fontSize: "15px" 
+                          }}
+                        >
+                          {news.judulBerita}
+                        </a>
                       </div>
+                      <p style={{ 
+                        color: "#666", 
+                        fontSize: "12px", 
+                        margin: "5px 0",
+                        backgroundColor: "white",
+                        padding: "5px 10px"
+                      }}>
+                        {formatDate(news.createdDate)}
+                      </p>
+                      <div 
+                        style={{ 
+                          backgroundColor: "white",
+                          color: "#555",
+                          padding: "10px",
+                          fontSize: "13px",
+                          lineHeight: "1.5"
+                        }}
+                        dangerouslySetInnerHTML={{ __html: news.isiBerita.length > 100 ? `${news.isiBerita.substring(0, 100)}...` : news.isiBerita }} 
+                      />
                     </div>
                   ))}
                 </div>
@@ -174,7 +205,6 @@ function FooterSekolah() {
               )}
             </div>
           </div>
-
         </div>
 
         {/* Footer Bottom */}
@@ -190,7 +220,6 @@ function FooterSekolah() {
                     <a
                       className="facebook"
                       href="#"
-                      // target="_blank"
                       rel="noreferrer"
                     >
                       <i className="fab fa-facebook-f"></i>
@@ -210,7 +239,6 @@ function FooterSekolah() {
                     <a
                       className="youtube"
                       href="#"
-                      // target="_blank"
                       rel="noreferrer"
                     >
                       <i className="fab fa-youtube"></i>
