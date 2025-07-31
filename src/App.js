@@ -159,7 +159,6 @@ import Jenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/Jenjang";
 import AddJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/AddJenjang";
 import DetailJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/DetailJenjang";
 import EditJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/EditJenjang";
-import FooterSekolah from "./component/FooterSekolah";
 
 
 function App() {
@@ -201,7 +200,6 @@ function App() {
             <PrivateRoute path="/admin/laporanbosp" component={AdminLaporanBosp} exact />
             <PrivateRoute path="/admin/laporanbosp/add" component={AddLaporanBosp} exact />
             <PrivateRoute path="/admin/laporanbosp/edit/:id" component={EditLaporanBosp} exact />
-            <PrivateRoute path="/footerSekolah" component={FooterSekolah} exact />
             <Route path="/sambutan" component={sambutan} exact />
             <Route path="/visi-misi" component={VisiMisiSekolah} exact />
             <Route path="/sejarah" component={SejarahSekolah} exact />
