@@ -320,7 +320,7 @@ function EditPerpus() {
             <div className="col-md-12">
               <div className="card shadow">
                 <div className="card-body">
-                  <h1 className="fs-4">Form Update Data</h1>
+                  <h1 className="fs-4">Form Edit Buku</h1>
                   <hr />
                   <form onSubmit={updatePerpus}>
                     <div className="row">

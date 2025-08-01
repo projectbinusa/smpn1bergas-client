@@ -131,7 +131,7 @@ function EditGalery() {
         <div className="container mt-3 app-main__outer" data-aos="fade-left">
           <div className="card shadow">
             <div className="card-body">
-              <h1 className="fs-4">Form Edit Data</h1>
+              <h1 className="fs-4">Form Edit Galeri</h1>
               <hr />
               <form onSubmit={update}>
                 <div className="row">

@@ -123,7 +123,7 @@ function AddEkskul() {
               <div className="col-md-12">
                 <div className="card shadow">
                   <div className="card-body">
-                    <h1 className="fs-4">Form Tambah Data</h1>
+                    <h1 className="fs-4">Form Tambah Ekstrakurikuler</h1>
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">

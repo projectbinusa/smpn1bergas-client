@@ -321,7 +321,7 @@ function EditAlumni() {
           data-aos="fade-left">
           <div className="card shadow">
             <div className="card-body">
-              <h1 className="fs-4">Form Edit Data</h1>
+              <h1 className="fs-4">Form Edit Alumni</h1>
               <hr />
               <form onSubmit={update}>
                 <div className="row">

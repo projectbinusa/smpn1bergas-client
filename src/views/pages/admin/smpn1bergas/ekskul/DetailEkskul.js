@@ -81,7 +81,7 @@ function DetailEkskul() {
         <div className="container mt-3 mb-3 app-main__outer">
           <div className="box-tabel">
             <form className="card shadow w-100">
-              <h1 className="title card-header fw-bold fs-3">Detail</h1>
+              <h1 className="title card-header fw-bold fs-3">Detail Ekstrakulikuler</h1>
               <br />
               <div className="card-body">
                 {file === null ? (

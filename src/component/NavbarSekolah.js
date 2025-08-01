@@ -75,7 +75,7 @@ const NavbarSekolah = () => {
                 <a href="/sejarah">SEJARAH</a>
               </li>
               <li>
-                <a href="/sejarah">Tujuan</a>
+                <a href="/tujuan">TUJUAN</a>
               </li>
               <li>
                 <a href="/visi-misi">VISI & MISI</a>
