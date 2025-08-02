@@ -152,7 +152,7 @@ function DetailSAmbutan() {
           <div className="box-tabel">
             <div className="card shadow w-100">
               <div className="title card-header d-flex justify-content-between">
-                <h1 className="fw-bold fs-3">Sambutan</h1>
+                <h1 className="fw-bold fs-3">Detail Sambutan</h1>
                 {data.length > 0 ? (<>
                   <div>
                     <button

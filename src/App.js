@@ -159,6 +159,7 @@ import Jenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/Jenjang";
 import AddJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/AddJenjang";
 import DetailJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/DetailJenjang";
 import EditJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/EditJenjang";
+import TujuanSekolah from "./views/pagesekolah/profilSekolah/tujuan/tujuanSekolah";
 
 
 function App() {
@@ -203,6 +204,7 @@ function App() {
             <Route path="/sambutan" component={sambutan} exact />
             <Route path="/visi-misi" component={VisiMisiSekolah} exact />
             <Route path="/sejarah" component={SejarahSekolah} exact />
+            <Route path="/tujuan" component={TujuanSekolah} exact />
             <Route path="/staff" component={TenagaKepndidkan} exact />
             <Route path="/materi_ajar" component={MateriAjarView} exact />
             <Route path="/all-prestasi" component={PrestasiSekolah} exact />
