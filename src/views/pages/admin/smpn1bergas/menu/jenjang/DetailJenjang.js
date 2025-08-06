@@ -7,15 +7,18 @@ import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function DetailJenjang() {
   const [namaJenjang, setNamaJenjang] = useState("");
+  const [link, setLink] = useState("");
   const [createdDate, setCreatedDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [id, setId] = useState(0);
   const [datas, setData] = useState([]);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const param = useParams();
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -33,30 +36,33 @@ function DetailJenjang() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const getAll = async () => {
+  const get = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/jenjang/all?page=0&size=1`,
+        `${API_DUMMY}/api/jenjang/get/${param.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      const res = response.data.data.content;
+      const res = response.data.data;
+      console.log("data detail jenjang: ", response.data.data);
+
       setData(res);
-      setCreatedDate(res[0].createdDate);
-      setUpdateDate(res[0].updateDate);
-      setDeskripsi(res[0].deskripsi);
-      setNamaJenjang(res[0].namaJenjang);
-      setId(res[0].id);
+      setCreatedDate(res.createdDate);
+      setUpdateDate(res.updateDate);
+      setDeskripsi(res.description);
+      setNamaJenjang(res.nama_jenjang);
+      setLink(res.link);
+      setId(res.id);
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
   };
 
   useEffect(() => {
-    getAll()
+    get()
   }, [])
 
   const deleteData = async (id) => {
@@ -118,7 +124,7 @@ function DetailJenjang() {
             <div className="card shadow w-100">
               <div className="title card-header d-flex justify-content-between">
                 <h1 className="fw-bold fs-3">Detail Jenjang</h1>
-                {datas.length > 0 ? (<>
+                {/* {datas.length > 0 ? (<>
                   <div>
                     <button
                       type="button"
@@ -147,7 +153,8 @@ function DetailJenjang() {
                       Tambah Data
                     </a>
                   </button>
-                </>)}
+                </>
+              )} */}
               </div>
               <br />
               <div className="card-body">
@@ -158,6 +165,15 @@ function DetailJenjang() {
                     className="form-control"
                     disabled
                     value={namaJenjang}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Link</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    disabled
+                    value={link}
                   />
                 </div>
                 <div className="mb-3">

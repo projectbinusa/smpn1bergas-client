@@ -36,15 +36,15 @@ function Sidebar1({ toggleSidebar }) {
         block: "nearest",
       });
     }
-    const activeIndexSiswa = siswaItem.findIndex(
-      (item) => location.pathname === item.path
-    );
-    if (activeIndexSiswa !== -1 && SiswaRefs.current[activeIndexSiswa]) {
-      SiswaRefs.current[activeIndexSiswa].scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }
+    // const activeIndexSiswa = siswaItem.findIndex(
+    //   (item) => location.pathname === item.path
+    // );
+    // if (activeIndexSiswa !== -1 && SiswaRefs.current[activeIndexSiswa]) {
+    //   SiswaRefs.current[activeIndexSiswa].scrollIntoView({
+    //     behavior: "smooth",
+    //     block: "nearest",
+    //   });
+    // }
     const activeIndexsapras = saprasItem.findIndex(
       (item) => location.pathname === item.path
     );
@@ -105,24 +105,24 @@ function Sidebar1({ toggleSidebar }) {
       path: "/admin-kontak",
       action: ["/add-kontak", "/edit-kontak"],
     },
-    {
-      title: "Sambutan",
-      icon: "fa-solid fa-book-open",
-      path: "/admin-sambutan",
-      action: ["/add-sambutan", "/edit-sambutan"],
-    },
-    {
-      title: "Alumni",
-      icon: "fa-solid fa-users",
-      path: "/admin-alumni",
-      action: ["/add-alumni", "/edit-alumni", "/detail-alumni"],
-    },
-    {
-      title: "Perpustakaan",
-      icon: "fa-solid fa-book",
-      path: "/admin-perpustakaan",
-      action: ["/add-perpustakaan", "/edit-perpustakaan"],
-    },
+    // {
+    //   title: "Sambutan",
+    //   icon: "fa-solid fa-book-open",
+    //   path: "/admin-sambutan",
+    //   action: ["/add-sambutan", "/edit-sambutan"],
+    // },
+    // {
+    //   title: "Alumni",
+    //   icon: "fa-solid fa-users",
+    //   path: "/admin-alumni",
+    //   action: ["/add-alumni", "/edit-alumni", "/detail-alumni"],
+    // },
+    // {
+    //   title: "Perpustakaan",
+    //   icon: "fa-solid fa-book",
+    //   path: "/admin-perpustakaan",
+    //   action: ["/add-perpustakaan", "/edit-perpustakaan"],
+    // },
 //     {
 //   title: "Kotak Saran",
 //   icon: "fas fa-comment-dots",
@@ -131,12 +131,12 @@ function Sidebar1({ toggleSidebar }) {
 //   hidden: true,
 // },
 
-    {
-      title: "Materi Ajar",
-      icon: "fas fa-file-alt",
-      path: "/admin-materi-ajar",
-      action: ["/add-materi-ajar", "/edit-materi-ajar", "/detail-materi-ajar"],
-    },
+    // {
+    //   title: "Materi Ajar",
+    //   icon: "fas fa-file-alt",
+    //   path: "/admin-materi-ajar",
+    //   action: ["/add-materi-ajar", "/edit-materi-ajar", "/detail-materi-ajar"],
+    // },
     {
       title: "Galeri",
       icon: "fa-solid fa-images",
@@ -184,47 +184,53 @@ function Sidebar1({ toggleSidebar }) {
       action: ["/add-guru", "/edit-guru", "/detail-guru"],
     },
     {
-      title: "Tenaga Kependidikan",
-      icon: "fa-solid fa-users-viewfinder",
-      path: "/admin-tenaga-kependidikan",
-      action: [
-        "/add-tenaga-kependidikan",
-        "/edit-tenaga-kependidikan",
-        "/detail-tenaga-kependidikan",
-      ],
+      title: "Struktur Organisasi",
+      icon: "fa-solid fa-sitemap",
+      path: "/admin-struktur",
+      action: ["/add-struktur"],
     },
-    {
-      title: "Kondisi Sekolah",
-      icon: "fa-solid fa-school",
-      path: "/admin-kondisi-sekolah",
-      action: [
-        "/add-kondisi-sekolah",
-        "/edit-kondisi-sekolah",
-        "/detail-kondisi-sekolah",
-      ],
-    },
+    // {
+    //   title: "Tenaga Kependidikan",
+    //   icon: "fa-solid fa-users-viewfinder",
+    //   path: "/admin-tenaga-kependidikan",
+    //   action: [
+    //     "/add-tenaga-kependidikan",
+    //     "/edit-tenaga-kependidikan",
+    //     "/detail-tenaga-kependidikan",
+    //   ],
+    // },
+    // {
+    //   title: "Kondisi Sekolah",
+    //   icon: "fa-solid fa-school",
+    //   path: "/admin-kondisi-sekolah",
+    //   action: [
+    //     "/add-kondisi-sekolah",
+    //     "/edit-kondisi-sekolah",
+    //     "/detail-kondisi-sekolah",
+    //   ],
+    // },
   ];
 
-  const siswaItem = [
-    // {
-    //   title: "Osis",
-    //   icon: "fa-solid fa-users",
-    //   path: "/admin-osis",
-    //   action: ["/add-osis", "/edit-osis", "/detail-osis"],
-    //    hidden: true,
-    // },
-    {
-      title: "Ekstrakurikuler",
-      icon: "fa-solid fa-people-robbery",
-      path: "/admin-ekstrakulikuler",
-      action: [
-        "/add-ekstrakulikuler",
-        "/detail-ekstrakulikuler",
-        "/edit-ekstrakulikuler",
-        "/detail-ekstrakulikuler",
-      ],
-    },
-  ];
+  // const siswaItem = [
+  //   // {
+  //   //   title: "Osis",
+  //   //   icon: "fa-solid fa-users",
+  //   //   path: "/admin-osis",
+  //   //   action: ["/add-osis", "/edit-osis", "/detail-osis"],
+  //   //    hidden: true,
+  //   // },
+  //   {
+  //     title: "Ekstrakurikuler",
+  //     icon: "fa-solid fa-people-robbery",
+  //     path: "/admin-ekstrakulikuler",
+  //     action: [
+  //       "/add-ekstrakulikuler",
+  //       "/detail-ekstrakulikuler",
+  //       "/edit-ekstrakulikuler",
+  //       "/detail-ekstrakulikuler",
+  //     ],
+  //   },
+  // ];
 
   const saprasItem = [
     // {
@@ -234,23 +240,23 @@ function Sidebar1({ toggleSidebar }) {
     //   action: ["/add-sarana", "/edit-sarana", "/detail-sarana"],
     //    hidden: true,
     // },
-    {
-      title: "Kegiatan",
-      icon: "fas fa-calendar-alt",
-      path: "/admin-kegiatan",
-      action: ["/add-kegiatan", "/edit-kegiatan", "/detail-kegiatan"],
-    },
-    {
-      title: "Struktur",
-      icon: " fas fa-sitemap",
-      path: "/admin-struktur",
-      action: [
-        "/add-struktur",
-        "/detail-struktur",
-        "/edit-struktur",
-        "/detail-struktur",
-      ],
-    },
+    // {
+    //   title: "Kegiatan",
+    //   icon: "fas fa-calendar-alt",
+    //   path: "/admin-kegiatan",
+    //   action: ["/add-kegiatan", "/edit-kegiatan", "/detail-kegiatan"],
+    // },
+    // {
+    //   title: "Struktur",
+    //   icon: " fas fa-sitemap",
+    //   path: "/admin-struktur",
+    //   action: [
+    //     "/add-struktur",
+    //     "/detail-struktur",
+    //     "/edit-struktur",
+    //     "/detail-struktur",
+    //   ],
+    // },
     {
       title: "Program",
       icon: "fas fa-tasks",
@@ -281,6 +287,24 @@ function Sidebar1({ toggleSidebar }) {
           <div className="sidebar-menu1">
             <ul>
               <li className="header-menu1">
+                <span>Sekolah</span>
+              </li>
+              {profileItem.map((data, index) => (
+                <li key={index} ref={(el) => (ProfileRefs.current[index] = el)}>
+                  <NavLink to={data.path} style={{ background: "none" }}>
+                    <i
+                      class={`${data.icon} ${
+                        location.pathname === data.path ||
+                        data.action.includes(location.pathname)
+                          ? "active"
+                          : ""
+                      }`}></i>
+                    <span>{data.title}</span>
+                    {/* <span class="badge badge-pill badge-primary">Beta</span> */}
+                  </NavLink>
+                </li>
+              ))}
+              <li className="header-menu1">
                 <span>Menu</span>
               </li>{" "}
               {menuItems.map((data, index) => (
@@ -299,25 +323,7 @@ function Sidebar1({ toggleSidebar }) {
                   </NavLink>
                 </li>
               ))}
-              <li className="header-menu1">
-                <span>Profile Sekolah</span>
-              </li>
-              {profileItem.map((data, index) => (
-                <li key={index} ref={(el) => (ProfileRefs.current[index] = el)}>
-                  <NavLink to={data.path} style={{ background: "none" }}>
-                    <i
-                      class={`${data.icon} ${
-                        location.pathname === data.path ||
-                        data.action.includes(location.pathname)
-                          ? "active"
-                          : ""
-                      }`}></i>
-                    <span>{data.title}</span>
-                    {/* <span class="badge badge-pill badge-primary">Beta</span> */}
-                  </NavLink>
-                </li>
-              ))}
-              <li className="header-menu1">
+              {/* <li className="header-menu1">
                 <span>Kesiswaan</span>
               </li>
               {siswaItem.map((data, index) => (
@@ -331,10 +337,9 @@ function Sidebar1({ toggleSidebar }) {
                           : ""
                       }`}></i>
                     <span>{data.title}</span>
-                    {/* <span class="badge badge-pill badge-primary">Beta</span> */}
                   </NavLink>
                 </li>
-              ))}
+              ))} */}
               <li className="header-menu1">
                 <span>Sarana Prasana</span>
               </li>

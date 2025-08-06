@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
-
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../component/Sidebar1";
 
 function EditGalery() {
-  const [galery, setGalery] = useState("");
-  const [image, setFile] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
-  const param = useParams();
+  const { id } = useParams();
   const history = useHistory();
 
+  const [formData, setFormData] = useState({
+    judul: "",
+    deskripsi: "",
+  });
+  const [existingImages, setExistingImages] = useState([]);
+  const [newImages, setNewImages] = useState([]);
+  const [imagesToDelete, setImagesToDelete] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -30,166 +31,287 @@ function EditGalery() {
   };
 
   useEffect(() => {
+    AOS.init();
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`${API_DUMMY}/api/galeri/get/` + param.id, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((ress) => {
-        const response = ress.data.data;
-        setGalery(response.judul);
-        setDeskripsi(response.deskripsi);
-        setFile(response.foto);
-        console.log("galery : ", ress.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${API_DUMMY}/api/galeri/get/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
-  //edit pengumuman
-  const update = async (e) => {
-    e.preventDefault();
+        const data = response.data.data;
+        setFormData({
+          judul: data.judul,
+          deskripsi: data.deskripsi
+        });
 
-    const formData = new FormData();
-    formData.append("file", image);
-
-    const data = {
-      judul: galery,
-      deskripsi: deskripsi
-    }
-
-    await axios
-      .put(`${API_DUMMY}/api/galeri/put/` + param.id, formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => {
-        if (image) {
-          axios.put(`${API_DUMMY}/api/galeri/put/foto/` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
+        if (data.foto) {
+          try {
+            const parsedImages = JSON.parse(data.foto);
+            setExistingImages(Array.isArray(parsedImages) ? parsedImages : []);
+          } catch (e) {
+            console.error("Error parsing images:", e);
+            setExistingImages([]);
+          }
         }
+      } catch (error) {
+        console.error("Error fetching gallery data:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Gagal memuat data galeri",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleNewFileChange = (e, index) => {
+    const files = e.target.files;
+    if (files && files[0]) {
+      const updatedImages = [...newImages];
+      updatedImages[index] = files[0];
+      setNewImages(updatedImages);
+    }
+  };
+
+  const addNewImageInput = () => {
+    setNewImages([...newImages, null]);
+  };
+
+  const removeNewImageInput = (index) => {
+    const updatedImages = newImages.filter((_, i) => i !== index);
+    setNewImages(updatedImages);
+  };
+
+  const removeExistingImage = (index, imageUrl) => {
+    const updatedImages = existingImages.filter((_, i) => i !== index);
+    setExistingImages(updatedImages);
+    setImagesToDelete([...imagesToDelete, imageUrl]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const data = new FormData();
+
+      data.append("galeri", new Blob([JSON.stringify(formData)], {
+        type: "application/json"
+      }));
+
+      newImages.forEach((file) => {
+        if (file) {
+          data.append("files", file);
+        }
+      });
+
+      data.append("imagesToDelete", JSON.stringify(imagesToDelete));
+
+      const response = await axios.put(
+        `${API_DUMMY}/api/galeri/put/${id}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data galery",
+          title: "Berhasil Mengupdate Data galery",
           showConfirmButton: false,
           timer: 1500,
         });
         history.push("/admin-galery");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
+      }
+    } catch (error) {
+      console.error("Error updating gallery:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Gagal Mengupdate Data",
+        text: error.response?.data?.message || "Terjadi kesalahan",
+        showConfirmButton: false,
+        timer: 1500,
       });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  useEffect(() => {
-    AOS.init();
-  }, []);
-
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-      }`}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
+
       <Sidebar1 toggleSidebar={toggleSidebar} />
+
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container mt-3 app-main__outer" data-aos="fade-left">
-          <div className="card shadow">
-            <div className="card-body">
-              <h1 className="fs-4">Form Edit Galeri</h1>
-              <hr />
-              <form onSubmit={update}>
-                <div className="row">
-                  <div className="mb-3 col-lg-6">
-                    <label
-                      for="exampleInputPassword1"
-                      className="form-label font-weight-bold">
-                      Judul
-                    </label>
-                    <input
-                      value={galery}
-                      onChange={(e) => setGalery(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      required
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-6">
-                    <label
-                      for="exampleInputPassword1"
-                      className="form-label font-weight-bold">
-                      Image
-                    </label>
-                    <input
-                      type="file"
-                      onChange={(e) => setFile(e.target.files[0])}
-                      className="form-control"
-                      required
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-6">
-                    <label
-                      for="exampleInputPassword1"
-                      className="form-label font-weight-bold">
-                      deskripsi
-                    </label>
-                    <textarea
-                      value={deskripsi}
-                      onChange={(e) => setDeskripsi(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      required
-                      id="exampleInputPassword1"></textarea>
-                  </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card shadow">
+                <div className="card-body">
+                  <h1 className="fs-4">Form Edit Galeri</h1>
+                  <hr />
+                  <form onSubmit={handleSubmit}>
+                    <div className="row">
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Judul <span className="text-danger">*</span>
+                        </label>
+                        <input
+                          name="judul"
+                          value={formData.judul}
+                          onChange={handleInputChange}
+                          type="text"
+                          className="form-control"
+                          required
+                        />
+                      </div>
+
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Deskripsi
+                        </label>
+                        <textarea
+                          name="deskripsi"
+                          value={formData.deskripsi}
+                          onChange={handleInputChange}
+                          className="form-control"
+                          rows="4"
+                        ></textarea>
+                      </div>
+
+                      {/* Existing Images */}
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Gambar yang Ada
+                        </label>
+                        {existingImages.length > 0 ? (
+                          <div className="row">
+                            {existingImages.map((imageUrl, index) => (
+                              <div className="col-md-3 mb-3" key={index}>
+                                <div className="card">
+                                  <img
+                                    src={imageUrl}
+                                    className="card-img-top"
+                                    alt={`Galeri ${index}`}
+                                    style={{ height: "150px", objectFit: "cover" }}
+                                  />
+                                  <div className="card-body p-2">
+                                    <button
+                                      type="button"
+                                      className="btn btn-danger btn-sm w-100"
+                                      onClick={() => removeExistingImage(index, imageUrl)}
+                                    >
+                                      Hapus
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-muted">Tidak ada gambar</p>
+                        )}
+                      </div>
+
+                      {/* New Images */}
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Tambah Gambar Baru
+                        </label>
+                        {newImages.map((file, index) => (
+                          <div className="mb-3" key={`new-${index}`}>
+                            <div className="d-flex align-items-center gap-2">
+                              <input
+                                className="form-control"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => handleNewFileChange(e, index)}
+                              />
+                              <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={() => removeNewImageInput(index)}
+                                disabled={isSubmitting}
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                            {file && (
+                              <small className="text-muted">
+                                {file.name} - {(file.size / 1024).toFixed(2)} KB
+                              </small>
+                            )}
+                          </div>
+                        ))}
+                        <button
+                          type="button"
+                          className="btn btn-primary mt-2"
+                          onClick={addNewImageInput}
+                          disabled={isSubmitting}
+                        >
+                          Tambah Gambar Baru
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="d-flex gap-2">
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => history.push("/admin-galery")}
+                        disabled={isSubmitting}
+                      >
+                        Batal
+                      </button>
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Menyimpan...
+                          </>
+                        ) : (
+                          "Simpan"
+                        )}
+                      </button>
+                    </div>
+                  </form>
                 </div>
-                <button type="button" className="btn-danger mt-3 mr-3">
-                  <a
-                    href="/admin-galery"
-                    style={{ color: "white", textDecoration: "none" }}>
-                    Batal
-                  </a>
-                </button>
-                <button type="submit" className="btn-primary mt-3">
-                  Simpan
-                </button>
-              </form>
+              </div>
             </div>
           </div>
         </div>

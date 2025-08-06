@@ -78,8 +78,8 @@ function EditJenjang() {
       })
       .then((ress) => {
         const response = ress.data.data;
-        setNamaJenjang(response.nama);
-        setDeskripsiJenjang(response.deskripsi);
+        setNamaJenjang(response.nama_jenjang);
+        setDeskripsiJenjang(response.description);
         console.log("jenjang : ", ress.data.data);
       })
       .catch((error) => {
@@ -91,8 +91,8 @@ function EditJenjang() {
     e.preventDefault();
 
     const data = {
-      nama: namaJenjang,
-      deskripsi: deskripsiJenjang,
+      nama_jenjang: namaJenjang,
+      description: deskripsiJenjang,
     };
 
     await axios

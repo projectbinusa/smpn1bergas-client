@@ -62,7 +62,7 @@ import Sidebar1 from "../../../../../../component/Sidebar1";
 function AddJenjang() {
   const [namaJenjang, setNamaJenjang] = useState("");
   const [deskripsiJenjang, setDeskripsiJenjang] = useState("");
-  const [nip, setNip] = useState("");
+  const [link, setLink] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
 
@@ -73,8 +73,9 @@ function AddJenjang() {
 
     try {
       const data = {
-        nama: namaJenjang,
-        deskripsi: deskripsiJenjang,
+        nama_jenjang: namaJenjang,
+        // link: link,
+        description: deskripsiJenjang,
       };
       await axios.post(`${API_DUMMY}/api/jenjang/add`, data, {
         headers: {
@@ -89,9 +90,9 @@ function AddJenjang() {
         timer: 1500,
       });
       history.push("/admin-jenjang");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1500);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         localStorage.clear();
@@ -288,6 +289,19 @@ function AddJenjang() {
                           placeholder="Masukkan Nama Jenjang"
                         />
                       </div>
+                      {/* <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Link
+                        </label>
+                        <input
+                          value={link}
+                          onChange={(e) => setLink(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          required
+                          placeholder="Masukkan Link Jenjang"
+                        />
+                      </div> */}
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
                           Deskripsi Jenjang

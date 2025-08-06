@@ -755,7 +755,7 @@ function Home() {
 
 
       {/* ALUMNI */}
-      <div class="team-area bg-blue pd-top-90 pd-bottom-90">
+      {/* <div class="team-area bg-blue pd-top-90 pd-bottom-90">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
@@ -842,18 +842,18 @@ function Home() {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
 {/* GALERI - Perbaikan tampilan agar tidak gepeng dan lebih modern */}
-<div className="team-area pd-top-115 pd-bottom-90" style={{ backgroundColor: "#f8f9fa" }}>
+<div className="team-area pd-top-115 pd-bottom-90 bg-blue">
   <div className="container">
     <div className="row justify-content-center">
       <div className="col-lg-6" data-aos="fade-down">
         <div className="section-title style-white text-center">
-          <h5 class="sub-title double-line" style={{ color: "black" }}>
+          <h5 class="sub-title double-line" style={{ color: "white" }}>
                   Galeri Foto
                 </h5>
-                <h2 class="title" style={{ color: "black" }}>Kumpulan Kenangan Kami</h2>
-                <p class="content" style={{ color: "black" }}>
+                <h2 class="title" style={{ color: "white" }}>Kumpulan Kenangan Kami</h2>
+                <p class="content" style={{ color: "white" }}>
                   Dokumentasi berbagai kegiatan sekolah yang penuh semangat dan kebersamaan, mulai dari pembelajaran hingga acara spesial.
                 </p>
         </div>
@@ -865,7 +865,7 @@ function Home() {
         galery.slice(0, 6).map((item) => (
           <div className="col-lg-4 col-md-6 mb-4" key={item.id}>
             <div className="card h-100 border-0 shadow-sm">
-              
+
               <div style={{ height: "250px", overflow: "hidden", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
                 <img
                   src={item.foto}

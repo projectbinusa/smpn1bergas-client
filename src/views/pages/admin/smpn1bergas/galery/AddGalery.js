@@ -9,12 +9,13 @@ import Sidebar1 from "../../../../../component/Sidebar1";
 function AddGalery() {
   const history = useHistory();
 
-  const [judul, setJudul] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
-  const [kategoriId, setKategoriId] = useState("");
+  const [formData, setFormData] = useState({
+    judul: "",
+    deskripsi: "",
+    kategori_id: "",
+  });
   const [images, setImages] = useState([]);
-  const [previewImages, setPreviewImages] = useState([]);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -34,66 +35,114 @@ function AddGalery() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    setImages(files);
-    setPreviewImages(files.map((file) => URL.createObjectURL(file)));
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = (e, index) => {
+    const files = e.target.files;
+    if (files && files[0]) {
+      const newImages = [...images];
+      newImages[index] = files[0];
+      setImages(newImages);
+    }
+  };
+
+  const addImageInput = () => {
+    setImages([...images, null]);
+  };
+
+  const removeImageInput = (index) => {
+    const newImages = images.filter((_, i) => i !== index);
+    setImages(newImages);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    const formData = new FormData();
-    formData.append("judul", judul);
-    formData.append("deskripsi", deskripsi);
-    formData.append("kategori_id", kategoriId);
-    images.forEach((img) => {
-      formData.append("file[]", img);
-    });
+    // Validasi form
+    if (!formData.judul.trim()) {
+      Swal.fire({
+        icon: "error",
+        title: "Judul tidak boleh kosong",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    const validImages = images.filter((img) => img !== null);
+    if (validImages.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Minimal upload 1 gambar",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      await axios.post(`${API_DUMMY}/api/galeri/add`, formData, {
+      const data = new FormData();
+
+      data.append(
+        "galeri",
+        new Blob([JSON.stringify(formData)], {
+          type: "application/json",
+        })
+      );
+
+      validImages.forEach((file) => {
+        data.append("files", file);
+      });
+
+      const response = await axios.post(`${API_DUMMY}/api/galeri/add`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil Ditambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-
-      history.push("/admin-galery");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        localStorage.clear();
-        history.push("/login");
-      } else {
+      if (response.status === 200 || response.status === 201) {
         Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
+          icon: "success",
+          title: "Berhasil Menambahkan Data galery",
           showConfirmButton: false,
           timer: 1500,
         });
-        console.error(error);
+        history.push("/admin-galery");
       }
+    } catch (error) {
+      console.error("Error adding gallery:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Gagal Menambahkan Data",
+        text: error.response?.data?.message || "Terjadi kesalahan",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
 
@@ -110,70 +159,123 @@ function AddGalery() {
                   <form onSubmit={handleSubmit}>
                     <div className="row">
                       <div className="mb-3 col-lg-12">
-                        <label className="form-label font-weight-bold">Judul</label>
+                        <label className="form-label font-weight-bold">
+                          Judul <span className="text-danger">*</span>
+                        </label>
                         <input
-                          value={judul}
-                          onChange={(e) => setJudul(e.target.value)}
+                          name="judul"
+                          value={formData.judul}
+                          onChange={handleInputChange}
                           type="text"
                           className="form-control"
                           placeholder="Masukkan Judul"
+                          required
                         />
                       </div>
 
                       <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">Kategori</label>
+                        <label className="form-label font-weight-bold">
+                          Kategori
+                        </label>
                         <input
+                          name="kategori_id"
                           type="text"
                           className="form-control"
-                          value={kategoriId}
-                          onChange={(e) => setKategoriId(e.target.value)}
+                          value={formData.kategori_id}
+                          onChange={handleInputChange}
                           placeholder="Masukkan Kategori"
                         />
                       </div>
 
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">Gambar</label>
-                        <input
-                          onChange={handleImageChange}
-                          type="file"
-                          className="form-control"
-                          multiple
-                        />
-                        {previewImages.length > 0 && (
-                          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "10px" }}>
-                            {previewImages.map((src, index) => (
-                              <img
-                                key={index}
-                                src={src}
-                                alt={`preview-${index}`}
-                                height="100px"
-                                style={{ borderRadius: "4px", border: "1px solid #ccc" }}
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Gambar <span className="text-danger">*</span>
+                        </label>
+                        {images.map((file, index) => (
+                          <div className="mb-3" key={index}>
+                            <div className="d-flex align-items-center gap-2">
+                              <input
+                                className="form-control"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => handleFileChange(e, index)}
+                                required={index === 0}
                               />
-                            ))}
+                              {images.length > 1 && (
+                                <button
+                                  type="button"
+                                  className="btn btn-danger"
+                                  onClick={() => removeImageInput(index)}
+                                  disabled={isSubmitting}>
+                                  Hapus
+                                </button>
+                              )}
+                              {index === images.length - 1 && (
+                                <button
+                                  type="button"
+                                  className="btn btn-success"
+                                  onClick={addImageInput}
+                                  disabled={isSubmitting}>
+                                  Tambah Gambar
+                                </button>
+                              )}
+                            </div>
+                            {file && (
+                              <small className="text-muted">
+                                {file.name} - {(file.size / 1024).toFixed(2)} KB
+                              </small>
+                            )}
                           </div>
+                        ))}
+                        {images.length === 0 && (
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={addImageInput}>
+                            Tambah Gambar
+                          </button>
                         )}
                       </div>
 
                       <div className="mb-3 col-lg-12">
-                        <label className="form-label font-weight-bold">Deskripsi</label>
+                        <label className="form-label font-weight-bold">
+                          Deskripsi
+                        </label>
                         <textarea
-                          value={deskripsi}
-                          onChange={(e) => setDeskripsi(e.target.value)}
+                          name="deskripsi"
+                          value={formData.deskripsi}
+                          onChange={handleInputChange}
                           className="form-control"
                           placeholder="Masukkan Deskripsi"
-                        ></textarea>
+                          rows="4"></textarea>
                       </div>
                     </div>
 
-                    <button type="button" className="btn btn-danger mt-3 mr-3">
-                      <a href="/admin-galery" style={{ color: "white", textDecoration: "none" }}>
+                    <div className="d-flex gap-2">
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => history.push("/admin-galery")}
+                        disabled={isSubmitting}>
                         Batal
-                      </a>
-                    </button>
-
-                    <button type="submit" className="btn btn-primary mt-3 ml-2">
-                      Submit
-                    </button>
+                      </button>
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        disabled={isSubmitting}>
+                        {isSubmitting ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm"
+                              role="status"
+                              aria-hidden="true"></span>
+                            Menyimpan...
+                          </>
+                        ) : (
+                          "Simpan"
+                        )}
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>

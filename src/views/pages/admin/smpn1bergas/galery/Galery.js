@@ -4,9 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 
 import Sidebar1 from "../../../../../component/Sidebar1";
@@ -25,7 +23,9 @@ function Galery() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/galeri/all/terbaru?page=${page - 1}&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/galeri/all/terbaru?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -72,15 +72,16 @@ function Galery() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -130,12 +131,15 @@ function Galery() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -227,39 +231,40 @@ function Galery() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ?
+                  {filteredList.length > 0 ? (
                     filteredList.map((berita, no) => {
+                      const fotoArray = JSON.parse(berita.foto);
+                      const firstFoto = fotoArray[0];
                       return (
                         <tr key={no}>
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Judul">
-                            {berita.judul}
-                          </td>
-                          <td data-label="Deskripsi">
-                            {berita.deskripsi}
-                          </td>
+                          <td data-label="Judul">{berita.judul}</td>
+                          <td data-label="Deskripsi">{berita.deskripsi}</td>
                           <td data-label="Image">
-                            <div style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              maxWidth: "150px",
-                              maxHeight: "150px",
-                              overflow: "hidden"
-                            }}>
-                              <img
-                                src={berita.foto}
-                                style={{
-                                  maxWidth: "100%",
-                                  maxHeight: "100%",
-                                  width: "auto",
-                                  height: "auto",
-                                  objectFit: "contain"
-                                }}
-                                alt={berita.judul}
-                              />
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                maxWidth: "150px",
+                                maxHeight: "150px",
+                                overflow: "hidden",
+                              }}>
+                              {firstFoto && (
+                                <img
+                                  src={firstFoto}
+                                  style={{
+                                    maxWidth: "100%",
+                                    maxHeight: "100%",
+                                    width: "auto",
+                                    height: "auto",
+                                    objectFit: "contain",
+                                  }}
+                                  alt={berita.judul}
+                                />
+                              )}
                             </div>
                           </td>
                           <td data-label="Aksi" className="action">
@@ -287,13 +292,16 @@ function Galery() {
                           </td>
                         </tr>
                       );
-                    }) : <tr>
+                    })
+                  ) : (
+                    <tr>
                       <td colSpan="5" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
                       </td>
-                    </tr>}
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

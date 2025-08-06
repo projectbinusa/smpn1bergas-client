@@ -27,9 +27,7 @@ function Jenjang() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/jenjang/all?page=${
-          page - 1
-        }&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/jenjang/all?page=${page - 1}&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -76,15 +74,16 @@ function Jenjang() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -126,7 +125,7 @@ function Jenjang() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -134,12 +133,24 @@ function Jenjang() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  function stripHtml(html) {
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  }
+
+  function truncateText(text, maxWords) {
+    const words = text.split(" ");
+    if (words.length <= maxWords) return text;
+    return words.slice(0, maxWords).join(" ") + " ...";
+  }
   return (
-    <div  className={`page-wrapper chiller-theme ${
+    <div
+      className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
       }`}>
       <a
@@ -193,7 +204,9 @@ function Jenjang() {
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
+                    <th scope="col" className="text-center">
+                      No
+                    </th>
                     <th className="text-center">Nama Jenjang</th>
                     <th className="text-center">Deskripsi</th>
                     <th className="text-center">Aksi</th>
@@ -207,10 +220,17 @@ function Jenjang() {
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td data-label="Nama Jenjang" className="text-long">
-                          {jenjang.namaJenjang}
+                          {jenjang.nama_jenjang}
                         </td>
-                        <td data-label="Deskripsi" className="text-long">
-                          {jenjang.deskripsi}
+                        <td data-label="Deskripsi" style={{ width: "50%" }}>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: truncateText(
+                                stripHtml(jenjang.description),
+                                20
+                              ),
+                            }}
+                          />
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">

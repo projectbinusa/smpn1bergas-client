@@ -299,7 +299,7 @@ function App() {
             <PrivateRoute path="/admin-jenjang" component={Jenjang} exact />
             <PrivateRoute path="/add-jenjang" component={AddJenjang} exact />
             <PrivateRoute path="/edit-jenjang/:id" component={EditJenjang} exact />
-            <PrivateRoute path="/detail-jenjang:id" component={DetailJenjang} exact />
+            <PrivateRoute path="/detail-jenjang/:id" component={DetailJenjang} exact />
             {/* tenaga kependidikan */}
             <PrivateRoute
               path="/admin-tenaga-kependidikan"

@@ -57,7 +57,7 @@ function Sidebar({ isOpen }) {
           <div className="app-sidebar__inner">
             <ul className="vertical-nav-menu">
               <li class="app-sidebar__heading">Menu</li>{" "}
-              <li>
+              {/* <li>
                 <a
                   style={{ textDecoration: "none" }}
                   href="/admin-alumni"
@@ -66,7 +66,7 @@ function Sidebar({ isOpen }) {
                   }>
                   <i class="metismenu-icon fa-solid fa-users"></i> Alumni
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a
                   style={{ textDecoration: "none" }}
@@ -77,7 +77,7 @@ function Sidebar({ isOpen }) {
                   <i class="metismenu-icon fa-solid fa-id-card"></i> Kontak
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   style={{ textDecoration: "none" }}
                   href="/admin-sambutan"
@@ -86,7 +86,7 @@ function Sidebar({ isOpen }) {
                   }>
                   <i class="metismenu-icon fa-solid fa-book-open"></i> Sambutan
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a
                   style={{ textDecoration: "none" }}
@@ -127,7 +127,7 @@ function Sidebar({ isOpen }) {
                   <i class="fas fa-comment-dots metismenu-icon"></i> Kotak Saran
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   style={{ textDecoration: "none" }}
                   href="/admin-materi-ajar"
@@ -136,7 +136,7 @@ function Sidebar({ isOpen }) {
                   }>
                   <i class="fas fa-file-alt metismenu-icon"></i> Materi Ajar
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a
                   style={{ textDecoration: "none" }}
@@ -148,7 +148,7 @@ function Sidebar({ isOpen }) {
                 </a>
               </li>
               <li className="app-sidebar__heading">Profile Sekolah</li>
-              <li>
+              {/* <li>
                 <a
                   style={{ textDecoration: "none" }}
                   href="/admin-kondisi-sekolah"
@@ -160,7 +160,7 @@ function Sidebar({ isOpen }) {
                   <i class="fa-solid fa-school metismenu-icon"></i> Kondisi
                   Sekolah
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a
                   style={{ textDecoration: "none" }}
@@ -361,14 +361,14 @@ function Sidebar({ isOpen }) {
                 </a>
               </li> */}
               <li class="app-sidebar__heading">Lainya</li>
-              <li>
+              {/* <li>
                 <a
                   style={{ textDecoration: "none" }}
                   href="/admin-ekstrakulikuler">
                   <i class="fa-solid fa-people-robbery metismenu-icon"></i>{" "}
                   Ekstrakurikuler
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a
                   style={{ textDecoration: "none" }}
