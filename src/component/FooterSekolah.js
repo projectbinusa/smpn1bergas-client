@@ -195,7 +195,7 @@ function FooterSekolah() {
                           fontSize: "13px",
                           lineHeight: "1.5"
                         }}
-                        dangerouslySetInnerHTML={{ __html: news.isiBerita.length > 100 ? `${news.isiBerita.substring(0, 100)}...` : news.isiBerita }} 
+                        // dangerouslySetInnerHTML={{ __html: news.isiBerita.length > 100 ? `${news.isiBerita.substring(0, 100)}...` : news.isiBerita }} 
                       />
                     </div>
                   ))}

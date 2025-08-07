@@ -53,60 +53,84 @@ const News = () => {
           {/* Sidebar */}
           <div className="news-sidebar">
             <div className="sidebar-card" data-aos="fade-down">
-              <h5 className="sidebar-title">KATEGORI</h5>
-              <div className="title-underline"></div>
+              <div>
+              <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
+              <hr
+                style={{
+                  width: "30%",
+                  color: "#0060ff",
+                  border: "2px solid #0060ff",
+                }}
+              />
               <ul className="category-berita">
-                <li className="active-category">
-                  <a href="/news">
-                    <i className="fas fa-newspaper fa-fw"></i> Berita Terbaru
+                <li>
+                  <a href="/news">Berita Terbaru</a>
+                </li>
+                <hr
+                  style={{
+                    width: "100%",
+                    border: "0",
+                    borderTop: "2px dotted #002147",
+                    color: "#002147",
+                  }}
+                />
+                <li>
+                  <a href="/info">Info Sekolah</a>
+                </li>
+                <hr
+                  style={{
+                    width: "100%",
+                    border: "0",
+                    borderTop: "2px dotted #002147",
+                    color: "#002147",
+                  }}
+                />
+                <li>
+                  <a href="/agenda">Agenda</a>
+                </li>
+              </ul>
+            </div>
+
+            </div>
+            
+            <div>
+              <h5 style={{ fontWeight: "600", color: "#002147" }}>
+                IKUTI KAMI
+              </h5>
+              <hr
+                style={{
+                  width: "30%",
+                  color: "#0060ff",
+                  border: "2px solid #0060ff",
+                }} 
+              />
+              <ul className="medsos-list">
+                <li>
+                  <a
+                    href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
+                    target="_blank">
+                    <i class="fab fa-facebook-f"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="/info">
-                    <i className="fas fa-info-circle fa-fw"></i> Info Sekolah
+                  <a
+                    href="https://www.instagram.com/osisspensagas"
+                    target="_blank">
+                    <i class="fab fa-instagram"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="/agenda">
-                    <i className="fas fa-calendar-alt fa-fw"></i> Agenda
+                  <a
+                    href="https://www.youtube.com/@OSIS-SMPN1Bergas"
+                    target="_blank">
+                    <i class="fab fa-youtube"></i>
                   </a>
                 </li>
               </ul>
             </div>
             
-            <div className="sidebar-card" data-aos="fade-right">
-              <h5 className="sidebar-title">IKUTI KAMI</h5>
-              <div className="title-underline"></div>
-              <div className="medsos-container">
-                <a
-                  href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="medsos-icon"
-                >
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a
-                  href="https://www.instagram.com/osisspensagas"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="medsos-icon"
-                >
-                  <i className="fab fa-instagram"></i>
-                </a>
-                <a
-                  href="https://www.youtube.com/@OSIS-SMPN1Bergas"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="medsos-icon"
-                >
-                  <i className="fab fa-youtube"></i>
-                </a>
-              </div>
-            </div>
-            
             <div className="sidebar-card" data-aos="fade-up">
-              <h5 className="sidebar-title">BERITA TERPOPULER</h5>
+              <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
               <div className="title-underline"></div>
               <div className="popular-news">
                 {berita.slice(0, 3).map((item) => (
@@ -133,15 +157,15 @@ const News = () => {
               <>
                 {berita.length > 0 ? (
                   berita.map((newsItem) => (
-                    <CardBerita
-                      key={newsItem.id}
-                      image={newsItem.image}
-                      id={newsItem.id}
-                      title={newsItem.judulBerita}
-                      link={"news"}
-                      content={newsItem.isiBerita}
-                      date={newsItem.createdDate}
-                    />
+                   <CardBerita
+  key={newsItem.id}
+  image={newsItem.image}
+  id={newsItem.id}
+  title={newsItem.judulBerita}
+  link={"news"}
+  date={newsItem.createdDate}
+/>
+
                   ))
                 ) : (
                   <div className="no-news">
