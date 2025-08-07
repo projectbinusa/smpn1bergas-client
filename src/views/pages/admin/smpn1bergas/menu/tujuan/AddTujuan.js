@@ -364,6 +364,7 @@ function AddTujuan() {
                               "indent",
                             ],
                             styles: [
+                              "height: 300px",
                               "alignLeft",
                               "alignCenter",
                               "alignRight",
