@@ -153,18 +153,18 @@ function FooterSekolah() {
             <div className="widget widget_news">
               <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Berita Terbaru</h4>
               {berita.length > 0 ? (
-                <div className="details" style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+                <div className="details" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                   {berita.map(news => (
                     <div key={news.id} style={{ 
                       backgroundColor: "white",
-                      padding: "15px",
+                      padding: "6px 12px",
                       borderRadius: "8px",
                       boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
                     }}>
                       <div style={{ 
                         backgroundColor: "white",
-                        padding: "10px",
-                        marginBottom: "8px"
+                        padding: "0",
+                        marginBottom: "0"
                       }}>
                         <a 
                           href={`/detail-news-${news.id}`} 
@@ -181,13 +181,13 @@ function FooterSekolah() {
                       <p style={{ 
                         color: "#666", 
                         fontSize: "12px", 
-                        margin: "5px 0",
+                        margin: "0",
                         backgroundColor: "white",
-                        padding: "5px 10px"
+                        padding: "0"
                       }}>
                         {formatDate(news.createdDate)}
                       </p>
-                      <div 
+                      {/* <div 
                         style={{ 
                           backgroundColor: "white",
                           color: "#555",
@@ -196,7 +196,7 @@ function FooterSekolah() {
                           lineHeight: "1.5"
                         }}
                         dangerouslySetInnerHTML={{ __html: news.isiBerita.length > 100 ? `${news.isiBerita.substring(0, 100)}...` : news.isiBerita }} 
-                      />
+                      /> */}
                     </div>
                   ))}
                 </div>

@@ -135,9 +135,8 @@ function AddGalery() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -160,7 +159,7 @@ function AddGalery() {
                     <div className="row">
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
-                          Judul <span className="text-danger">*</span>
+                          Judul
                         </label>
                         <input
                           name="judul"
@@ -173,7 +172,7 @@ function AddGalery() {
                         />
                       </div>
 
-                      <div className="mb-3 col-lg-6">
+                      <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
                           Kategori
                         </label>
@@ -189,9 +188,9 @@ function AddGalery() {
 
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
-                          Gambar <span className="text-danger">*</span>
+                          Gambar
                         </label>
-                        {images.map((file, index) => (
+                        {/* {images.map((file, index) => (
                           <div className="mb-3" key={index}>
                             <div className="d-flex align-items-center gap-2">
                               <input
@@ -226,14 +225,62 @@ function AddGalery() {
                               </small>
                             )}
                           </div>
+                        ))} */}
+                        {images.map((file, index) => (
+                          <div className="mb-3" key={index}>
+                            <div className="d-flex align-items-center gap-2">
+                              <input
+                                className="form-control"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => handleFileChange(e, index)}
+                                required={index === 0}
+                              />
+                              {images.length > 1 && (
+                                <button
+                                  type="button"
+                                  className="btn-danger"
+                                  onClick={() => removeImageInput(index)}
+                                  disabled={isSubmitting}>
+                                  Hapus
+                                </button>
+                              )}
+                              {index === images.length - 1 && (
+                                <button
+                                  type="button"
+                                  className="btn-primary"
+                                  onClick={addImageInput}
+                                  disabled={isSubmitting}>
+                                  Tambah
+                                </button>
+                              )}
+                            </div>
+
+                            {/* Tampilkan nama file dan preview */}
+                            {file && (
+                              <div className="mt-2">
+                                <small className="text-muted d-block mb-1">
+                                  {file.name} - {(file.size / 1024).toFixed(2)} KB
+                                </small>
+                                <img
+                                  src={URL.createObjectURL(file)}
+                                  alt={`Preview ${index}`}
+                                  style={{ maxHeight: '150px', objectFit: 'contain', border: '1px solid #ccc', padding: 4 }}
+                                />
+                              </div>
+                            )}
+                          </div>
                         ))}
+
                         {images.length === 0 && (
-                          <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={addImageInput}>
-                            Tambah Gambar
-                          </button>
+                          <div>
+                            <button
+                              type="button"
+                              className="btn-primary"
+                              onClick={addImageInput}>
+                              Tambah Gambar
+                            </button>
+                          </div>
                         )}
                       </div>
 
@@ -254,14 +301,14 @@ function AddGalery() {
                     <div className="d-flex gap-2">
                       <button
                         type="button"
-                        className="btn btn-danger"
+                        className="btn-danger"
                         onClick={() => history.push("/admin-galery")}
                         disabled={isSubmitting}>
                         Batal
                       </button>
                       <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="btn-primary"
                         disabled={isSubmitting}>
                         {isSubmitting ? (
                           <>
