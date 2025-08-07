@@ -185,7 +185,20 @@ function EditGalery() {
                     <div className="row">
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
-                          Judul <span className="text-danger">*</span>
+                          Judul
+                        </label>
+                        <input
+                          name="judul"
+                          value={formData.judul}
+                          onChange={handleInputChange}
+                          type="text"
+                          className="form-control"
+                          required
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Kategori
                         </label>
                         <input
                           name="judul"
@@ -213,7 +226,7 @@ function EditGalery() {
                       {/* Existing Images */}
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
-                          Gambar yang Ada
+                          Gambar Galeri
                         </label>
                         {existingImages.length > 0 ? (
                           <div className="row">
@@ -229,7 +242,7 @@ function EditGalery() {
                                   <div className="card-body p-2">
                                     <button
                                       type="button"
-                                      className="btn btn-danger btn-sm w-100"
+                                      className="btn-danger btn-sm w-100"
                                       onClick={() => removeExistingImage(index, imageUrl)}
                                     >
                                       Hapus
@@ -249,6 +262,16 @@ function EditGalery() {
                         <label className="form-label font-weight-bold">
                           Tambah Gambar Baru
                         </label>
+                        <div className="mb-3">
+                          <button
+                            type="button"
+                            className="btn-primary mt-2"
+                            onClick={addNewImageInput}
+                            disabled={isSubmitting}
+                          >
+                            Tambah Gambar Baru
+                          </button>
+                        </div>
                         {newImages.map((file, index) => (
                           <div className="mb-3" key={`new-${index}`}>
                             <div className="d-flex align-items-center gap-2">
@@ -260,7 +283,7 @@ function EditGalery() {
                               />
                               <button
                                 type="button"
-                                className="btn btn-danger"
+                                className="btn-danger"
                                 onClick={() => removeNewImageInput(index)}
                                 disabled={isSubmitting}
                               >
@@ -268,27 +291,25 @@ function EditGalery() {
                               </button>
                             </div>
                             {file && (
-                              <small className="text-muted">
-                                {file.name} - {(file.size / 1024).toFixed(2)} KB
-                              </small>
-                            )}
+                              <div className="mt-2">
+                                <small className="text-muted d-block mb-1">
+                                  {file.name} - {(file.size / 1024).toFixed(2)} KB
+                                </small>
+                                <img
+                                  src={URL.createObjectURL(file)}
+                                  alt={`Preview ${index}`}
+                                  style={{ maxHeight: '150px', objectFit: 'contain', border: '1px solid #ccc', padding: 4 }}
+                                />
+                              </div>)}
                           </div>
                         ))}
-                        <button
-                          type="button"
-                          className="btn btn-primary mt-2"
-                          onClick={addNewImageInput}
-                          disabled={isSubmitting}
-                        >
-                          Tambah Gambar Baru
-                        </button>
                       </div>
                     </div>
 
                     <div className="d-flex gap-2">
                       <button
                         type="button"
-                        className="btn btn-danger"
+                        className="btn-danger"
                         onClick={() => history.push("/admin-galery")}
                         disabled={isSubmitting}
                       >
@@ -296,7 +317,7 @@ function EditGalery() {
                       </button>
                       <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="btn-primary"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (
