@@ -160,6 +160,9 @@ import AddJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/AddJenjang"
 import DetailJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/DetailJenjang";
 import EditJenjang from "./views/pages/admin/smpn1bergas/menu/jenjang/EditJenjang";
 import TujuanSekolah from "./views/pagesekolah/profilSekolah/tujuan/tujuanSekolah";
+import JenjangSD from "./views/pelitailmu/jenjang/JenjangSD";
+import JenjangSMP from "./views/pelitailmu/jenjang/JenjangSMP";
+import JenjangSMA from "./views/pelitailmu/jenjang/JenjangSMA";
 
 
 function App() {
@@ -196,6 +199,9 @@ function App() {
             <Route path="/sidebar1" component={Sidebar1} exact />
             {/* page */}
             <Route path="/" component={Dashbaord} exact />
+            <Route path="/jenjangsd" component={JenjangSD} exact />
+            <Route path="/jenjangsmp" component={JenjangSMP} exact />
+            <Route path="/jenjangsma" component={JenjangSMA} exact />
             <Route path="/laporanbosp" component={LaporanBosp} exact />
             <Route path="/laporanbosp/:id" component={DetailLaporanBosp} exact />
             <PrivateRoute path="/admin/laporanbosp" component={AdminLaporanBosp} exact />

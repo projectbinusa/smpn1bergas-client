@@ -126,13 +126,13 @@ const NavbarSekolah2 = () => {
             </a>
             <ul className="submenu">
               <li>
-                <a href="/news">SD LB</a>
+                <a href="/jenjangsd">SD LB</a>
               </li>
               <li>
-                <a href="/info">SMP LB</a>
+                <a href="/jenjangsmp">SMP LB</a>
               </li>
               <li>
-                <a href="/agenda">SMA LB</a>
+                <a href="/jenjangsma">SMA LB</a>
               </li>
             </ul>
           </li>
