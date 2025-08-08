@@ -149,6 +149,12 @@ function Sidebar1({ toggleSidebar }) {
       path: "/admin-jenjang",
       action: ["/add-jenjang", "/edit-jenjang", "/detail-jenjang"]
     },
+     {
+    title: "Kategori Galeri",
+    icon: "fa-solid fa-list",
+    path: "/admin-category-galery",
+    action: ["/add-category-galery", "/edit-category-galery"],
+  },
     // {
     //   title: "Keuangan",
     //   icon: "fa-solid fa-circle-dollar-to-slot",
@@ -263,6 +269,7 @@ function Sidebar1({ toggleSidebar }) {
       path: "/admin-program",
       action: ["/add-program", "/edit-program", "/detail-program"],
     },
+    
   ];
 
   useEffect(() => {
