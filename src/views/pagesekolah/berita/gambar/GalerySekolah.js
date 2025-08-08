@@ -9,6 +9,7 @@ import { API_DUMMY } from "../../../../utils/base_URL";
 import { Pagination } from "@mui/material";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import Aos from "aos";
+import { Link } from "react-router-dom";
 
 // const galleryData = [
 //   {
@@ -172,7 +173,7 @@ function GalerySekolah() {
       );
       setGalery(response.data.data.content);
       console.log("data: ", response.data.data.content);
-      
+
       console.log("foto : ", response.data.data.content.map((dt) => {
         return (
           JSON.parse(dt.foto)[0]
@@ -199,13 +200,17 @@ function GalerySekolah() {
           <div>
             <div className="gallery-container mb-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
               {galery.slice(0, 6).map((item) => (
-                <ImageCard
-  key={item.id}
-  image={JSON.parse(item.foto)[0]}
-  title={item.judul}
-  content={item.deskripsi}
-/>
-
+                <Link
+                  key={item.id}
+                  to={`/galery/${item.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <ImageCard
+                    image={JSON.parse(item.foto)[0]}
+                    title={item.judul}
+                    content={item.deskripsi}
+                  />
+                </Link>
               ))}
               {/* {galleryData.map(item => (
               <ImageCard

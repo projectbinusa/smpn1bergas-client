@@ -163,6 +163,7 @@ import TujuanSekolah from "./views/pagesekolah/profilSekolah/tujuan/tujuanSekola
 import JenjangSD from "./views/pelitailmu/jenjang/JenjangSD";
 import JenjangSMP from "./views/pelitailmu/jenjang/JenjangSMP";
 import JenjangSMA from "./views/pelitailmu/jenjang/JenjangSMA";
+import DetailGalery from "./views/pagesekolah/berita/gambar/DetailGalery";
 import CategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/CategoryGalery";
 import AddCategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/AddCategoryGalery";
 import EditCategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/EditCategoryGalery";
@@ -633,6 +634,7 @@ function App() {
             <Route path="/osis" component={Osis} exact />
             {/* Berita */}
             <Route path="/galery" component={GalerySekolah} exact />
+            <Route path="/galery/:id" component={DetailGalery} exact />
             <Route path="/news" component={beritaNews} exact />
             <Route path="/detail-news-:id" component={DetailNews} exact />
             <Route path="/info" component={Info} exact />
