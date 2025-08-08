@@ -1,196 +1,96 @@
 import React, { useEffect, useState } from "react";
 import "../css/navbarSekolah.css";
-import logo from "../aset/slbcpelita/slbc-white.png"
-// import logo from "../aset/slbcpelita/logo-slbc.png"
-
+import logo from "../aset/slbcpelita/slbc-white.png";
+import axios from "axios";
+import { API_DUMMY } from "../utils/base_URL";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const NavbarSekolah = () => {
   const [activeMenu, setActiveMenu] = useState("");
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [list, setList] = useState([])
+  const history = useHistory()
 
   const handleScrollToSection = (id) => {
     const isHomePage = window.location.pathname === "/";
 
     if (isHomePage) {
-      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     } else {
-      window.location.href = `/#${id}`;
+      // Simpan id ke sessionStorage dan navigasi ke halaman beranda
+      sessionStorage.setItem('scrollToId', id);
+      window.location.href = `/`;
     }
   };
+
 
   const handleMenuClick = (event, menu) => {
     event.preventDefault();
     setActiveMenu(menu);
 
-    const submenu = event.target.nextElementSibling;
+    const parentLi = event.currentTarget.closest("li");
+    const submenu = parentLi.querySelector(".submenu");
 
+    // Tutup semua submenu lain
     document.querySelectorAll(".submenu").forEach((item) => {
       if (item !== submenu) item.style.display = "none";
     });
 
-    if (submenu.style.display === "block") {
-      submenu.style.display = "none";
-    } else {
-      submenu.style.display = "block";
+    // Toggle submenu
+    if (submenu) {
+      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
     }
   };
 
+
+  const getAll = async (page) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/api/jenjang/all`
+      );
+      setList(response.data.data.content);
+      console.log("jenjang: ", response.data.data.content);
+
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+      // if (error.status === 401) {
+      //   localStorage.clear();
+      //   history.push("/login");
+      // }
+    }
+  };
+
+  useEffect(() => {
+    getAll()
+  }, [])
+
   return (
-    <nav className={`navbars ${isScrolled ? "scrolled" : ""}`}>
+    <nav className={`navbars2`}>
       <div className="navbars-container">
         <a href="/">
           <img src={logo} alt="Logo" className="navbars-logo" />
         </a>
-        <ul style={{ fontSize: "13.8px" }} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
+        <ul className={`navbars-menu ${isMenuOpen ? "active" : ""}`} style={{ fontSize: "13.8px" }}>
           <li className="navbars-item">
             <a href="/" style={{ textTransform: "uppercase", fontWeight: "600" }}>Beranda</a>
           </li>
-          <li
-            className={`navbars-item `}>
-            <a
-              href="#profil-sekolah"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
-              Sekolah<i className="fa-solid fa-caret-down dropdown-icon"></i>
+          <li className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""}`}>
+            <a href="#profil-sekolah" className="has-submenu" onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
+              Sekolah <i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
-              {/* <li>
-                <a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a>
-              </li> */}
-              <li>
-                <a href="/sejarah">SEJARAH</a>
-              </li>
-              <li>
-                <a href="/tujuan">TUJUAN</a>
-              </li>
-              <li>
-                <a href="/visi-misi">VISI & MISI</a>
-              </li>
-              <li>
-                <a href="/struktur-organisasi">STRUKTUR ORGANISASI</a>
-              </li>
-              {/* <li>
-                <a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a>
-              </li> */}
-              {/* <li>
-                <a href="/staff">STAFF</a>
-              </li> */}
+              {/* <li><a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a></li> */}
+              <li><a href="/sejarah">SEJARAH</a></li>
+              <li><a href="/tujuan">tujuan</a></li>
+              <li><a href="/visi-misi">VISI & MISI</a></li>
+              <li><a href="/struktur-organisasi">STRUKTUR ORGANISASI</a></li>
+              {/* <li><a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a></li>
+              <li><a href="/staff">STAFF</a></li> */}
             </ul>
           </li>
-          {/* <li
-            className={`navbars-item ${activeMenu === "berita" ? "active" : ""
-              }`}>
-            <a
-              href="#berita"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "berita")}>
-              Berita<i class="fa-solid fa-caret-down"></i>
-            </a>
-            <ul className="submenu">
-              <li>
-                <a href="/news">BERITA TERBARU</a>
-              </li>
-              <li>
-                <a href="/info">INFO SEKOLAH</a>
-              </li>
-              <li>
-                <a href="/agenda">AGENDA</a>
-              </li>
-              <li>
-                <a href="/galery">GALERI</a>
-              </li>
-            </ul>
-          </li>
-          <li
-            className={`navbars-item ${activeMenu === "keuangan" ? "active" : ""
-              }`}>
-            <a
-              href="#keuangan"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "keuangan")}>
-              KEUANGAN<i class="fa-solid fa-caret-down"></i>
-            </a>
-            <ul className="submenu">
-              <li>
-                <a href="/keuangan-bos">BOS</a>
-              </li>
-              <li>
-                <a href="/keuangan-apbd">APBD</a>
-              </li>
-              <li>
-                <a href="/keuangan-komite">KOMITE</a>
-              </li>
-            </ul>
-          </li>
-          <li
-            className={`navbars-item ${activeMenu === "kesiswaan" ? "active" : ""
-              }`}>
-            <a
-              href="#kesiswaan"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "kesiswaan")}>
-              KESISWAAN<i class="fa-solid fa-caret-down"></i>
-            </a>
-            <ul className="submenu">
-              <li>
-                <a href="/materi_ajar">Materi AJAR</a>
-              </li>
-              <li>
-                <a href="/osis">OSIS</a>
-              </li>
-              <li>
-                <a href="/ekstrakurikuler" style={{ textTransform: "uppercase", fontWeight: "600" }}>EKSTRAKURIKULER</a>
-              </li>
-            </ul>
-          </li>
-          <li
-            className={`navbars-item ${activeMenu === "berita" ? "active" : ""
-              }`}>
-            <a
-              href="#sapras"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "berita")}>
-              Sarana prasarana<i class="fa-solid fa-caret-down"></i>
-            </a>
-            <ul className="submenu">
-              <li>
-                <a href="/sarana-prasarana">SARANA</a>
-              </li>
-              <li>
-                <a href="/program">PROGRAM</a>
-              </li>
-              <li>
-                <a href="/kegiatan">KEGIATAN</a>
-              </li>
-            </ul>
-          </li>
-          <li className="navbars-item">
-            <a
-              href="/perpustakaan"
-              style={{ textTransform: "uppercase", fontWeight: "600" }}>
-              PERPUSTAKAAN
-            </a>
-          </li>
-          <li className="navbars-item">
-            <a href="/all-prestasi" style={{ textTransform: "uppercase", fontWeight: "600" }}>PRESTASI</a>
-          </li>
-          <li className="navbars-item">
-            <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
-          </li> */}
           <li
             className={`navbars-item ${activeMenu === "jenjang" ? "active" : ""
               }`}>
@@ -201,15 +101,14 @@ const NavbarSekolah = () => {
               Jenjang<i class="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
             </a>
             <ul className="submenu">
-              <li>
-                <a href="/jenjangsd">SD LB</a>
-              </li>
-              <li>
-                <a href="/jenjangsmp">SMP LB</a>
-              </li>
-              <li>
-                <a href="/jenjangsma">SMA LB</a>
-              </li>
+              {list.map((data) => {
+                return (
+                  <li key={data.id}>
+                    <a href={"/jenjang/" + data.link}>{data.nama_jenjang}</a>
+                  </li>
+                );
+              })}
+
             </ul>
           </li>
           <li className={`navbars-item ${activeMenu === "galeri" ? "active" : ""}`}>
@@ -241,10 +140,9 @@ const NavbarSekolah = () => {
           <li className="navbars-item">
             <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
           </li>
-          <li className={`navbars-item ${activeMenu === "laporanbosp" ? "active" : ""}`}>
-  <a href="/laporanbosp" className="has-submenu">Laporan BOSP</a>
-</li>
-
+          <li className="navbars-item btn-bos">
+            <a href="/laporanbosp" style={{ textTransform: "uppercase", fontWeight: "600" }}>Laporan BOSP</a>
+          </li>
         </ul>
         <div
           className={`hamburger ${isMenuOpen ? "active" : ""}`}

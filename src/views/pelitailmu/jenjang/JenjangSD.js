@@ -4,29 +4,32 @@ import Aos from "aos";
 import { API_DUMMY } from "../../../utils/base_URL";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 import FooterSekolah from "../../../component/FooterSekolah";
+import { useParams } from "react-router-dom/cjs/react-router-dom";
+// import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function JenjangSD() {
-  const [sejarah, setSejarah] = useState({ judul: "", isi: "" });
+  const [jenjang, setJenjang] = useState({ nama_jenjang: "", description: "" });
   const [error, setError] = useState(null);
+  const param = useParams()
 
-  const getAllSejarah = async () => {
+  const getAlljenjang = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/sejarah/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/api/jenjang/get/by-link/${param.link}`
       );
-      const sejarahContent = response.data.data.content[0] || {};
-      setSejarah({
-        judul: sejarahContent.judul || "Data tidak tersedia",
-        isi: sejarahContent.isi || "Data tidak tersedia",
+      const jenjangContent = response.data.data;
+      setJenjang({
+        nama_jenjang: jenjangContent.nama_jenjang || "Data tidak tersedia",
+        description: jenjangContent.description || "Data tidak tersedia",
       });
     } catch (error) {
       setError(error);
-      console.log("Error fetching sejarah data:", error);
+      console.log("Error fetching jenjang data:", error);
     }
   };
 
   useEffect(() => {
-    getAllSejarah();
+    getAlljenjang();
     Aos.init();
   }, []);
 
@@ -47,21 +50,21 @@ function JenjangSD() {
             </li>
             <li>
               <i className="fas fa-angle-right"></i>{" "}
-              <span style={{ fontWeight: "normal" }}>Jenjang SD</span>
+              <span style={{ fontWeight: "normal" }}>{jenjang.nama_jenjang}</span>
             </li>
           </ul>
         </div>
         <div style={{ lineHeight: "1.8", textAlign: "justify" }}>
           <div style={{ margin: "0 auto 0", padding: "0" }} data-aos="fade-up">
-            {sejarah.judul === "Data tidak tersedia" ||
-            sejarah.isi === "Data tidak tersedia" ? (
+            {jenjang.nama_jenjang === "Data tidak tersedia" ||
+            jenjang.description === "Data tidak tersedia" ? (
               <p
                 style={{
                   fontSize: "1.1em",
                   textAlign: "center",
                   color: "#666",
                 }}>
-                Sejarah Tidak Tersedia.
+                jenjang Tidak Tersedia.
               </p>
             ) : (
               <>
@@ -71,7 +74,7 @@ function JenjangSD() {
                     marginBottom: "30px",
                     fontSize: "2em",
                   }}>
-                  {sejarah.judul}
+                  {jenjang.nama_jenjang}
                 </h1>
                 <hr style={{ borderColor: "#ccc" }} />
                 <p
@@ -80,7 +83,7 @@ function JenjangSD() {
                     marginBottom: "20px",
                     textAlign: "justify",
                   }}>
-                  <div dangerouslySetInnerHTML={{ __html: sejarah.isi }} />
+                  <div dangerouslySetInnerHTML={{ __html: jenjang.description }} />
                 </p>
               </>
             )}

@@ -167,11 +167,18 @@ function GalerySekolah() {
   const getAllGalery = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/galeri/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/api/galeri/all/terbaru?page=${page - 1
         }&size=20`
       );
       setGalery(response.data.data.content);
+      console.log("data: ", response.data.data.content);
+      
+      console.log("foto : ", response.data.data.content.map((dt) => {
+        return (
+          JSON.parse(dt.foto)[0]
+        )
+      }));
+
       setTotalPage(response.data.data.totalPages);
     } catch (error) {
       console.log("get all", error);
@@ -188,18 +195,19 @@ function GalerySekolah() {
       <NavbarSekolah2 />
       <main data-aos="zoom-in" className="container-berita container">
         <HeaderGaleri />
-         {galery.length > 0 ? (
-        <div>
-          <div className="gallery-container mb-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {galery.map((item) => (
-              <ImageCard
-                key={item.id}
-                image={item.foto}
-                title={item.judul}
-                content={item.deskripsi}
-              />
-            ))}
-            {/* {galleryData.map(item => (
+        {galery.length > 0 ? (
+          <div>
+            <div className="gallery-container mb-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              {galery.slice(0, 6).map((item) => (
+                <ImageCard
+  key={item.id}
+  image={JSON.parse(item.foto)[0]}
+  title={item.judul}
+  content={item.deskripsi}
+/>
+
+              ))}
+              {/* {galleryData.map(item => (
               <ImageCard
                 key={item.id}
                 image={item.image}
@@ -207,25 +215,25 @@ function GalerySekolah() {
                 content={item.content}
               />
             ))} */}
+            </div>
+            <div className="d-flex justify-content-center align-items-center mt-5">
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+                shape="rounded"
+                style={{ marginBottom: "30px" }}
+                showFirstButton
+                showLastButton
+              />
+            </div>
           </div>
-          <div className="d-flex justify-content-center align-items-center mt-5">
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-              color="primary"
-              shape="rounded"
-              style={{ marginBottom: "30px" }}
-              showFirstButton
-              showLastButton
-            />
-          </div>
-        </div>
-      ) : (
-        <p style={{ textAlign: 'center', fontSize: '1.2em', color: '#666' }}>
-          Galeri Tidak Tersedia.
-        </p>
-      )}
+        ) : (
+          <p style={{ textAlign: 'center', fontSize: '1.2em', color: '#666' }}>
+            Galeri Tidak Tersedia.
+          </p>
+        )}
       </main>
       <FooterSekolah />
     </section>
