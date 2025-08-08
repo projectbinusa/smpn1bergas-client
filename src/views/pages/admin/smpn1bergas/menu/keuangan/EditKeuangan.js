@@ -463,6 +463,7 @@ function EditKeuangan() {
                           styles: [
                             // "full",    // Gambar mengambil lebar penuh konten
                             // "side",    // Gambar sejajar dengan teks
+                            "height: 300px",
                             "alignLeft",
                             "alignCenter",
                             "alignRight",
