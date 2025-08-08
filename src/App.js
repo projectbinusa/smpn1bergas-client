@@ -163,6 +163,7 @@ import TujuanSekolah from "./views/pagesekolah/profilSekolah/tujuan/tujuanSekola
 import JenjangSD from "./views/pelitailmu/jenjang/JenjangSD";
 import JenjangSMP from "./views/pelitailmu/jenjang/JenjangSMP";
 import JenjangSMA from "./views/pelitailmu/jenjang/JenjangSMA";
+import DetailGalery from "./views/pagesekolah/berita/gambar/DetailGalery";
 
 
 function App() {
@@ -630,6 +631,7 @@ function App() {
             <Route path="/osis" component={Osis} exact />
             {/* Berita */}
             <Route path="/galery" component={GalerySekolah} exact />
+            <Route path="/galery/:id" component={DetailGalery} exact />
             <Route path="/news" component={beritaNews} exact />
             <Route path="/detail-news-:id" component={DetailNews} exact />
             <Route path="/info" component={Info} exact />
