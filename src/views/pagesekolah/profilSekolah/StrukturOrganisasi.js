@@ -4,7 +4,9 @@ import "../../../css/alumni/struktur.css";
 import { API_DUMMY } from "../../../utils/base_URL";
 import axios from "axios";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
-import excelstruktur from "../../../aset/smpn1bergas/STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx";
+import strukturSLBC from "../../../aset/smpn1bergas/struktur-slbc.jpeg";
+
+
 import Aos from "aos";
 
 function StrukturOrganisasi() {
@@ -30,13 +32,14 @@ function StrukturOrganisasi() {
   }, [currentPage]);
 
   const download = () => {
-    const link = document.createElement("a");
-    link.href = excelstruktur;
-    link.download = "STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  const link = document.createElement("a");
+  link.href = strukturSLBC;
+  link.download = "STRUKTUR_ORG_SLBC.jpeg";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 
   return (
     <section style={{ backgroundColor: "#f8f9fa" }}>
