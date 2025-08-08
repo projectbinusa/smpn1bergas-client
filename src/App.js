@@ -164,6 +164,9 @@ import JenjangSD from "./views/pelitailmu/jenjang/JenjangSD";
 import JenjangSMP from "./views/pelitailmu/jenjang/JenjangSMP";
 import JenjangSMA from "./views/pelitailmu/jenjang/JenjangSMA";
 import DetailGalery from "./views/pagesekolah/berita/gambar/DetailGalery";
+import CategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/CategoryGalery";
+import AddCategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/AddCategoryGalery";
+import EditCategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/EditCategoryGalery";
 
 
 function App() {
@@ -649,6 +652,21 @@ function App() {
             <Route
               path="/struktur-organisasi"
               component={StrukturOrganisasi}
+              exact
+              />
+            <Route
+              path="/admin-category-galery"
+              component={CategoryGalery}
+              exact
+            />
+            <Route
+              path="/add-category-galery"
+              component={AddCategoryGalery}
+              exact
+            />
+            <Route
+              path="/edit-category-galery"
+              component={EditCategoryGalery}
               exact
             />
           </Switch>
