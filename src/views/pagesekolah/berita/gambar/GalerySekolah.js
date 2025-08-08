@@ -190,7 +190,7 @@ function GalerySekolah() {
         <HeaderGaleri />
          {galery.length > 0 ? (
         <div>
-          <div className="gallery-container mb-5">
+          <div className="gallery-container mb-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {galery.map((item) => (
               <ImageCard
                 key={item.id}
