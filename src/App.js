@@ -203,7 +203,7 @@ function App() {
             <Route path="/sidebar1" component={Sidebar1} exact />
             {/* page */}
             <Route path="/" component={Dashbaord} exact />
-            <Route path="/jenjang:link" component={JenjangSD} exact />
+            <Route path="/jenjang/:link" component={JenjangSD} exact />
             <Route path="/jenjangsmp" component={JenjangSMP} exact />
             <Route path="/jenjangsma" component={JenjangSMA} exact />
             <Route path="/laporanbosp" component={LaporanBosp} exact />
