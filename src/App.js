@@ -167,6 +167,7 @@ import DetailGalery from "./views/pagesekolah/berita/gambar/DetailGalery";
 import CategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/CategoryGalery";
 import AddCategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/AddCategoryGalery";
 import EditCategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/EditCategoryGalery";
+import DetailAdminGalery from "./views/pages/admin/smpn1bergas/galery/DetailAdminGalery";
 
 
 function App() {
@@ -653,7 +654,7 @@ function App() {
               path="/struktur-organisasi"
               component={StrukturOrganisasi}
               exact
-              />
+            />
             <Route
               path="/admin-category-galery"
               component={CategoryGalery}
@@ -669,6 +670,7 @@ function App() {
               component={EditCategoryGalery}
               exact
             />
+            <PrivateRoute path="/detail-admin-galery/:id" component={DetailAdminGalery} exact />
           </Switch>
         </main>
         <LogPageView />

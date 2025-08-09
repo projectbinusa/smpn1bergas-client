@@ -13,12 +13,36 @@ function EditGalery() {
   const [formData, setFormData] = useState({
     judul: "",
     deskripsi: "",
+    id_category: "",
+    foto: ""
   });
   const [existingImages, setExistingImages] = useState([]);
   const [newImages, setNewImages] = useState([]);
   const [imagesToDelete, setImagesToDelete] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const getAll = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY}/api/category_galery/all/no_page`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(response.data.data);
+        setCategories(response.data.data)
+      } catch (error) {
+        console.error("Terjadi Kesalahan", error);
+      }
+    };
+
+    getAll();
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -47,9 +71,13 @@ function EditGalery() {
         });
 
         const data = response.data.data;
+        console.log(data);
+
         setFormData({
           judul: data.judul,
-          deskripsi: data.deskripsi
+          deskripsi: data.deskripsi,
+          id_category: data?.categoryGalery?.id,
+          foto: data?.foto
         });
 
         if (data.foto) {
@@ -114,7 +142,7 @@ function EditGalery() {
     try {
       const data = new FormData();
 
-      data.append("galeri", new Blob([JSON.stringify(formData)], {
+      data.append("data", new Blob([JSON.stringify(formData)], {
         type: "application/json"
       }));
 
@@ -160,6 +188,12 @@ function EditGalery() {
     }
   };
 
+  // const handleSubmit = async (e) => { }
+  console.log(formData);
+  console.log(existingImages);
+  console.log(newImages);
+
+
   return (
     <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a
@@ -200,14 +234,28 @@ function EditGalery() {
                         <label className="form-label font-weight-bold">
                           Kategori
                         </label>
-                        <input
+                        <select
+                          name="id_category" // penting agar handleInputChange tahu field mana yang diubah
+                          value={formData.id_category || ""} // default ke string kosong kalau belum ada
+                          className="form-control"
+                          aria-label="Small select example"
+                          onChange={handleInputChange}
+                        >
+                          <option value="">Pilih Kategori</option>
+                          {categories.map((down) => (
+                            <option key={down.id} value={down.id}>
+                              {down.category}
+                            </option>
+                          ))}
+                        </select>
+                        {/* <input
                           name="judul"
                           value={formData.judul}
                           onChange={handleInputChange}
                           type="text"
                           className="form-control"
                           required
-                        />
+                        /> */}
                       </div>
 
                       <div className="mb-3 col-lg-12">

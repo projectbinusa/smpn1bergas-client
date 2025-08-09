@@ -178,7 +178,7 @@ function Galery() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Galery</p>
+              <p className="mt-3">Galeri</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -208,7 +208,7 @@ function Galery() {
                       <a
                         style={{ color: "white", textDecoration: "none" }}
                         href="/add-galery">
-                        Tambah Galery
+                        Tambah Galeri
                       </a>
                     </button>
                   </div>
@@ -223,10 +223,11 @@ function Galery() {
                   <tr>
                     <th scope="col">No</th>
                     <th>Judul</th>
+                    <th>Kategori</th>
                     <th scope="col" style={{ minWidth: "150px" }}>
                       Deskripsi
                     </th>
-                    <th>Image</th>
+                    {/* <th>Image</th> */}
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -241,8 +242,9 @@ function Galery() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Judul">{berita.judul}</td>
+                          <td data-label="Kategori">{berita.categoryGalery?.category}</td>
                           <td data-label="Deskripsi">{berita.deskripsi}</td>
-                          <td data-label="Image">
+                          {/* <td data-label="Image">
                             <div
                               style={{
                                 display: "flex",
@@ -266,7 +268,7 @@ function Galery() {
                                 />
                               )}
                             </div>
-                          </td>
+                          </td> */}
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
@@ -280,6 +282,19 @@ function Galery() {
                                   href={`/edit-galery/${berita.id}`}>
                                   {" "}
                                   <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                type="button"
+                                className="btn-warning btn-sm mr-2">
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/detail-admin-galery/${berita.id}`}>
+                                  {" "}
+                                  <i className="fas fa-info-circle"></i>
                                 </a>
                               </button>
                               <button
