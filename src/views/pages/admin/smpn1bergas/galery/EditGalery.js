@@ -13,8 +13,11 @@ function EditGalery() {
   const [formData, setFormData] = useState({
     judul: "",
     deskripsi: "",
-    id_category: "",
-    foto: ""
+    id_category: 0,
+  });
+
+  const [formDataFoto, setFormDataFoto] = useState({
+    foto: []
   });
   const [existingImages, setExistingImages] = useState([]);
   const [newImages, setNewImages] = useState([]);
@@ -77,8 +80,10 @@ function EditGalery() {
           judul: data.judul,
           deskripsi: data.deskripsi,
           id_category: data?.categoryGalery?.id,
-          foto: data?.foto
         });
+        setFormDataFoto({
+          foto: data?.foto
+        })
 
         if (data.foto) {
           try {
@@ -106,6 +111,10 @@ function EditGalery() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
+      ...prev,
+      [name]: name === "id_category" ? Number(value) : value
+    }));
+    setFormDataFoto(prev => ({
       ...prev,
       [name]: value
     }));
@@ -140,40 +149,49 @@ function EditGalery() {
     setIsSubmitting(true);
 
     try {
-      const data = new FormData();
-
-      data.append("data", new Blob([JSON.stringify(formData)], {
-        type: "application/json"
-      }));
-
-      newImages.forEach((file) => {
-        if (file) {
-          data.append("files", file);
+      await axios.put(`${API_DUMMY}/api/galeri/put/${id}`, {
+        judul: formData.judul,
+        deskripsi: formData.deskripsi,
+        categoryGalery: {
+          id: formData.id_category
         }
-      });
+      }, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
 
-      data.append("imagesToDelete", JSON.stringify(imagesToDelete));
 
-      const response = await axios.put(
-        `${API_DUMMY}/api/galeri/put/${id}`,
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      // 2️⃣ Update foto (jika ada yang baru atau dihapus)
+      if (newImages.length > 0 || imagesToDelete.length > 0) {
+        const data = new FormData();
+        data.append("galeri", new Blob([JSON.stringify(formDataFoto)], { type: "application/json" }));
 
-      if (response.status === 200) {
-        Swal.fire({
-          icon: "success",
-          title: "Berhasil Mengupdate Data galery",
-          showConfirmButton: false,
-          timer: 1500,
+        newImages.forEach((file) => {
+          if (file) {
+            data.append("files", file);
+          }
         });
-        history.push("/admin-galery");
+
+        if (imagesToDelete.length > 0) {
+          data.append("imagesToDelete", JSON.stringify(imagesToDelete));
+        }
+
+        await axios.put(
+          `${API_DUMMY}/api/galeri/put/foto/${id}`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
       }
+
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil Mengupdate Data galeri",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      history.push("/admin-galery");
+
     } catch (error) {
       console.error("Error updating gallery:", error);
       Swal.fire({
@@ -187,6 +205,7 @@ function EditGalery() {
       setIsSubmitting(false);
     }
   };
+
 
   // const handleSubmit = async (e) => { }
   console.log(formData);
@@ -236,10 +255,11 @@ function EditGalery() {
                         </label>
                         <select
                           name="id_category" // penting agar handleInputChange tahu field mana yang diubah
-                          value={formData.id_category || ""} // default ke string kosong kalau belum ada
+                          value={formData.id_category} // default ke string kosong kalau belum ada
                           className="form-control"
                           aria-label="Small select example"
                           onChange={handleInputChange}
+                          required
                         >
                           <option value="">Pilih Kategori</option>
                           {categories.map((down) => (
@@ -268,6 +288,7 @@ function EditGalery() {
                           onChange={handleInputChange}
                           className="form-control"
                           rows="4"
+                          required
                         ></textarea>
                       </div>
 

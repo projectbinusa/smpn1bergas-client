@@ -12,7 +12,9 @@ function AddGalery() {
   const [formData, setFormData] = useState({
     judul: "",
     deskripsi: "",
-    id_category: "",
+    categoryGalery: {
+      id: 0
+    },
   });
   const [images, setImages] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -202,11 +204,15 @@ function AddGalery() {
                           Kategori
                         </label>
                         <select
-                          name="id_category" // penting agar handleInputChange tahu field mana yang diubah
-                          value={formData.id_category || ""} // default ke string kosong kalau belum ada
+                          name="categoryGalery"
+                          value={formData.categoryGalery.id}
                           className="form-control"
-                          aria-label="Small select example"
-                          onChange={handleInputChange}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              categoryGalery: { id: parseInt(e.target.value) },
+                            })
+                          }
                         >
                           <option value="">Pilih Kategori</option>
                           {categories.map((down) => (
@@ -215,11 +221,12 @@ function AddGalery() {
                             </option>
                           ))}
                         </select>
+
                         {/* <input
-                          name="id_category"
+                          name="categoryGalery"
                           type="text"
                           className="form-control"
-                          value={formData.id_category}
+                          value={formData.categoryGalery}
                           onChange={handleInputChange}
                           placeholder="Masukkan Kategori"
                         /> */}

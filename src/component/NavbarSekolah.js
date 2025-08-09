@@ -8,8 +8,8 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const NavbarSekolah = () => {
   const [activeMenu, setActiveMenu] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [list, setList] = useState([])
-  const history = useHistory()
+  const [list, setList] = useState([]);
+  const [listKategori, setListKategori] = useState([]);
 
   const handleScrollToSection = (id) => {
     const isHomePage = window.location.pathname === "/";
@@ -63,8 +63,24 @@ const NavbarSekolah = () => {
     }
   };
 
+
+  const getAllKategori = async (page) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/api/category_galery/all`
+      );
+      setListKategori(response.data.data.content);
+      console.log("jenjang: ", response.data.data.content);
+
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
+
+
   useEffect(() => {
     getAll()
+    getAllKategori()
   }, [])
 
   return (
@@ -116,12 +132,13 @@ const NavbarSekolah = () => {
               Galeri<i class="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
             </a>
             <ul className="submenu">
-              <li>
-                <a href="/news">Pembelajaran</a>
-              </li>
-              <li>
-                <a href="/info">Kegiatan Keterampilan</a>
-              </li>
+              {listKategori.map((data) => {
+                return (
+                  <li key={data.id}>
+                    <a href={"/galery/kategori_galeri/" + data.id}>{data.category}</a>
+                  </li>
+                );
+              })}
             </ul>
           </li>
           <li className="navbars-item">
