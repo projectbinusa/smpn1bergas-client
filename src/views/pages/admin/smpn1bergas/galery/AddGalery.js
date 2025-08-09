@@ -133,6 +133,23 @@ function AddGalery() {
     }
   };
 
+  const [kategoriList, setKategoriList] = useState([]);
+
+  useEffect(() => {
+    const fetchKategori = async () => {
+      try {
+        const res = await axios.get(`${API_DUMMY}/api/category_galery`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        });
+        setKategoriList(res.data.data.content || res.data.data); // tergantung struktur API
+      } catch (err) {
+        console.error("Gagal ambil kategori", err);
+      }
+    };
+
+    fetchKategori();
+  }, []);
+
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
@@ -176,14 +193,20 @@ function AddGalery() {
                         <label className="form-label font-weight-bold">
                           Kategori
                         </label>
-                        <input
+                        <select
                           name="kategori_id"
-                          type="text"
                           className="form-control"
                           value={formData.kategori_id}
                           onChange={handleInputChange}
-                          placeholder="Masukkan Kategori"
-                        />
+                          required
+                        >
+                          <option value="">Pilih Kategori</option>
+                          {kategoriList.map((item) => (
+                            <option key={item.id} value={item.id}>
+                              {item.kategori}
+                            </option>
+                          ))}
+                        </select>
                       </div>
 
                       <div className="mb-3 col-lg-12">
