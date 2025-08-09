@@ -12,11 +12,36 @@ function AddGalery() {
   const [formData, setFormData] = useState({
     judul: "",
     deskripsi: "",
-    kategori_id: "",
+    categoryGalery: {
+      id: 0
+    },
   });
   const [images, setImages] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  useEffect(() => {
+    const getAll = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY}/api/category_galery/all/no_page`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(response.data.data);
+        setCategories(response.data.data)
+      } catch (error) {
+        console.error("Terjadi Kesalahan", error);
+      }
+    };
+
+    getAll();
+  }, []);
+
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -133,23 +158,6 @@ function AddGalery() {
     }
   };
 
-  const [kategoriList, setKategoriList] = useState([]);
-
-  useEffect(() => {
-    const fetchKategori = async () => {
-      try {
-        const res = await axios.get(`${API_DUMMY}/api/category_galery`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-        });
-        setKategoriList(res.data.data.content || res.data.data); // tergantung struktur API
-      } catch (err) {
-        console.error("Gagal ambil kategori", err);
-      }
-    };
-
-    fetchKategori();
-  }, []);
-
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
@@ -194,19 +202,30 @@ function AddGalery() {
                           Kategori
                         </label>
                         <select
-                          name="kategori_id"
+                          name="categoryGalery"
+                          value={formData.categoryGalery.id}
                           className="form-control"
-                          value={formData.kategori_id}
-                          onChange={handleInputChange}
-                          required
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              categoryGalery: { id: parseInt(e.target.value) },
+                            })
+                          }
                         >
                           <option value="">Pilih Kategori</option>
-                          {kategoriList.map((item) => (
-                            <option key={item.id} value={item.id}>
-                              {item.kategori}
+                          {categories.map((down) => (
+                            <option key={down.id} value={down.id}>
+                              {down.category}
                             </option>
                           ))}
                         </select>
+
+                        {/* <input
+                          name="categoryGalery"
+                          type="text"
+                          className="form-control"
+                          value={formData.categoryGalery}
+                          onChange={handleInputChange}
                       </div>
 
                       <div className="mb-3 col-lg-12">

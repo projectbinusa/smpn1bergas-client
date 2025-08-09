@@ -21,8 +21,8 @@ function AddCategoryGalery() {
     }
     try {
       await axios.post(
-        `${API_DUMMY}/api/category_galery`,
-        { kategori },
+        `${API_DUMMY}/api/category_galery/add`,
+        { category: kategori },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       Swal.fire("Berhasil", "Kategori ditambahkan!", "success");
@@ -55,10 +55,10 @@ function AddCategoryGalery() {
               onChange={(e) => setKategori(e.target.value)}
             />
             <div className="d-flex gap-2">
-              <button className="btn btn-primary" onClick={handleAdd}>
+              <button className="btn-primary mt-3" onClick={handleAdd}>
                 Simpan
               </button>
-              <button className="btn btn-secondary" onClick={() => history.push("/admin-category-galery")}>
+              <button className="btn-secondary mt-3" onClick={() => history.push("/admin-category-galery")}>
                 Batal
               </button>
             </div>

@@ -9,7 +9,7 @@ import { useHistory, useParams } from "react-router-dom";
 function EditCategoryGalery() {
   const [kategori, setKategori] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const { id } = useParams();
+  const param = useParams();
  const history = useHistory();
 
 
@@ -17,10 +17,10 @@ function EditCategoryGalery() {
 
   const getData = async () => {
     try {
-      const res = await axios.get(`${API_DUMMY}/api/category_galery/${id}`, {
+      const res = await axios.get(`${API_DUMMY}/api/category_galery/get/${param.id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      setKategori(res.data.data.kategori);
+      setKategori(res.data.data.category);
     } catch (err) {
       Swal.fire("Error", "Gagal memuat data kategori!", "error");
     }
@@ -33,8 +33,8 @@ function EditCategoryGalery() {
     }
     try {
       await axios.put(
-        `${API_DUMMY}/api/category_galery/${id}`,
-        { kategori },
+        `${API_DUMMY}/api/category_galery/put/${param.id}`,
+        { category: kategori },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       Swal.fire("Berhasil", "Kategori diperbarui!", "success");
@@ -71,10 +71,10 @@ function EditCategoryGalery() {
               onChange={(e) => setKategori(e.target.value)}
             />
             <div className="d-flex gap-2">
-              <button className="btn btn-primary" onClick={handleEdit}>
+              <button className="btn-primary mt-3 mr-3" onClick={handleEdit}>
                 Update
               </button>
-              <button className="btn btn-secondary" onClick={() => history.push("/admin-category-galery")}>
+              <button className="mt-3 btn-secondary" onClick={() => history.push("/admin-category-galery")}>
                 Batal
               </button>
             </div>

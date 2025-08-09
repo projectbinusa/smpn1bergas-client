@@ -60,7 +60,7 @@ function AdminLaporanBosp() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/api/berita/delete/` + id, {
+          .delete(`${API_DUMMY}/api/laporanbosp/delete/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -129,6 +129,18 @@ function AdminLaporanBosp() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  function stripHtml(html) {
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  }
+
+  function truncateText(text, maxWords) {
+    const words = text.split(" ");
+    if (words.length <= maxWords) return text;
+    return words.slice(0, maxWords).join(" ") + " ...";
+  }
 
   return (
     <div
@@ -216,9 +228,9 @@ function AdminLaporanBosp() {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Tanggal</th>
-                    <th>Judul Laporan</th>
-                    <th scope="col" style={{ minWidth: "150px" }}>Deskripsi</th>
+                    <th>Nama Laporan</th>
+                    <th >Deskripsi</th>
+                    {/* <th>File</th> */}
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -230,21 +242,33 @@ function AdminLaporanBosp() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Tanggal">
-                            {berita.categoryBerita}
-                          </td>
-                          <td data-label="Judul Laporan">
-                            {berita.judulBerita}
+                          <td data-label="Nama Laporan">
+                            {berita.nama}
                           </td>
                           <td data-label="Deskripsi">
-                            {berita.author}
+                            <div
+                            dangerouslySetInnerHTML={{
+                              __html: truncateText(
+                                stripHtml(berita.deskripsi),
+                                20
+                              ),
+                            }}
+                          />
                           </td>
-                          {/* <td data-label="Image">
-                            <img
-                              src={berita.image ? berita.image : news}
-                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
-                            />
-                          </td> */}
+                          {/* <td>
+                         {berita.files && (
+                                <img
+                                  src={berita.files[0]}
+                                  style={{
+                                    maxWidth: "30%",
+                                    maxHeight: "30%",
+                                    width: "auto",
+                                    height: "auto",
+                                    objectFit: "contain",
+                                  }}
+                                />
+                               )}
+                              </td> */}
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button

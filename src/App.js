@@ -167,6 +167,9 @@ import DetailGalery from "./views/pagesekolah/berita/gambar/DetailGalery";
 import CategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/CategoryGalery";
 import AddCategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/AddCategoryGalery";
 import EditCategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/EditCategoryGalery";
+import DetailAdminGalery from "./views/pages/admin/smpn1bergas/galery/DetailAdminGalery";
+import AdminDetailLaporanBosp from "./views/pelitailmu/laporanbosp/AdminDetailLaporanBosp";
+import GaleryByCategory from "./views/pagesekolah/berita/gambar/GaleryByCategory";
 
 
 function App() {
@@ -203,7 +206,7 @@ function App() {
             <Route path="/sidebar1" component={Sidebar1} exact />
             {/* page */}
             <Route path="/" component={Dashbaord} exact />
-            <Route path="/jenjang:link" component={JenjangSD} exact />
+            <Route path="/jenjang/:link" component={JenjangSD} exact />
             <Route path="/jenjangsmp" component={JenjangSMP} exact />
             <Route path="/jenjangsma" component={JenjangSMA} exact />
             <Route path="/laporanbosp" component={LaporanBosp} exact />
@@ -211,6 +214,7 @@ function App() {
             <PrivateRoute path="/admin/laporanbosp" component={AdminLaporanBosp} exact />
             <PrivateRoute path="/admin/laporanbosp/add" component={AddLaporanBosp} exact />
             <PrivateRoute path="/admin/laporanbosp/edit/:id" component={EditLaporanBosp} exact />
+            <PrivateRoute path="/admin/laporanbosp/detail/:id" component={AdminDetailLaporanBosp} exact />
             <Route path="/sambutan" component={sambutan} exact />
             <Route path="/visi-misi" component={VisiMisiSekolah} exact />
             <Route path="/sejarah" component={SejarahSekolah} exact />
@@ -634,6 +638,7 @@ function App() {
             <Route path="/osis" component={Osis} exact />
             {/* Berita */}
             <Route path="/galery" component={GalerySekolah} exact />
+            <Route path="/galery/kategori_galeri/:category_id" component={GaleryByCategory} exact />
             <Route path="/galery/:id" component={DetailGalery} exact />
             <Route path="/news" component={beritaNews} exact />
             <Route path="/detail-news-:id" component={DetailNews} exact />
@@ -653,7 +658,7 @@ function App() {
               path="/struktur-organisasi"
               component={StrukturOrganisasi}
               exact
-              />
+            />
             <Route
               path="/admin-category-galery"
               component={CategoryGalery}
@@ -665,10 +670,11 @@ function App() {
               exact
             />
             <Route
-              path="/edit-category-galery"
+              path="/edit-category-galery/:id"
               component={EditCategoryGalery}
               exact
             />
+            <PrivateRoute path="/detail-admin-galery/:id" component={DetailAdminGalery} exact />
           </Switch>
         </main>
         <LogPageView />

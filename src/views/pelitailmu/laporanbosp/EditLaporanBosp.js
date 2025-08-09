@@ -323,46 +323,54 @@ function EditLaporanBosp() {
   };
 
   const updateLaporan = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    let files = [];
-    try {
-      const newFiles = await uploadFileToS3(
-        documents.filter((file) => file !== null)
-      );
-      files = [...attachments1, ...newFiles];
-    } catch (err) {
-      Swal.fire("Gagal", "Gagal Mengunggah File", "error");
-      return;
+  // Buat FormData untuk multipart/form-data
+  const formData = new FormData();
+  formData.append(
+    "laporan",
+    new Blob(
+      [
+        JSON.stringify({
+          nama: nama,
+          deskripsi: deskripsi,
+          attachments: attachments1 // file lama yang ingin dipertahankan
+        }),
+      ],
+      { type: "application/json" }
+    )
+  );
+
+  // Append semua file baru
+  documents.forEach((file) => {
+    if (file) {
+      formData.append("files", file);
     }
+  });
 
-    const data = {
-      nama: nama,
-      deskripsi: deskripsi,
-      files: files
-    };
+  try {
+    await axios.put(`${API_DUMMY}/api/laporanbosp/put/${param.id}`, formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
-    try {
-      await axios.put(`${API_DUMMY}/api/laporanbosp/${param.id}`, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil Diedit",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        history.push("/admin/laporanbosp");
-        window.location.reload();
-      }, 1500);
-    } catch (error) {
-      console.error("Gagal edit data:", error);
-    }
-  };
+    Swal.fire({
+      icon: "success",
+      title: "Data Berhasil Diedit",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    // setTimeout(() => {
+    //   history.push("/admin/laporanbosp");
+    //   window.location.reload();
+    // }, 1500);
+  } catch (error) {
+    console.error("Gagal edit data:", error);
+    Swal.fire("Gagal", "Terjadi kesalahan saat update data", "error");
+  }
+};
 
   return (
     <div
@@ -386,7 +394,7 @@ function EditLaporanBosp() {
               <hr />
               <form onSubmit={updateLaporan}>
                 <div className="row">
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label className="form-label font-weight-bold">
                       Judul Laporan
                     </label>
@@ -420,7 +428,7 @@ function EditLaporanBosp() {
                               />
                               <br />
                               <button
-                                className="btn btn-danger btn-sm mt-2"
+                                className="btn-danger btn-sm mt-3"
                                 type="button"
                                 onClick={() => handleRemoveOldAttachment(index)}
                               >
@@ -434,7 +442,7 @@ function EditLaporanBosp() {
                   </div>
 
                   {documents.map((file, index) => (
-                    <div className="mb-3 col-lg-6" key={`new-file-${index}`}>
+                    <div className="mb-3 col-lg-12" key={`new-file-${index}`}>
                       <label className="form-label font-weight-bold">
                         Lampiran {index + 1}
                       </label>

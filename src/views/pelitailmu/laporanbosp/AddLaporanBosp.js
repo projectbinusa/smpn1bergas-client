@@ -228,47 +228,54 @@ function AddLaporanBosp() {
   };
 
   const add = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    let files = [];
-    if (documents && documents.length > 0) {
-      files = await uploadFileToS3(documents.filter((file) => file !== null));
+  const formData = new FormData();
+  formData.append(
+    "laporan",
+    new Blob(
+      [
+        JSON.stringify({
+          nama: nama,
+          deskripsi: deskripsi,
+        }),
+      ],
+      { type: "application/json" }
+    )
+  );
+
+  documents.forEach((file) => {
+    if (file) {
+      formData.append("files", file);
     }
+  });
 
-    const data = {
-      nama: nama,
-      deskripsi: deskripsi,
-      files: files
-    };
+  try {
+    await axios.post(`${API_DUMMY}/api/laporanbosp/add`, formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
-    try {
-      await axios.post(`${API_DUMMY}/api/laporanbosp`, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      Swal.fire({
-        icon: "success",
-        title: "Berhasil Ditambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        history.push("/admin/laporanbosp");
-        window.location.reload();
-      }, 1500);
-    } catch (error) {
-      console.error("Gagal menambahkan data laporan:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Terjadi Kesalahan Saat Tambah Data",
-        text:
-          error.response?.data?.description || error.response?.data?.message,
-        showConfirmButton: true,
-      });
-    }
-  };
+    Swal.fire({
+      icon: "success",
+      title: "Berhasil Ditambahkan",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    history("/admin/laporanbosp")
+  } catch (error) {
+    console.error("Gagal menambahkan data laporan:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Terjadi Kesalahan Saat Tambah Data",
+      text:
+        error.response?.data?.description || error.response?.data?.message,
+      showConfirmButton: true,
+    });
+  }
+};
 
 
   return (

@@ -49,7 +49,7 @@ function DetailBerita() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -72,8 +72,6 @@ function DetailBerita() {
         style={{ color: "white", background:"#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
         <div style={{marginTop:"10px"}} className="page-content1 mt-3 mb-3 app-main__outer">
           <div className="container box-tabel">
@@ -81,19 +79,49 @@ function DetailBerita() {
               <h1 className="title card-header fw-bold fs-3">Detail Berita</h1>
               <br />
               <div className="card-body">
-                {image === null ? (
-                  <img
-                    className="rounded-circle w-75 mr-auto ml-auto d-block"
-                    src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
-                  />
-                ) : (
-                  <img
-                    style={{ maxWidth: "400px", maxHeight: "400px" }}
-                    className="w-75 d-block mr-auto ml-auto"
-                    src={image}
-                  />
-                )}
-                <br />
+                <div style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "20px"
+                }}>
+                  {image === null ? (
+                    <img
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "400px",
+                        borderRadius: "8px",
+                        objectFit: "contain"
+                      }}
+                      src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+                      alt="Default Berita"
+                    />
+                  ) : (
+                    <div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "20px"
+  }}
+>
+  <img
+    style={{
+      maxWidth: "100%",
+      height: "auto",
+      maxHeight: "400px",
+      borderRadius: "8px",
+      objectFit: "cover", // atau "contain" kalau mau full tanpa crop
+    }}
+    src={
+      image
+        ? image
+        : "https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+    }
+    alt="Berita"
+  />
+</div>
+
+                  )}
+                </div>
                 <br />
                 <div class="mb-3">
                   <label class="form-label fw-bold">Judul Berita</label>
@@ -169,7 +197,6 @@ function DetailBerita() {
             </form>
           </div>
         </div>
-      {/* </div> */}
     </div>
   );
 }

@@ -17,9 +17,10 @@ function DetailGalery() {
             setGaleriDetail(res.data.data);
         } catch (error) {
             console.error("Error fetching detail galeri:", error);
-        } finally {
-            setLoading(false);
         }
+        // } finally {
+        //     setLoading(false);
+        // }
     };
 
     useEffect(() => {
@@ -27,9 +28,9 @@ function DetailGalery() {
         Aos.init();
     }, [id]);
 
-    if (loading) {
-        return <p style={{ textAlign: 'center' }}>Loading...</p>;
-    }
+    // if (loading) {
+    //     return <p style={{ textAlign: 'center' }}>Loading...</p>;
+    // }
 
     if (!galeriDetail) {
         return <p style={{ textAlign: 'center' }}>Data tidak ditemukan.</p>;
@@ -40,7 +41,6 @@ function DetailGalery() {
             <NavbarSekolah2 />
             <main data-aos="fade-up" className="container-berita container">
                 <h2 className="mb-4">{galeriDetail.judul}</h2>
-                <p>{galeriDetail.deskripsi}</p>
 
                 <div className="gallery-container mb-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {galeriDetail.foto && JSON.parse(galeriDetail.foto).map((foto, idx) => (
@@ -52,7 +52,14 @@ function DetailGalery() {
                         />
                     ))}
                 </div>
-
+<p
+                  style={{
+                    fontSize: "1.1em",
+                    marginBottom: "20px",
+                    textAlign: "justify",
+                  }}>
+                  <div dangerouslySetInnerHTML={{ __html: galeriDetail.deskripsi }} />
+                </p>
                 <div style={{ textAlign: "center", margin: "30px 0" }}>
   <Link 
     to="/galery"
