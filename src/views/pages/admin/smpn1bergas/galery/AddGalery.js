@@ -12,11 +12,34 @@ function AddGalery() {
   const [formData, setFormData] = useState({
     judul: "",
     deskripsi: "",
-    kategori_id: "",
+    id_category: "",
   });
   const [images, setImages] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  useEffect(() => {
+    const getAll = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY}/api/category_galery/all/no_page`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(response.data.data);
+        setCategories(response.data.data)
+      } catch (error) {
+        console.error("Terjadi Kesalahan", error);
+      }
+    };
+
+    getAll();
+  }, []);
+
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -133,6 +156,8 @@ function AddGalery() {
     }
   };
 
+  console.log(formData);
+
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
@@ -176,14 +201,28 @@ function AddGalery() {
                         <label className="form-label font-weight-bold">
                           Kategori
                         </label>
-                        <input
-                          name="kategori_id"
+                        <select
+                          name="id_category" // penting agar handleInputChange tahu field mana yang diubah
+                          value={formData.id_category || ""} // default ke string kosong kalau belum ada
+                          className="form-control"
+                          aria-label="Small select example"
+                          onChange={handleInputChange}
+                        >
+                          <option value="">Pilih Kategori</option>
+                          {categories.map((down) => (
+                            <option key={down.id} value={down.id}>
+                              {down.category}
+                            </option>
+                          ))}
+                        </select>
+                        {/* <input
+                          name="id_category"
                           type="text"
                           className="form-control"
-                          value={formData.kategori_id}
+                          value={formData.id_category}
                           onChange={handleInputChange}
                           placeholder="Masukkan Kategori"
-                        />
+                        /> */}
                       </div>
 
                       <div className="mb-3 col-lg-12">
