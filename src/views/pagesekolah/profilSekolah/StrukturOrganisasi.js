@@ -5,8 +5,6 @@ import { API_DUMMY } from "../../../utils/base_URL";
 import axios from "axios";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 import strukturSLBC from "../../../aset/smpn1bergas/struktur-slbc.jpeg";
-
-
 import Aos from "aos";
 
 function StrukturOrganisasi() {
@@ -32,14 +30,13 @@ function StrukturOrganisasi() {
   }, [currentPage]);
 
   const download = () => {
-  const link = document.createElement("a");
-  link.href = strukturSLBC;
-  link.download = "STRUKTUR_ORG_SLBC.jpeg";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
-
+    const link = document.createElement("a");
+    link.href = strukturSLBC;
+    link.download = "STRUKTUR_ORG_SLBC.jpeg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <section style={{ backgroundColor: "#f8f9fa" }}>
@@ -62,7 +59,7 @@ function StrukturOrganisasi() {
           </div>
 
           <div className="row justify-content-center">
-            <div className="col-lg-6" data-aos="fade-up">
+            <div className="col-lg-8" data-aos="fade-up">
               <div className="section-title style-white text-center">
                 <h5 className="sub-title double-line">Organisasi</h5>
                 <h2 className="title" style={{ color: "black" }}>
@@ -70,7 +67,7 @@ function StrukturOrganisasi() {
                 </h2>
               </div>
               {struktur.length > 0 && (
-                <div className="mb-5">
+                  <div className="mb-5">
                   <button
                     onClick={download}
                     style={{
@@ -96,32 +93,18 @@ function StrukturOrganisasi() {
             {struktur.length > 0 ? (
               struktur.map((item) => (
                 <div className="col-lg-4 col-md-6 mb-4" key={item.id}>
-                  <div className="card text-center border-0 shadow-sm h-100">
-                    <div className="card-body d-flex flex-column align-items-center">
+                  <div className="struktur-card text-center">
+                    <div className="struktur-img">
                       <img
-                        src={item.foto}
+                        src={item.foto || strukturSLBC}
                         alt={item.nama}
-                        className="rounded-circle mb-3"
-                        style={{
-                          width: "120px",
-                          height: "120px",
-                          objectFit: "cover",
-                        }}
+                        onError={(e) => (e.target.src = strukturSLBC)}
                       />
-                      <div
-                        style={{
-                          backgroundColor: "#003366",
-                          color: "white",
-                          padding: "6px 12px",
-                          borderRadius: "6px",
-                          fontWeight: "bold",
-                          marginBottom: "6px",
-                        }}
-                      >
-                        {item.nama}
-                      </div>
-                      <p className="text-muted m-0">{item.jabatan}</p>
                     </div>
+
+                    <div className="struktur-badge">{item.nama}</div>
+
+                    <p className="struktur-jabatan">{item.jabatan}</p>
                   </div>
                 </div>
               ))
