@@ -4,7 +4,7 @@ import "../../../css/alumni/struktur.css";
 import { API_DUMMY } from "../../../utils/base_URL";
 import axios from "axios";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
-import strukturSLBC from "../../../aset/smpn1bergas/struktur-slbc.jpeg";
+import strukturSLBC from "../../../aset/slbcpelita/WhatsApp Image 2025-07-18 at 13.29.06_c81c4ecb.jpg";
 import Aos from "aos";
 
 function StrukturOrganisasi() {
