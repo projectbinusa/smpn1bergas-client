@@ -158,8 +158,6 @@ function AddGalery() {
     }
   };
 
-  console.log(formData);
-
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
@@ -228,8 +226,6 @@ function AddGalery() {
                           className="form-control"
                           value={formData.categoryGalery}
                           onChange={handleInputChange}
-                          placeholder="Masukkan Kategori"
-                        /> */}
                       </div>
 
                       <div className="mb-3 col-lg-12">
