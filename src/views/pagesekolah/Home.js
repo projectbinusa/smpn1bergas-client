@@ -436,7 +436,7 @@ function Home() {
       <div className="navbarrr2">
         <NavbarSekolah2 />
       </div> */}
-      <NavbarSekolah />
+      <NavbarSekolah2 />
       <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
         <img
