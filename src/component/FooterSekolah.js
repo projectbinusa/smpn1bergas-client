@@ -100,7 +100,7 @@ function FooterSekolah() {
                 <p style={{ fontSize: "14px", textAlign: "justify" }}>
                   <div dangerouslySetInnerHTML={{ __html: isi }} />
                 </p>
-                <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">
+                {/* <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">
                   <li>
                     <a
                       className="facebook"
@@ -129,7 +129,7 @@ function FooterSekolah() {
                       <i className="fab fa-youtube"></i>
                     </a>
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
           </div>
@@ -212,7 +212,7 @@ function FooterSekolah() {
           <div className="container">
             <div className="row">
               <div className="col-md-12 align-self-center footer-media">
-                <ul
+                {/* <ul
                   className="social-media d-lg-none d-md-flex gap-2 mb-3"
                   style={{ alignItems: "center", justifyContent: "center" }}
                 >
@@ -244,7 +244,7 @@ function FooterSekolah() {
                       <i className="fab fa-youtube"></i>
                     </a>
                   </li>
-                </ul>
+                </ul> */}
                 <p>© 2025. SLB C PELITA ILMU.</p>
               </div>
             </div>

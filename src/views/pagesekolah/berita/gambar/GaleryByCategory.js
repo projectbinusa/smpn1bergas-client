@@ -207,22 +207,19 @@ function GaleryByCategory() {
                   to={`/galery/${item.id}`}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <ImageCard
-                    image={JSON.parse(item.foto)[0]}
-                    title={item.judul}
-                    content={item.deskripsi}
-                  />
+                  <div className="w-full aspect-[4/3] overflow-hidden rounded-lg">
+                    <img
+                      src={JSON.parse(item.foto)[0]}
+                      alt={item.judul}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="mt-2 font-semibold">{item.judul}</h3>
+                  <p className="text-sm text-gray-600">{item.deskripsi}</p>
                 </Link>
               ))}
-              {/* {galleryData.map(item => (
-              <ImageCard
-                key={item.id}
-                image={item.image}
-                title={item.title}
-                content={item.content}
-              />
-            ))} */}
             </div>
+
             <div className="d-flex justify-content-center align-items-center mt-5">
               <Pagination
                 count={totalPages}

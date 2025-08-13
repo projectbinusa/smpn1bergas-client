@@ -7,6 +7,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
+import news from "../../../../aset/smpn1bergas/News-rafiki.png";
 
 function DetailInfo() {
   const [judul, setJudul] = useState("");
@@ -26,7 +27,7 @@ function DetailInfo() {
       setJudul(res.judulBerita);
       setIsi(res.isiBerita);
       setAuthor(res.author);
-      setDate(res.updatedDate);
+      setDate(res.createdDate);
       setImage(res.image);
     } catch (error) {
       console.log("get all", error);
@@ -54,15 +55,24 @@ function DetailInfo() {
       <NavbarSekolah2 />
       <main className="container-detail-berita container">
         <HeaderDetailBerita title={"Info Sekolah"} header={judul} />
-        {image ? (
-          <>
-            <img src={image} />
-          </>
-        ) : (
-          <>
-            <img src="https://via.placeholder.com/300x200?text=Award" />
-          </>
-        )}
+        <div style={{
+          width: "100%",
+          aspectRatio: "4 / 3",
+          overflow: "hidden",
+          borderRadius: "8px",
+          backgroundColor: "#f5f5f5"
+        }}>
+          <img
+            src={image || news}
+            alt=""
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              backgroundColor: "#f5f5f5"
+            }}
+          />
+        </div>
         <h4
           style={{
             fontWeight: "700",
@@ -89,10 +99,10 @@ function DetailInfo() {
               {author}
             </span>
           </p>
-          <p style={{ color: "#002147" }}>{formatDate(date)}</p>
+          <p style={{ color: "#002147" }}>{formatDate(date) || ""}</p>
         </div>
         <hr />
-        <p><div dangerouslySetInnerHTML={{ __html:isi }}/></p>
+        <p><div dangerouslySetInnerHTML={{ __html: isi }} /></p>
       </main>
       <FooterSekolah />
     </section>

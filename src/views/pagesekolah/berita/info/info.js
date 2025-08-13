@@ -9,6 +9,7 @@ import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import Aos from "aos";
+import news from "../../../../aset/smpn1bergas/News-rafiki.png";
 
 const newsData = [
   {
@@ -125,8 +126,7 @@ const Info = () => {
   const getAllInfo = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/berita/by-category?category=Info%20Sekolah&order=desc&page=${
-          page - 1
+        `${API_DUMMY}/api/berita/by-category?category=Info%20Sekolah&order=desc&page=${page - 1
         }&size=5&sort=created_date`
       );
       setInfo(response.data.data.content);
@@ -186,7 +186,7 @@ const Info = () => {
               </ul>
             </div>
             <br />
-            <div>
+            {/* <div>
               <h5 style={{ fontWeight: "600", color: "#002147" }}>
                 IKUTI KAMI
               </h5>
@@ -220,7 +220,7 @@ const Info = () => {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
           <div className="container-all" data-aos="fade-left">
             {/* {currentData.map(newsItem => (
@@ -236,7 +236,7 @@ const Info = () => {
             {info.map((newsItem) => (
               <CardBerita
                 key={newsItem.id}
-                image={newsItem.image}
+                image={newsItem.image || news}
                 id={newsItem.id}
                 title={newsItem.judulBerita}
                 link={"info"}
