@@ -71,7 +71,6 @@ function Sidebar1({ toggleSidebar }) {
     <nav id="sidebar" className="sidebar-wrapper">
       <div className="sidebar-content">
         <div className="sidebar-brand">
-          {/* ganti <a href="#"> dengan NavLink supaya SPA */}
           <NavLink to="/" style={{ textAlign: "center" }}>
             SLBC PELITA ILMU
           </NavLink>
