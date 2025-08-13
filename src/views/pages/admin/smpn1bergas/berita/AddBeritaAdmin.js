@@ -111,7 +111,7 @@ function AddBeritaAdmin() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history("/admin-berita")
+      history.push("/admin-berita")
     } catch (error) {
       Swal.fire({
         icon: "error",

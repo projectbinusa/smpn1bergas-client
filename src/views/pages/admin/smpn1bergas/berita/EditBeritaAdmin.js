@@ -124,7 +124,7 @@ function EditBeritaAdmin() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history("/admin-berita")
+      history.push("/admin-berita")
     } catch (error) {
       if (error.response && error.response.status === 401) {
         localStorage.clear();
@@ -397,8 +397,24 @@ function EditBeritaAdmin() {
 
                     {/* )} */}
 
+                    {image && (
+                      <div className="mt-3">
+                        <label className="form-label font-weight-bold">
+                          Gambar Baru
+                        </label>
+                        <img
+                              src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                          alt="Current Image"
+                          style={{ maxWidth: "100%", height: "auto" }}
+                        />
+                      </div>
+                    )}
+
                     {imageUrl && (
                       <div className="mt-3">
+                        <label className="form-label font-weight-bold">
+                          Gambar Lama
+                        </label>
                         <img
                           src={imageUrl}
                           alt="Current Image"
