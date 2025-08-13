@@ -695,7 +695,7 @@ function Home() {
         </div>
       </div> */}
 
-      {/* GURU - Tampilan Sama Persis Struktur Organisasi */}
+      {/* GURU */}
       <div className="team-area pd-top-115 pd-bottom-90" style={{ backgroundColor: "#f8f9fa" }}>
         <div className="container">
           <div className="row justify-content-center">
@@ -715,32 +715,71 @@ function Home() {
             {gurus.length > 0 ? (
               gurus.slice(0, 6).map((item) => (
                 <div className="col-lg-4 col-md-6 mb-4" key={item.id}>
-                  <div className="card text-center border-0 shadow-sm h-100">
-                    <div className="card-body d-flex flex-column align-items-center">
-                      <img
-                        src={item.foto || "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-7190777.png"}
-                        alt={item.nama_guru}
-                        className="rounded-circle mb-3"
-                        style={{
-                          width: "120px",
-                          height: "120px",
-                          objectFit: "cover",
-                        }}
-                      />
+                  <div
+                    style={{
+                      background: "#fff",
+                      borderRadius: "10px",
+                      overflow: "visible",
+                      paddingBottom: "26px",
+                      border: "1px solid #eef0f2",
+                      boxShadow: "0 6px 18px rgba(15, 23, 42, 0.04)",
+                      transition: "transform .25s ease, box-shadow .25s ease",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      textAlign: "center",
+                    }}
+                    className="custom-card"
+                  >
+                    <img
+                      src={
+                        item.foto ||
+                        "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-7190777.png"
+                      }
+                      alt={item.nama_guru}
+                      style={{
+                        width: "100%",
+                        height: "300px",
+                        objectFit: "cover",
+                        borderTopLeftRadius: "10px",
+                        borderTopRightRadius: "10px",
+                        marginTop: "10px",
+                      }}
+                    />
+
+                    <div style={{ textAlign: "center" }}>
                       <div
                         style={{
-                          backgroundColor: "#003366",
-                          color: "white",
-                          padding: "6px 12px",
-                          borderRadius: "6px",
-                          fontWeight: "bold",
-                          marginBottom: "6px",
+                          position: "relative",
+                          marginTop: "-20px",
+                          background: "#003366",
+                          color: "#ffffff",
+                          fontWeight: 800,
+                          fontSize: "1rem",
+                          textTransform: "uppercase",
+                          padding: "12px 28px",
+                          borderRadius: "3px",
+                          display: "inline-block",
+                          boxShadow: "0 8px 18px rgba(0,0,0,0.10)",
+                          letterSpacing: "0.6px",
+                          whiteSpace: "nowrap",
+                          wordBreak: "keep-all",
+                          maxWidth: "100%"
                         }}
                       >
                         {item.nama_guru}
                       </div>
-                      <p className="text-muted m-0">{item.mapel}</p>
                     </div>
+
+                    <p
+                      style={{
+                        margin: "12px 0",
+                        fontSize: "14px",
+                        color: "#777",
+                      }}
+                    >
+                      {item.mapel || "-"}
+                    </p>
                   </div>
                 </div>
               ))
@@ -750,9 +789,16 @@ function Home() {
               </div>
             )}
           </div>
+
+          <style>
+            {`.custom-card:hover {
+              transform: translateY(-6px);
+              box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+              }
+            `}
+          </style>
         </div>
       </div>
-
 
       {/* ALUMNI */}
       {/* <div class="team-area bg-blue pd-top-90 pd-bottom-90">
