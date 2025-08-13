@@ -170,6 +170,7 @@ import EditCategoryGalery from "./views/pages/admin/smpn1bergas/galery/Category/
 import DetailAdminGalery from "./views/pages/admin/smpn1bergas/galery/DetailAdminGalery";
 import AdminDetailLaporanBosp from "./views/pelitailmu/laporanbosp/AdminDetailLaporanBosp";
 import GaleryByCategory from "./views/pagesekolah/berita/gambar/GaleryByCategory";
+import LampiranModal from "./views/pelitailmu/laporanbosp/LampiranModal";
 
 
 function App() {
@@ -211,6 +212,7 @@ function App() {
             <Route path="/jenjangsma" component={JenjangSMA} exact />
             <Route path="/laporanbosp" component={LaporanBosp} exact />
             <Route path="/laporanbosp/:id" component={DetailLaporanBosp} exact />
+            <Route path="/laporanbosp/:id/lampiran/:index" component={LampiranModal} exact />
             <PrivateRoute path="/admin/laporanbosp" component={AdminLaporanBosp} exact />
             <PrivateRoute path="/admin/laporanbosp/add" component={AddLaporanBosp} exact />
             <PrivateRoute path="/admin/laporanbosp/edit/:id" component={EditLaporanBosp} exact />

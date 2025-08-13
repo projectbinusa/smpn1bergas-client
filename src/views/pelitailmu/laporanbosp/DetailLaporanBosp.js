@@ -107,14 +107,25 @@ function DetailLaporanBosp() {
             <div>
               <div className="laporanbosp-container mb-5">
                 {files.map((url, index) => (
-                  <ImageCardLaporan
+                  <a
                     key={index}
-                    image={url}
-                    // title={`Gambar ${index + 1}`}
-                    // content={`Deskripsi untuk gambar ke-${index + 1}`}
-                  />
+                    href={`/laporanbosp/${param.id}/lampiran/${index}`}
+                    style={{ display: "block" }}
+                  >
+                    <img
+                      src={url}
+                      alt={`Lampiran ${index + 1}`}
+                      style={{
+                        width: "100%",
+                        borderRadius: "8px",
+                        boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+                        marginBottom: "10px"
+                      }}
+                    />
+                  </a>
                 ))}
               </div>
+
             </div>
           ) : (
             <p style={{ textAlign: 'center', fontSize: '1.2em', color: '#666' }}>
