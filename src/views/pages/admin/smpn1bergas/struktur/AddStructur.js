@@ -19,6 +19,7 @@ function AddStructur() {
   const [jabatan, setJabatan] = useState("");
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -38,49 +39,56 @@ function AddStructur() {
 
   const add = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    // const formData = new FormData();
-    // // formData.append("file", image);
-    // formData.append("tugas", tugas);
-    // formData.append("nama", nama);
-    // formData.append("jabatan", jabatan);
-
-    await axios.post(`${API_DUMMY}/api/struktur/add`, {
+    const formData = new FormData();
+    const strukturData = {
       tugas: tugas,
       nama: nama,
       jabatan: jabatan,
-    }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Data Berhasil Ditambahkan",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        history.push("/admin-struktur");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Tambah Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
+    };
+
+    formData.append(
+      "struktur",
+      new Blob([JSON.stringify(strukturData)], { type: "application/json" })
+    );
+
+    if (image) {
+      formData.append("files", image);
+    }
+
+    try {
+      await axios.post(`${API_DUMMY}/api/struktur/add`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
       });
+
+      // setShow(false);
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil Ditambahkan",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // history.push("/admin-struktur");
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1500);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   useEffect(() => {
     AOS.init();
@@ -124,6 +132,30 @@ function AddStructur() {
                             className="form-control"
                             placeholder="Masukkan Nama"
                           />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Foto
+                          </label>
+                          {/* {image && ( */}
+                          <input
+                            onChange={(e) => {
+                              setImage(e.target.files[0]);
+
+                            }}
+                            type="file"
+                            className="form-control"
+                          />
+                          {image && (
+                            <div className="mt-3">
+                              <img
+                                src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                                alt="Current Image"
+                                style={{ maxWidth: "100%", height: "auto" }}
+                              />
+                            </div>
+                          )}
+
                         </div>
                         <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">

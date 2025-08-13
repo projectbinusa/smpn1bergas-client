@@ -16,57 +16,58 @@ function AddGuru() {
   const [riwayat, setRiwayat] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   //add
   const add = async (e) => {
-    e.preventDefault();
-    e.persist();
-
-    const formData = new FormData();
-    formData.append("nama_guru", namaGuru);
-    formData.append("mapel", mapel);
-    formData.append("riwayat", riwayat);
-    formData.append("nip", nip);
-    formData.append("file", image);
-
-    try {
-      await axios.post(`${API_DUMMY}/api/guru/add`, {
+      e.preventDefault();
+      setLoading(true);
+  
+      const formData = new FormData();
+      const guruData = {
         nama_guru: namaGuru,
         mapel: mapel,
-        riwayat: riwayat,
         nip: nip,
-      }, {
-        headers: {
-          // "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setShow(false);
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil DiTambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      history.push("/admin-guru");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
-        localStorage.clear();
-        history.push("/login");
-      } else {
+        riwayat: riwayat 
+      };
+  
+      formData.append(
+        "guru",
+        new Blob([JSON.stringify(guruData)], { type: "application/json" })
+      );
+  
+      if (image) {
+        formData.append("files", image);
+      }
+  
+      try {
+        await axios.post(`${API_DUMMY}/api/guru/add`, formData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        history.push("/admin-guru");
+        setShow(false);
+        Swal.fire({
+          icon: "success",
+          title: "Data Berhasil Ditambahkan",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        // history.push("/admin-guru")
+      } catch (error) {
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error);
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-    }
-  };
+    };
 
   useEffect(() => {
     AOS.init();
@@ -144,6 +145,31 @@ function AddGuru() {
                       </div>
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
+                          Foto
+                        </label>
+                        {/* {image && ( */}
+                        <input
+                          onChange={(e) => {
+                            setImage(e.target.files[0]);
+
+                          }}
+                          required
+                          type="file"
+                          className="form-control"
+                        />
+                        {image && (
+                          <div className="mt-3">
+                            <img
+                              src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                              alt="Current Image"
+                              style={{ maxWidth: "100%", height: "auto" }}
+                            />
+                          </div>
+                        )}
+
+                      </div>
+                      <div className="mb-3 col-lg-6">
+                        <label className="form-label font-weight-bold">
                           Riwayat Pendidikan
                         </label>
                         <input
@@ -186,8 +212,8 @@ function AddGuru() {
                         Batal
                       </a>
                     </button>{" "}
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
+                    <button type="submit" className="btn-primary mt-3" disabled={loading}>
+                     {loading ? "Loading ..." : "Submit"}
                     </button>
                   </form>
                 </div>

@@ -205,11 +205,13 @@ function GalerySekolah() {
                   to={`/galery/${item.id}`}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <ImageCard
-                    image={JSON.parse(item.foto)[0]}
-                    title={item.judul}
-                    content={item.deskripsi}
-                  />
+                  <div className="w-full aspect-[4/3] overflow-hidden rounded-lg">
+                    <img
+                      src={JSON.parse(item.foto)[0]}
+                      alt={item.judul}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </Link>
               ))}
               {/* {galleryData.map(item => (

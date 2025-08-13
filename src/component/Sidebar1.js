@@ -16,8 +16,8 @@ function Sidebar1({ toggleSidebar }) {
     { title: "Laporan", icon: "fa-regular fa-rectangle-list", action: ["/add-berita-admin", "/edit-berita", "/detail-berita"], path: "/admin/laporanbosp" },
     { title: "Kontak", icon: "fa-solid fa-id-card", path: "/admin-kontak", action: ["/add-kontak", "/edit-kontak"] },
     { title: "Galeri", icon: "fa-solid fa-images", path: "/admin-galery", action: ["/add-galery", "/edit-galery"] },
-    { title: "Jenjang", icon: "fa-regular fa-rectangle-list", path: "/admin-jenjang", action: ["/add-jenjang", "/edit-jenjang", "/detail-jenjang"] },
     { title: "Kategori Galeri", icon: "fa-solid fa-list", path: "/admin-category-galery", action: ["/add-category-galery", "/edit-category-galery"] },
+    { title: "Jenjang", icon: "fa-regular fa-rectangle-list", path: "/admin-jenjang", action: ["/add-jenjang", "/edit-jenjang", "/detail-jenjang"] },
   ];
 
   const profileItem = [

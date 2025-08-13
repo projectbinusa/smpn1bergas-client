@@ -380,7 +380,7 @@ function EditBeritaAdmin() {
                   </div>
                   <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
-                      Gambar
+                      Thumbnail
                     </label>
                     {/* {image && ( */}
                     <input

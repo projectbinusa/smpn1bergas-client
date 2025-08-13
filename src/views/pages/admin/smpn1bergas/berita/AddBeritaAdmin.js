@@ -84,7 +84,7 @@ function AddBeritaAdmin() {
       author: author,
       judulBerita: judulBerita,
       isiBerita: isiBerita,
-      categoryBerita: categoryBerita // diperbaiki dari "catery"
+      categoryBerita: categoryBerita 
     };
 
     formData.append(
@@ -93,7 +93,7 @@ function AddBeritaAdmin() {
     );
 
     if (image) {
-      formData.append("files", image); // bisa multiple file kalau inputnya multiple
+      formData.append("files", image);
     }
 
     try {
