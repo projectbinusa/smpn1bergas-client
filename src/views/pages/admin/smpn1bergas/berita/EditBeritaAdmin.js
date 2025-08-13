@@ -70,76 +70,79 @@ function EditBeritaAdmin() {
   const [isiBerita, setIsiBerita] = useState("");
   const [show, setShow] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
   const param = useParams();
   const history = useHistory();
 
   const updateBerita = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // mulai loading
     let uploadedImageUrl = null;
 
-    if (image) {
-      const uploadedUrls = await uploadFileToS3([image]);
-      uploadedImageUrl = uploadedUrls[0];
-    }
+    try {
+      if (image) {
+        const uploadedUrls = await uploadFileToS3([image]);
+        uploadedImageUrl = uploadedUrls[0];
+      }
 
-    const dataImage = {
-      foto: uploadedImageUrl
-    }
-    const data = {
-      author: author,
-      category: categoryBerita,
-      judulBerita: judulBerita,
-      isiBerita: isiBerita,
-    };
+      const dataImage = { foto: uploadedImageUrl };
+      const data = {
+        author,
+        category: categoryBerita,
+        judulBerita,
+        isiBerita,
+      };
 
-    axios
-      .put(`${API_DUMMY}/api/berita/put/` + param.id, data, {
+      await axios.put(`${API_DUMMY}/api/berita/put/${param.id}`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      })
-      .then((response) => {
-        if (image) {
-          axios
-            .put(`${API_DUMMY}/api/berita/put/foto/` + param.id, dataImage, {
-              headers: {
-                // "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-        setShow(false);
+      });
+
+      if (image) {
+        const formData = new FormData();
+        formData.append("file", image);
+
+        await axios.put(
+          `${API_DUMMY}/api/berita/put/foto/${param.id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+      }
+
+
+      setShow(false);
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil Diperbarui",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      history.push("/admin-berita")
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
         Swal.fire({
-          icon: "success",
-          title: "Data Berhasil Diperbarui",
+          icon: "error",
+          title: "Edit Data Gagal!",
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-berita");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-        console.log("Berhasil diperbarui", response.data);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
-      });
+        console.error(error);
+      }
+    } finally {
+      setIsLoading(false); // berhenti loading di semua kondisi
+    }
   };
+
 
   useEffect(() => {
     axios
@@ -312,9 +315,8 @@ function EditBeritaAdmin() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -395,8 +397,24 @@ function EditBeritaAdmin() {
 
                     {/* )} */}
 
+                    {image && (
+                      <div className="mt-3">
+                        <label className="form-label font-weight-bold">
+                          Gambar Baru
+                        </label>
+                        <img
+                              src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                          alt="Current Image"
+                          style={{ maxWidth: "100%", height: "auto" }}
+                        />
+                      </div>
+                    )}
+
                     {imageUrl && (
                       <div className="mt-3">
+                        <label className="form-label font-weight-bold">
+                          Gambar Lama
+                        </label>
                         <img
                           src={imageUrl}
                           alt="Current Image"
@@ -412,10 +430,10 @@ function EditBeritaAdmin() {
                     </label>
                     <CKEditor
                       editor={ClassicEditor}
-                      data={isiBerita} // Gunakan 'data' untuk set initial value
+                      data={isiBerita || ""} // Gunakan 'data' untuk set initial value
                       onChange={(event, editor) => {
                         const data = editor.getData(); // Ambil data dari editor
-                        setIsiBerita(data); // Set state dengan data dari editor
+                        setIsiBerita(data);
                       }}
                       config={{
                         toolbar: [
@@ -678,8 +696,8 @@ function EditBeritaAdmin() {
                     Batal
                   </a>
                 </button>{" "}
-                <button type="submit" className="btn-primary mt-3">
-                  Submit
+                <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                  {isLoading ? "Loading ..." : "Submit"}
                 </button>
               </form>
             </div>

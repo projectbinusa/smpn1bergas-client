@@ -69,57 +69,63 @@ function AddBeritaAdmin() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const handleEditorChange = (isiBerita, editor) => {
     setIsiBerita(isiBerita);
   };
 
-  //add
   const add = async (e) => {
     e.preventDefault();
-    e.persist();
+    setLoading(true);
+
+    const formData = new FormData();
+    const beritaData = {
+      author: author,
+      judulBerita: judulBerita,
+      isiBerita: isiBerita,
+      categoryBerita: categoryBerita // diperbaiki dari "catery"
+    };
+
+    formData.append(
+      "berita",
+      new Blob([JSON.stringify(beritaData)], { type: "application/json" })
+    );
+
+    if (image) {
+      formData.append("files", image); // bisa multiple file kalau inputnya multiple
+    }
 
     try {
-      await axios.post(
-        `${API_DUMMY}/api/berita/add`,
-        {
-          author: author,
-          judulBerita: judulBerita,
-          isiBerita: isiBerita,
-          category: categoryBerita,
+      await axios.post(`${API_DUMMY}/api/berita/add`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      });
+
       setShow(false);
       Swal.fire({
         icon: "success",
-        title: "Data Berhasil DiTambahkan",
+        title: "Data Berhasil Ditambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-berita");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      history.push("/admin-berita")
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
-        localStorage.clear();
-        history.push("/login");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log(error);
-      }
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
+
+
 
   useEffect(() => {
     AOS.init();
@@ -267,9 +273,8 @@ function AddBeritaAdmin() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -333,6 +338,30 @@ function AddBeritaAdmin() {
                           className="form-control"
                           placeholder="Masukkan Penulis Berita"
                         />
+                      </div>
+                      <div className="mb-3 col-lg-6">
+                        <label className="form-label font-weight-bold">
+                          Thumbnail
+                        </label>
+                        {/* {image && ( */}
+                        <input
+                          onChange={(e) => {
+                            setImage(e.target.files[0]);
+
+                          }}
+                          type="file"
+                          className="form-control"
+                        />
+                        {image && (
+                          <div className="mt-3">
+                            <img
+                              src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                              alt="Current Image"
+                              style={{ maxWidth: "100%", height: "auto" }}
+                            />
+                          </div>
+                        )}
+
                       </div>
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
@@ -576,8 +605,8 @@ function AddBeritaAdmin() {
                         Batal
                       </a>
                     </button>
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
+                    <button type="submit" className="btn-primary mt-3" disabled={loading}>
+                      {loading ? "Loading ... " : "Submit"}
                     </button>
                   </form>
                 </div>

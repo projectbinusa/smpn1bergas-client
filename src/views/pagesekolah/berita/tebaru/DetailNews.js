@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
+import news from "../../../../aset/smpn1bergas/News-rafiki.png";
 
 function DetailNews() {
     const [judul, setJudul] = useState("");
@@ -23,7 +24,7 @@ function DetailNews() {
             setJudul(res.judulBerita);
             setIsi(res.isiBerita);
             setAuthor(res.author);
-            setDate(res.updatedDate);
+            setDate(res.createdDate);
             setImage(res.image);
         } catch (error) {
             console.log("get all", error);
@@ -51,15 +52,13 @@ function DetailNews() {
             <NavbarSekolah2 />
             <main className="container-detail-berita container">
                 <HeaderDetailBerita title={"Berita Terbaru"} header={judul} />
-                {image ? (
-                    <>
-                        <img src={image} />
-                    </>
-                ) : (
-                    <>
-                        <img src="https://via.placeholder.com/300x200?text=Award" />
-                    </>
-                )}
+                <div className="w-full aspect-[4/3] overflow-hidden rounded-lg">
+                    <img
+                        src={image || news}
+                        className="w-full h-full object-contain bg-gray-100"
+                    />
+                </div>
+
                 <h4 style={{ fontWeight: "700", color: "#002147", marginTop: "2rem", marginBottom: "1rem" }}>{judul}</h4>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <p style={{ color: "#002147" }}><i class="fas fa-user"></i> <span style={{ fontWeight: "600", paddingLeft: "0.5rem", textTransform: "uppercase" }}>{author}</span></p>

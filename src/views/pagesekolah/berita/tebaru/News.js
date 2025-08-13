@@ -25,8 +25,7 @@ const News = () => {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        `${API_DUMMY}/api/berita/by-category?category=Berita%20Sekolah&order=desc&page=${
-          page - 1
+        `${API_DUMMY}/api/berita/by-category?category=Berita%20Sekolah&order=desc&page=${page - 1
         }&size=5&sort=created_date`
       );
       setBerita(response.data.data.content);
@@ -48,52 +47,52 @@ const News = () => {
       <NavbarSekolah2 />
       <main className="container-berita container">
         <HeaderBerita title={"Berita Terbaru"} />
-        
+
         <div className="container-apbd">
           {/* Sidebar */}
           <div className="news-sidebar">
             <div className="sidebar-card" data-aos="fade-down">
               <div>
-              <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
-              <hr
-                style={{
-                  width: "30%",
-                  color: "#0060ff",
-                  border: "2px solid #0060ff",
-                }}
-              />
-              <ul className="category-berita">
-                <li>
-                  <a href="/news">Berita Terbaru</a>
-                </li>
+                <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
                 <hr
                   style={{
-                    width: "100%",
-                    border: "0",
-                    borderTop: "2px dotted #002147",
-                    color: "#002147",
+                    width: "30%",
+                    color: "#0060ff",
+                    border: "2px solid #0060ff",
                   }}
                 />
-                <li>
-                  <a href="/info">Info Sekolah</a>
-                </li>
-                <hr
-                  style={{
-                    width: "100%",
-                    border: "0",
-                    borderTop: "2px dotted #002147",
-                    color: "#002147",
-                  }}
-                />
-                <li>
-                  <a href="/agenda">Agenda</a>
-                </li>
-              </ul>
-            </div>
+                <ul className="category-berita">
+                  <li>
+                    <a href="/news">Berita Terbaru</a>
+                  </li>
+                  <hr
+                    style={{
+                      width: "100%",
+                      border: "0",
+                      borderTop: "2px dotted #002147",
+                      color: "#002147",
+                    }}
+                  />
+                  <li>
+                    <a href="/info">Info Sekolah</a>
+                  </li>
+                  <hr
+                    style={{
+                      width: "100%",
+                      border: "0",
+                      borderTop: "2px dotted #002147",
+                      color: "#002147",
+                    }}
+                  />
+                  <li>
+                    <a href="/agenda">Agenda</a>
+                  </li>
+                </ul>
+              </div>
 
             </div>
-            
-            <div>
+
+            {/* <div>
               <h5 style={{ fontWeight: "600", color: "#002147" }}>
                 IKUTI KAMI
               </h5>
@@ -102,7 +101,7 @@ const News = () => {
                   width: "30%",
                   color: "#0060ff",
                   border: "2px solid #0060ff",
-                }} 
+                }}
               />
               <ul className="medsos-list">
                 <li>
@@ -127,23 +126,9 @@ const News = () => {
                   </a>
                 </li>
               </ul>
-            </div>
-            
-            <div className="sidebar-card" data-aos="fade-up">
-              <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
-              <div className="title-underline"></div>
-              <div className="popular-news">
-                {berita.slice(0, 3).map((item) => (
-                  <div key={`popular-${item.id}`} className="popular-item">
-                    <a href={`/news/${item.id}`} className="popular-title">
-                      {item.judulBerita}
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
+            </div> */}
           </div>
-          
+
           {/* Main Content */}
           <div className="container-all" data-aos="fade-left">
             {isLoading ? (
@@ -157,14 +142,14 @@ const News = () => {
               <>
                 {berita.length > 0 ? (
                   berita.map((newsItem) => (
-                   <CardBerita
-  key={newsItem.id}
-  image={newsItem.image}
-  id={newsItem.id}
-  title={newsItem.judulBerita}
-  link={"news"}
-  date={newsItem.createdDate}
-/>
+                    <CardBerita
+                      key={newsItem.id}
+                      image={newsItem.image}
+                      id={newsItem.id}
+                      title={newsItem.judulBerita}
+                      link={"news"}
+                      date={newsItem.createdDate}
+                    />
 
                   ))
                 ) : (
@@ -173,7 +158,7 @@ const News = () => {
                     <h5>Tidak ada berita tersedia</h5>
                   </div>
                 )}
-                
+
                 {totalPages > 1 && (
                   <div className="pagination-container">
                     <Pagination
