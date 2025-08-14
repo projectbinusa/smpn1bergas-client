@@ -15,31 +15,13 @@ function DetailVisi() {
   const [createdDate, setCreatedDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
   const [misi, setMisi] = useState("");
+  const [analisis, setAnalisis] = useState("");
+  const [sasaran_sekolah, setSasaranSekolah] = useState("");
   const [visi, setVisi] = useState("");
   const [id, setId] = useState(0);
   const [datas, setDatas] = useState([]);
   const param = useParams();
 
-  // // get by id berita
-  // useEffect(() => {
-  //   axios
-  //     .get(`${API_DUMMY}/api/visiMisi/get/` + param.id, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       const list_data = res.data.data;
-  //       setCreatedDate(list_data.createdDate);
-  //       setUpdateDate(list_data.updatedDate);
-  //       settujuan(list_data.tujuan);
-  //       setMisi(list_data.misi);
-  //       setVisi(list_data.visi);
-  //     })
-  //     .catch((error) => {
-  //       alert("Terjadi Kesalahan " + error);
-  //     });
-  // }, [param.id]);
 
   const getAll = async () => {
     try {
@@ -58,6 +40,8 @@ function DetailVisi() {
       setUpdateDate(res.updateDate);
       setVisi(res.visi);
       setMisi(res.misi);
+      setSasaranSekolah(res.sasaran_sekolah);
+      setAnalisis(res.analisis_lingkungan_internal);
       setId(res.id)
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -66,7 +50,7 @@ function DetailVisi() {
 
   useEffect(() => {
     getAll()
-  })
+  }, [])
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -201,6 +185,22 @@ function DetailVisi() {
                     className="form-control"
                     style={{ height: "auto", background: "#e9ecef" }}
                     dangerouslySetInnerHTML={{ __html: tujuan }}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Analisis Lingkungan Internal</label>
+                  <div
+                    className="form-control"
+                    style={{ height: "auto", background: "#e9ecef" }}
+                    dangerouslySetInnerHTML={{ __html: analisis }}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Sasaran Sekolah</label>
+                  <div
+                    className="form-control"
+                    style={{ height: "auto", background: "#e9ecef" }}
+                    dangerouslySetInnerHTML={{ __html: sasaran_sekolah }}
                   />
                 </div>
                 <div class="mb-3">

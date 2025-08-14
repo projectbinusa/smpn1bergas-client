@@ -68,8 +68,11 @@ function EditVisiMisi() {
   const [misi, setMisi] = useState("");
   const [tujuan, setTujuan] = useState("");
   const [show, setShow] = useState(false);
+  const [analisis, setAnalisis] = useState("");
+  const [sasaran_sekolah, setSasaranSekolah] = useState("");
   const history = useHistory();
   const param = useParams();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -83,6 +86,8 @@ function EditVisiMisi() {
         setVisi(response.visi);
         setMisi(response.misi);
         setTujuan(response.tujuan);
+        setAnalisis(response.analisis_lingkungan_internal);
+        setSasaranSekolah(response.sasaran_sekolah);
         console.log("misi : ", ress.data.data);
       })
       .catch((error) => {
@@ -92,45 +97,49 @@ function EditVisiMisi() {
 
   const update = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const data = {
       visi: visi,
       misi: misi,
       tujuan: tujuan,
+      analisis_lingkungan_internal: analisis,
+      sasaran_sekolah: sasaran_sekolah,
     };
-
-    await axios
-      .put(`${API_DUMMY}/api/visiMisi/put/` + param.id, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Berhasil Mengedit Data Sambutan",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        history.push("/admin-visimisi");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
+    try {
+      await axios
+        .put(`${API_DUMMY}/api/visiMisi/put/` + param.id, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then(() => {
           Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
+            icon: "success",
+            title: "Berhasil Mengedit Data Sambutan",
             showConfirmButton: false,
             timer: 1500,
           });
-          console.log(error);
-        }
-      });
+          history.push("/admin-visimisi");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        })
+    } catch (error) {
+      if (error.ressponse && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -266,7 +275,7 @@ function EditVisiMisi() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -279,20 +288,19 @@ function EditVisiMisi() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
@@ -309,10 +317,21 @@ function EditVisiMisi() {
                           </label>
                           <CKEditor
                             editor={ClassicEditor}
-                            data={visi} // Gunakan 'data' untuk set initial value
+                            data={visi || ""} // Gunakan 'data' untuk set initial value
                             onChange={(event, editor) => {
                               const data = editor.getData(); // Ambil data dari editor
                               setVisi(data); // Set state dengan data dari editor
+                            }}
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
                             }}
                             config={{
                               toolbar: [
@@ -544,12 +563,24 @@ function EditVisiMisi() {
                             Misi
                           </label>
                           <CKEditor
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
+                            }}
                             editor={ClassicEditor}
-                            data={misi} // Gunakan 'data' untuk set initial value
+                            data={misi || ""} // Gunakan 'data' untuk set initial value
                             onChange={(event, editor) => {
                               const data = editor.getData(); // Ambil data dari editor
                               setMisi(data); // Set state dengan data dari editor
                             }}
+                            
                             config={{
                               toolbar: [
                                 // --- Text alignment ---------------------------------------------------------------------------
@@ -780,11 +811,516 @@ function EditVisiMisi() {
                             Tujuan
                           </label>
                           <CKEditor
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
+                            }}
                             editor={ClassicEditor}
-                            data={tujuan} // Gunakan 'data' untuk set initial value
+                            data={tujuan || ""} // Gunakan 'data' untuk set initial value
                             onChange={(event, editor) => {
                               const data = editor.getData(); // Ambil data dari editor
                               setTujuan(data); // Set state dengan data dari editor
+                            }}
+                            config={{
+                              toolbar: [
+                                // --- Text alignment ---------------------------------------------------------------------------
+                                "alignment",
+                                "|",
+                                // --- Document-wide tools ----------------------------------------------------------------------
+                                "undo",
+                                "redo",
+                                // "|",
+                                // "alignment:left", // Tambahkan opsi align left
+                                // "alignment:center", // Tambahkan opsi align center
+                                // "alignment:right",
+                                "|",
+                                "importWord",
+                                "exportWord",
+                                "exportPdf",
+                                "|",
+                                "formatPainter",
+                                "caseChange",
+                                "findAndReplace",
+                                "selectAll",
+                                "wproofreader",
+                                "|",
+                                "insertTemplate",
+                                "tableOfContents",
+                                "|",
+
+                                // --- "Insertables" ----------------------------------------------------------------------------
+
+                                "link",
+                                "insertImage",
+                                "ckbox",
+                                "insertTable",
+                                "blockQuote",
+                                "mediaEmbed",
+                                "codeBlock",
+                                "pageBreak",
+                                "horizontalLine",
+                                "specialCharacters",
+                                "-",
+
+                                // --- Block-level formatting -------------------------------------------------------------------
+                                "heading",
+                                "style",
+                                "|",
+
+                                // --- Basic styles, font and inline formatting -------------------------------------------------------
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strikethrough",
+                                {
+                                  label: "Basic styles",
+                                  icon: "text",
+                                  items: [
+                                    "fontSize",
+                                    "fontFamily",
+                                    "fontColor",
+                                    "fontBackgroundColor",
+                                    "highlight",
+                                    "superscript",
+                                    "subscript",
+                                    "code",
+                                    "|",
+                                    "textPartLanguage",
+                                    "|",
+                                  ],
+                                },
+                                "removeFormat",
+                                "|",
+
+                                // --- Lists and indentation --------------------------------------------------------------------
+                                "bulletedList",
+                                "numberedList",
+                                "multilevelList",
+                                "todoList",
+                                "|",
+                                "outdent",
+                                "indent",
+                              ],
+                              styles: [
+                                // "full",    // Gambar mengambil lebar penuh konten
+                                // "side",    // Gambar sejajar dengan teks
+                                "height: 300px",
+                                "alignLeft",
+                                "alignCenter",
+                                "alignRight",
+                              ],
+                              alignment: {
+                                options: ["left", "right", "center", "justify"],
+                              },
+                              plugins: [
+                                GeneralHtmlSupport,
+                                Bold,
+                                Alignment,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                                Image,
+                                ImageCaption,
+                                ImageInsert,
+                                ImageResize,
+                                ImageStyle,
+                                ImageToolbar,
+                                ImageUpload,
+                                Base64UploadAdapter,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                LinkImage,
+                                List,
+                                ListProperties,
+                                MediaEmbed,
+                                Mention,
+                                PageBreak,
+                                Paragraph,
+                                PasteFromOffice,
+                                PictureEditing,
+                                RemoveFormat,
+                                SpecialCharacters,
+                                // SpecialCharactersEmoji,
+                                SpecialCharactersEssentials,
+                                Strikethrough,
+                                Style,
+                                Subscript,
+                                Superscript,
+                                Table,
+                                TableCaption,
+                                TableCellProperties,
+                                TableColumnResize,
+                                TableProperties,
+                                TableToolbar,
+                                TextPartLanguage,
+                                TextTransformation,
+                                TodoList,
+                                Underline,
+                                WordCount,
+                              ],
+                              image: {
+                                toolbar: [
+                                  "imageTextAlternative",
+                                  "toggleImageCaption",
+                                  "|",
+                                  "imageStyle:inline",
+                                  "imageStyle:wrapText",
+                                  "imageStyle:breakText",
+                                  "|",
+                                  "resizeImage",
+                                  "|",
+                                  "linkImage",
+                                ],
+                              },
+                              fontFamily: {
+                                supportAllValues: true,
+                              },
+                              fontSize: {
+                                options: [10, 12, 14, "default", 18, 20, 22],
+                                supportAllValues: true,
+                              },
+                              fontColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              fontBackgroundColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              heading: {
+                                options: [
+                                  {
+                                    model: "paragraph",
+                                    title: "Paragraph",
+                                    class: "ck-heading_paragraph",
+                                  },
+                                  {
+                                    model: "heading1",
+                                    view: "h1",
+                                    title: "Heading 1",
+                                    class: "ck-heading_heading1",
+                                  },
+                                  {
+                                    model: "heading2",
+                                    view: "h2",
+                                    title: "Heading 2",
+                                    class: "ck-heading_heading2",
+                                  },
+                                  {
+                                    model: "heading3",
+                                    view: "h3",
+                                    title: "Heading 3",
+                                    class: "ck-heading_heading3",
+                                  },
+                                  {
+                                    model: "heading4",
+                                    view: "h4",
+                                    title: "Heading 4",
+                                    class: "ck-heading_heading4",
+                                  },
+                                  {
+                                    model: "heading5",
+                                    view: "h5",
+                                    title: "Heading 5",
+                                    class: "ck-heading_heading5",
+                                  },
+                                  {
+                                    model: "heading6",
+                                    view: "h6",
+                                    title: "Heading 6",
+                                    class: "ck-heading_heading6",
+                                  },
+                                ],
+                              },
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
+                            }}
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Analisis Lingkungan Internal
+                          </label>
+                          <CKEditor
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
+                            }}
+                            editor={ClassicEditor}
+                            data={analisis || ""} // Gunakan 'data' untuk set initial value
+                            onChange={(event, editor) => {
+                              const data = editor.getData(); // Ambil data dari editor
+                              setAnalisis(data); // Set state dengan data dari editor
+                            }}
+                            config={{
+                              toolbar: [
+                                // --- Text alignment ---------------------------------------------------------------------------
+                                "alignment",
+                                "|",
+                                // --- Document-wide tools ----------------------------------------------------------------------
+                                "undo",
+                                "redo",
+                                // "|",
+                                // "alignment:left", // Tambahkan opsi align left
+                                // "alignment:center", // Tambahkan opsi align center
+                                // "alignment:right",
+                                "|",
+                                "importWord",
+                                "exportWord",
+                                "exportPdf",
+                                "|",
+                                "formatPainter",
+                                "caseChange",
+                                "findAndReplace",
+                                "selectAll",
+                                "wproofreader",
+                                "|",
+                                "insertTemplate",
+                                "tableOfContents",
+                                "|",
+
+                                // --- "Insertables" ----------------------------------------------------------------------------
+
+                                "link",
+                                "insertImage",
+                                "ckbox",
+                                "insertTable",
+                                "blockQuote",
+                                "mediaEmbed",
+                                "codeBlock",
+                                "pageBreak",
+                                "horizontalLine",
+                                "specialCharacters",
+                                "-",
+
+                                // --- Block-level formatting -------------------------------------------------------------------
+                                "heading",
+                                "style",
+                                "|",
+
+                                // --- Basic styles, font and inline formatting -------------------------------------------------------
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strikethrough",
+                                {
+                                  label: "Basic styles",
+                                  icon: "text",
+                                  items: [
+                                    "fontSize",
+                                    "fontFamily",
+                                    "fontColor",
+                                    "fontBackgroundColor",
+                                    "highlight",
+                                    "superscript",
+                                    "subscript",
+                                    "code",
+                                    "|",
+                                    "textPartLanguage",
+                                    "|",
+                                  ],
+                                },
+                                "removeFormat",
+                                "|",
+
+                                // --- Lists and indentation --------------------------------------------------------------------
+                                "bulletedList",
+                                "numberedList",
+                                "multilevelList",
+                                "todoList",
+                                "|",
+                                "outdent",
+                                "indent",
+                              ],
+                              styles: [
+                                // "full",    // Gambar mengambil lebar penuh konten
+                                // "side",    // Gambar sejajar dengan teks
+                                "height: 300px",
+                                "alignLeft",
+                                "alignCenter",
+                                "alignRight",
+                              ],
+                              alignment: {
+                                options: ["left", "right", "center", "justify"],
+                              },
+                              plugins: [
+                                GeneralHtmlSupport,
+                                Bold,
+                                Alignment,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                                Image,
+                                ImageCaption,
+                                ImageInsert,
+                                ImageResize,
+                                ImageStyle,
+                                ImageToolbar,
+                                ImageUpload,
+                                Base64UploadAdapter,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                LinkImage,
+                                List,
+                                ListProperties,
+                                MediaEmbed,
+                                Mention,
+                                PageBreak,
+                                Paragraph,
+                                PasteFromOffice,
+                                PictureEditing,
+                                RemoveFormat,
+                                SpecialCharacters,
+                                // SpecialCharactersEmoji,
+                                SpecialCharactersEssentials,
+                                Strikethrough,
+                                Style,
+                                Subscript,
+                                Superscript,
+                                Table,
+                                TableCaption,
+                                TableCellProperties,
+                                TableColumnResize,
+                                TableProperties,
+                                TableToolbar,
+                                TextPartLanguage,
+                                TextTransformation,
+                                TodoList,
+                                Underline,
+                                WordCount,
+                              ],
+                              image: {
+                                toolbar: [
+                                  "imageTextAlternative",
+                                  "toggleImageCaption",
+                                  "|",
+                                  "imageStyle:inline",
+                                  "imageStyle:wrapText",
+                                  "imageStyle:breakText",
+                                  "|",
+                                  "resizeImage",
+                                  "|",
+                                  "linkImage",
+                                ],
+                              },
+                              fontFamily: {
+                                supportAllValues: true,
+                              },
+                              fontSize: {
+                                options: [10, 12, 14, "default", 18, 20, 22],
+                                supportAllValues: true,
+                              },
+                              fontColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              fontBackgroundColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              heading: {
+                                options: [
+                                  {
+                                    model: "paragraph",
+                                    title: "Paragraph",
+                                    class: "ck-heading_paragraph",
+                                  },
+                                  {
+                                    model: "heading1",
+                                    view: "h1",
+                                    title: "Heading 1",
+                                    class: "ck-heading_heading1",
+                                  },
+                                  {
+                                    model: "heading2",
+                                    view: "h2",
+                                    title: "Heading 2",
+                                    class: "ck-heading_heading2",
+                                  },
+                                  {
+                                    model: "heading3",
+                                    view: "h3",
+                                    title: "Heading 3",
+                                    class: "ck-heading_heading3",
+                                  },
+                                  {
+                                    model: "heading4",
+                                    view: "h4",
+                                    title: "Heading 4",
+                                    class: "ck-heading_heading4",
+                                  },
+                                  {
+                                    model: "heading5",
+                                    view: "h5",
+                                    title: "Heading 5",
+                                    class: "ck-heading_heading5",
+                                  },
+                                  {
+                                    model: "heading6",
+                                    view: "h6",
+                                    title: "Heading 6",
+                                    class: "ck-heading_heading6",
+                                  },
+                                ],
+                              },
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
+                            }}
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Sasaran Sekolah
+                          </label>
+                          <CKEditor
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
+                            }}
+                            editor={ClassicEditor}
+                            data={sasaran_sekolah || ""} // Gunakan 'data' untuk set initial value
+                            onChange={(event, editor) => {
+                              const data = editor.getData(); // Ambil data dari editor
+                              setSasaranSekolah(data); // Set state dengan data dari editor
                             }}
                             config={{
                               toolbar: [
@@ -1019,8 +1555,8 @@ function EditVisiMisi() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={loading} >
+                        {loading ? "Loading..." : "Simpan"}
                       </button>
                     </form>
                   </div>

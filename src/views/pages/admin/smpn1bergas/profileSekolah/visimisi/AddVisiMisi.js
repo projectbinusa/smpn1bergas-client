@@ -64,15 +64,18 @@ function AddVisiMisi() {
   const [visi, setVisi] = useState("");
   const [misi, setMisi] = useState("");
   const [tujuan, setTujuan] = useState("");
+  const [analisis, setAnalisis] = useState("");
+  const [sasaran_sekolah, setSasaranSekolah] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [loading, setLoading] = useState(false)
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -88,12 +91,14 @@ function AddVisiMisi() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
-
+    setLoading(true)
     try {
       const data = {
         visi: visi,
         misi: misi,
         tujuan: tujuan,
+        analisis_lingkungan_internal: analisis,
+        sasaran_sekolah: sasaran_sekolah,
       };
       await axios.post(`${API_DUMMY}/api/visiMisi/add`, data, {
         headers: {
@@ -107,10 +112,10 @@ function AddVisiMisi() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-visimisi");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      // history.push("/admin-visimisi");
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
@@ -124,6 +129,8 @@ function AddVisiMisi() {
         });
         console.log(error);
       }
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -255,8 +262,7 @@ function AddVisiMisi() {
   ];
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
       }`}>
       <a
         id="show-sidebar"
@@ -284,8 +290,19 @@ function AddVisiMisi() {
                             Visi
                           </label>
                           <CKEditor
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
+                            }}
                             editor={ClassicEditor}
-                            data={visi} // Gunakan 'data' untuk set initial value
+                            data={visi || ""} // Gunakan 'data' untuk set initial value
                             onChange={(event, editor) => {
                               const data = editor.getData(); // Ambil data dari editor
                               setVisi(data); // Set state dengan data dari editor
@@ -520,8 +537,19 @@ function AddVisiMisi() {
                             Misi
                           </label>
                           <CKEditor
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
+                            }}
                             editor={ClassicEditor}
-                            data={misi} // Gunakan 'data' untuk set initial value
+                            data={misi || ""} // Gunakan 'data' untuk set initial value
                             onChange={(event, editor) => {
                               const data = editor.getData(); // Ambil data dari editor
                               setMisi(data); // Set state dengan data dari editor
@@ -756,12 +784,516 @@ function AddVisiMisi() {
                             Tujuan
                           </label>
                           <CKEditor
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
+                            }}
                             editor={ClassicEditor}
-                            data={tujuan} // Gunakan 'data' untuk set initial value
+                            data={tujuan || ""} // Gunakan 'data' untuk set initial value
                             onChange={(event, editor) => {
                               const data = editor.getData(); // Ambil data dari editor
                               setTujuan(data); // Set state dengan data dari editor
                             }}
+                            config={{
+                              toolbar: [
+                                // --- Text alignment ---------------------------------------------------------------------------
+                                "alignment",
+                                "|",
+                                // --- Document-wide tools ----------------------------------------------------------------------
+                                "undo",
+                                "redo",
+                                // "|",
+                                // "alignment:left", // Tambahkan opsi align left
+                                // "alignment:center", // Tambahkan opsi align center
+                                // "alignment:right",
+                                "|",
+                                "importWord",
+                                "exportWord",
+                                "exportPdf",
+                                "|",
+                                "formatPainter",
+                                "caseChange",
+                                "findAndReplace",
+                                "selectAll",
+                                "wproofreader",
+                                "|",
+                                "insertTemplate",
+                                "tableOfContents",
+                                "|",
+
+                                // --- "Insertables" ----------------------------------------------------------------------------
+
+                                "link",
+                                "insertImage",
+                                "ckbox",
+                                "insertTable",
+                                "blockQuote",
+                                "mediaEmbed",
+                                "codeBlock",
+                                "pageBreak",
+                                "horizontalLine",
+                                "specialCharacters",
+                                "-",
+
+                                // --- Block-level formatting -------------------------------------------------------------------
+                                "heading",
+                                "style",
+                                "|",
+
+                                // --- Basic styles, font and inline formatting -------------------------------------------------------
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strikethrough",
+                                {
+                                  label: "Basic styles",
+                                  icon: "text",
+                                  items: [
+                                    "fontSize",
+                                    "fontFamily",
+                                    "fontColor",
+                                    "fontBackgroundColor",
+                                    "highlight",
+                                    "superscript",
+                                    "subscript",
+                                    "code",
+                                    "|",
+                                    "textPartLanguage",
+                                    "|",
+                                  ],
+                                },
+                                "removeFormat",
+                                "|",
+
+                                // --- Lists and indentation --------------------------------------------------------------------
+                                "bulletedList",
+                                "numberedList",
+                                "multilevelList",
+                                "todoList",
+                                "|",
+                                "outdent",
+                                "indent",
+                              ],
+                              styles: [
+                                // "full",    // Gambar mengambil lebar penuh konten
+                                // "side",    // Gambar sejajar dengan teks
+                                "height: 300px",
+                                "alignLeft",
+                                "alignCenter",
+                                "alignRight",
+                              ],
+                              alignment: {
+                                options: ["left", "right", "center", "justify"],
+                              },
+                              plugins: [
+                                GeneralHtmlSupport,
+                                Bold,
+                                Alignment,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                                Image,
+                                ImageCaption,
+                                ImageInsert,
+                                ImageResize,
+                                ImageStyle,
+                                ImageToolbar,
+                                ImageUpload,
+                                Base64UploadAdapter,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                LinkImage,
+                                List,
+                                ListProperties,
+                                MediaEmbed,
+                                Mention,
+                                PageBreak,
+                                Paragraph,
+                                PasteFromOffice,
+                                PictureEditing,
+                                RemoveFormat,
+                                SpecialCharacters,
+                                // SpecialCharactersEmoji,
+                                SpecialCharactersEssentials,
+                                Strikethrough,
+                                Style,
+                                Subscript,
+                                Superscript,
+                                Table,
+                                TableCaption,
+                                TableCellProperties,
+                                TableColumnResize,
+                                TableProperties,
+                                TableToolbar,
+                                TextPartLanguage,
+                                TextTransformation,
+                                TodoList,
+                                Underline,
+                                WordCount,
+                              ],
+                              image: {
+                                toolbar: [
+                                  "imageTextAlternative",
+                                  "toggleImageCaption",
+                                  "|",
+                                  "imageStyle:inline",
+                                  "imageStyle:wrapText",
+                                  "imageStyle:breakText",
+                                  "|",
+                                  "resizeImage",
+                                  "|",
+                                  "linkImage",
+                                ],
+                              },
+                              fontFamily: {
+                                supportAllValues: true,
+                              },
+                              fontSize: {
+                                options: [10, 12, 14, "default", 18, 20, 22],
+                                supportAllValues: true,
+                              },
+                              fontColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              fontBackgroundColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              heading: {
+                                options: [
+                                  {
+                                    model: "paragraph",
+                                    title: "Paragraph",
+                                    class: "ck-heading_paragraph",
+                                  },
+                                  {
+                                    model: "heading1",
+                                    view: "h1",
+                                    title: "Heading 1",
+                                    class: "ck-heading_heading1",
+                                  },
+                                  {
+                                    model: "heading2",
+                                    view: "h2",
+                                    title: "Heading 2",
+                                    class: "ck-heading_heading2",
+                                  },
+                                  {
+                                    model: "heading3",
+                                    view: "h3",
+                                    title: "Heading 3",
+                                    class: "ck-heading_heading3",
+                                  },
+                                  {
+                                    model: "heading4",
+                                    view: "h4",
+                                    title: "Heading 4",
+                                    class: "ck-heading_heading4",
+                                  },
+                                  {
+                                    model: "heading5",
+                                    view: "h5",
+                                    title: "Heading 5",
+                                    class: "ck-heading_heading5",
+                                  },
+                                  {
+                                    model: "heading6",
+                                    view: "h6",
+                                    title: "Heading 6",
+                                    class: "ck-heading_heading6",
+                                  },
+                                ],
+                              },
+                            }}
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Analisis Lingkungan Sekolah
+                          </label>
+                          <CKEditor
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
+                            }}
+                            editor={ClassicEditor}
+                            data={analisis || ""} // Gunakan 'data' untuk set initial value
+                            onChange={(event, editor) => {
+                              const data = editor.getData(); // Ambil data dari editor
+                              setAnalisis(data); // Set state dengan data dari editor
+                            }}
+                            config={{
+                              toolbar: [
+                                // --- Text alignment ---------------------------------------------------------------------------
+                                "alignment",
+                                "|",
+                                // --- Document-wide tools ----------------------------------------------------------------------
+                                "undo",
+                                "redo",
+                                // "|",
+                                // "alignment:left", // Tambahkan opsi align left
+                                // "alignment:center", // Tambahkan opsi align center
+                                // "alignment:right",
+                                "|",
+                                "importWord",
+                                "exportWord",
+                                "exportPdf",
+                                "|",
+                                "formatPainter",
+                                "caseChange",
+                                "findAndReplace",
+                                "selectAll",
+                                "wproofreader",
+                                "|",
+                                "insertTemplate",
+                                "tableOfContents",
+                                "|",
+
+                                // --- "Insertables" ----------------------------------------------------------------------------
+
+                                "link",
+                                "insertImage",
+                                "ckbox",
+                                "insertTable",
+                                "blockQuote",
+                                "mediaEmbed",
+                                "codeBlock",
+                                "pageBreak",
+                                "horizontalLine",
+                                "specialCharacters",
+                                "-",
+
+                                // --- Block-level formatting -------------------------------------------------------------------
+                                "heading",
+                                "style",
+                                "|",
+
+                                // --- Basic styles, font and inline formatting -------------------------------------------------------
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strikethrough",
+                                {
+                                  label: "Basic styles",
+                                  icon: "text",
+                                  items: [
+                                    "fontSize",
+                                    "fontFamily",
+                                    "fontColor",
+                                    "fontBackgroundColor",
+                                    "highlight",
+                                    "superscript",
+                                    "subscript",
+                                    "code",
+                                    "|",
+                                    "textPartLanguage",
+                                    "|",
+                                  ],
+                                },
+                                "removeFormat",
+                                "|",
+
+                                // --- Lists and indentation --------------------------------------------------------------------
+                                "bulletedList",
+                                "numberedList",
+                                "multilevelList",
+                                "todoList",
+                                "|",
+                                "outdent",
+                                "indent",
+                              ],
+                              styles: [
+                                // "full",    // Gambar mengambil lebar penuh konten
+                                // "side",    // Gambar sejajar dengan teks
+                                "height: 300px",
+                                "alignLeft",
+                                "alignCenter",
+                                "alignRight",
+                              ],
+                              alignment: {
+                                options: ["left", "right", "center", "justify"],
+                              },
+                              plugins: [
+                                GeneralHtmlSupport,
+                                Bold,
+                                Alignment,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                                Image,
+                                ImageCaption,
+                                ImageInsert,
+                                ImageResize,
+                                ImageStyle,
+                                ImageToolbar,
+                                ImageUpload,
+                                Base64UploadAdapter,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                LinkImage,
+                                List,
+                                ListProperties,
+                                MediaEmbed,
+                                Mention,
+                                PageBreak,
+                                Paragraph,
+                                PasteFromOffice,
+                                PictureEditing,
+                                RemoveFormat,
+                                SpecialCharacters,
+                                // SpecialCharactersEmoji,
+                                SpecialCharactersEssentials,
+                                Strikethrough,
+                                Style,
+                                Subscript,
+                                Superscript,
+                                Table,
+                                TableCaption,
+                                TableCellProperties,
+                                TableColumnResize,
+                                TableProperties,
+                                TableToolbar,
+                                TextPartLanguage,
+                                TextTransformation,
+                                TodoList,
+                                Underline,
+                                WordCount,
+                              ],
+                              image: {
+                                toolbar: [
+                                  "imageTextAlternative",
+                                  "toggleImageCaption",
+                                  "|",
+                                  "imageStyle:inline",
+                                  "imageStyle:wrapText",
+                                  "imageStyle:breakText",
+                                  "|",
+                                  "resizeImage",
+                                  "|",
+                                  "linkImage",
+                                ],
+                              },
+                              fontFamily: {
+                                supportAllValues: true,
+                              },
+                              fontSize: {
+                                options: [10, 12, 14, "default", 18, 20, 22],
+                                supportAllValues: true,
+                              },
+                              fontColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              fontBackgroundColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              heading: {
+                                options: [
+                                  {
+                                    model: "paragraph",
+                                    title: "Paragraph",
+                                    class: "ck-heading_paragraph",
+                                  },
+                                  {
+                                    model: "heading1",
+                                    view: "h1",
+                                    title: "Heading 1",
+                                    class: "ck-heading_heading1",
+                                  },
+                                  {
+                                    model: "heading2",
+                                    view: "h2",
+                                    title: "Heading 2",
+                                    class: "ck-heading_heading2",
+                                  },
+                                  {
+                                    model: "heading3",
+                                    view: "h3",
+                                    title: "Heading 3",
+                                    class: "ck-heading_heading3",
+                                  },
+                                  {
+                                    model: "heading4",
+                                    view: "h4",
+                                    title: "Heading 4",
+                                    class: "ck-heading_heading4",
+                                  },
+                                  {
+                                    model: "heading5",
+                                    view: "h5",
+                                    title: "Heading 5",
+                                    class: "ck-heading_heading5",
+                                  },
+                                  {
+                                    model: "heading6",
+                                    view: "h6",
+                                    title: "Heading 6",
+                                    class: "ck-heading_heading6",
+                                  },
+                                ],
+                              },
+                            }}
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Sasaran Sekolah
+                          </label>
+                          <CKEditor
+                            onReady={(editor) => {
+                              const editable = editor.ui.view.editable.element;
+
+                              const setHeight = () => {
+                                editable.style.minHeight = "400px";
+                              };
+
+                              setHeight();
+
+                              editable.addEventListener("focus", setHeight);
+                            }}
+                            editor={ClassicEditor}
+                            data={sasaran_sekolah || ""} // Gunakan 'data' untuk set initial value
+                            onChange={(event, editor) => {
+                              const data = editor.getData(); // Ambil data dari editor
+                              setSasaranSekolah(data); // Set state dengan data dari editor
+                            }}
+
                             config={{
                               toolbar: [
                                 // --- Text alignment ---------------------------------------------------------------------------
@@ -994,8 +1526,8 @@ function AddVisiMisi() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={loading}>
+                        {loading ? "Loading..." : "Simpan"}
                       </button>
                     </form>
                   </div>
