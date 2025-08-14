@@ -72,11 +72,7 @@ function AdminBerita() {
               showConfirmButton: false,
               timer: 1500,
             });
-
-            setTimeout(() => {
               history.push("/admin-berita");
-              window.location.reload();
-            }, 1500);
           });
       }
     });

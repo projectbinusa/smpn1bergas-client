@@ -72,10 +72,7 @@ function AddStructur() {
         showConfirmButton: false,
         timer: 1500,
       });
-      // history.push("/admin-struktur");
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 1500);
+      history.push("/admin-struktur");
     } catch (error) {
       Swal.fire({
         icon: "error",

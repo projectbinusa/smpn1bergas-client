@@ -36,7 +36,7 @@ function DetailJenjang() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const get = async () => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
         `${API_DUMMY}/api/jenjang/get/${param.id}`,
@@ -62,7 +62,7 @@ function DetailJenjang() {
   };
 
   useEffect(() => {
-    get()
+    getAll();
   }, [])
 
   const deleteData = async (id) => {
@@ -91,9 +91,7 @@ function DetailJenjang() {
               timer: 1500,
             });
 
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
+            getAll();
           }).catch((err) => {
             Swal.fire({
               icon: "error",

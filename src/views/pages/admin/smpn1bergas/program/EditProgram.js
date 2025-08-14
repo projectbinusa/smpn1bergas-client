@@ -155,9 +155,6 @@ function EditProgram() {
           timer: 1500,
         });
         history.push("/admin-program");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 1500);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {

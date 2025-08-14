@@ -68,10 +68,7 @@ function Galery() {
               showConfirmButton: false,
               timer: 1500,
             });
-          
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 1500);
+        
           })
           getAll()
           .catch((err) => {
