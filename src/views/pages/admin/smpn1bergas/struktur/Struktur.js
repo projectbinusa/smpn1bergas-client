@@ -45,8 +45,7 @@ function Struktur() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/struktur/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/api/struktur/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -136,9 +135,8 @@ function Struktur() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -235,63 +233,64 @@ function Struktur() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length>0?
-                  filteredList.map((berita, no) => {
-                    return (
-                      <tr key={no}>
-                        <td data-label="No" className="">
-                          {no + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td data-label="Nama">
-                          {berita.nama}
-                        </td>
-                        <td data-label="Tugas">
-                          {berita.tugas}
-                        </td>
-                        <td data-label="Jabatan">
-                          {berita.jabatan}
-                        </td>
-                        <td data-label="Foto" className="">
-                          <img
-                            src={
-                              berita.foto
-                                ? berita.foto
-                                : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
-                            }
-                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
-                          />
-                        </td>
-                        <td data-label="Aksi" className="action">
-                          <div className="d-flex justify-content-center align-items-center">
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit-struktur/${berita.id}`}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              onClick={() => deleteData(berita.id)}
-                              type="button"
-                              className="btn-danger btn-sm">
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  }):<tr>
-                  <td colSpan="6" className="text-center my-3">
-                    <div style={{ padding: "10px", color: "#555" }}>
-                      Tidak ada data yang tersedia.
-                    </div>
-                  </td>
-                </tr>}
+                  {filteredList.length > 0 ?
+                    filteredList.map((berita, no) => {
+                      return (
+                        <tr key={no}>
+                          <td data-label="No" className="">
+                            {no + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td data-label="Nama">
+                            {berita.nama}
+                          </td>
+                          <td data-label="Tugas">
+                            {berita.tugas}
+                          </td>
+                          <td data-label="Jabatan">
+                            {berita.jabatan}
+                          </td>
+                          <td data-label="Foto" style={{ textAlign: "right" }}>
+                            <img
+                              src={
+                                berita.foto
+                                  ? berita.foto
+                                  : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                              }
+                              style={{ height: "4.5rem", width: "4.5rem" }}
+                            />
+                          </td>
+
+                          <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2">
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/edit-struktur/${berita.id}`}>
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(berita.id)}
+                                type="button"
+                                className="btn-danger btn-sm">
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }) : <tr>
+                      <td colSpan="6" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
+                      </td>
+                    </tr>}
                 </tbody>
               </table>
             </div>

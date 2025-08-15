@@ -40,7 +40,7 @@ function AdminBerita() {
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
-      if(error.status === 401) {
+      if (error.status === 401) {
         localStorage.clear();
         history.push("/login");
       }
@@ -72,7 +72,7 @@ function AdminBerita() {
               showConfirmButton: false,
               timer: 1500,
             });
-              history.push("/admin-berita");
+            history.push("/admin-berita");
           });
       }
     });
@@ -239,10 +239,13 @@ function AdminBerita() {
                           <td data-label="Penulis Berita">
                             {berita.author}
                           </td>
-                          <td data-label="Image">
+                          <td data-label="Image" style={{ textAlign: "right" }}>
                             <img
                               src={berita.image ? berita.image : news}
-                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
+                              style={{
+                                height: "4.5rem",
+                                width: "4.5rem",
+                              }}
                             />
                           </td>
                           <td data-label="Kategori Berita">

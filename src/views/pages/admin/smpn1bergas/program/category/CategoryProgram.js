@@ -212,41 +212,43 @@ function CategoryProgram() {
               {filteredList.length > 0 ?
                 filteredList.map((berita, no) => {
                   return (
-                    <tr key={no}>
-                      <td data-label="No" className="">
+                    <tr key={no} style={{ textAlign: "right" }}>
+                      <td data-label="No">
                         {no + 1 + (currentPage - 1) * rowsPerPage}
                       </td>
                       <td data-label="Kategori Program">
                         <span
                           style={{
-                            width: "250px",
                             display: "-webkit-box",
                             WebkitBoxOrient: "vertical",
                             WebkitLineClamp: 2,
                             overflow: "hidden",
                             textOverflow: "ellipsis",
-                          }}>
+                            textAlign: "right",
+                          }}
+                        >
                           {berita.category}
                         </span>
                       </td>
                       <td data-label="Aksi" className="action">
-                        <div className="d-flex justify-content-center align-items-center">
-                          <button
-                            type="button"
-                            className="btn-primary btn-sm mr-2">
+                        <div className="d-flex justify-content-end align-items-center">
+                          <button type="button" className="btn-primary btn-sm mr-2">
                             <a
                               style={{
                                 color: "white",
                                 textDecoration: "none",
+                                textAlign: "right",
                               }}
-                              href={`/edit-category-program/${berita.id}`}>
+                              href={`/edit-category-program/${berita.id}`}
+                            >
                               <i className="fa-solid fa-pen-to-square"></i>
                             </a>
                           </button>
                           <button
                             onClick={() => deleteData(berita.id)}
                             type="button"
-                            className="btn-danger btn-sm">
+                            className="btn-danger btn-sm"
+                          >
                             <i className="fa-solid fa-trash"></i>
                           </button>
                         </div>
