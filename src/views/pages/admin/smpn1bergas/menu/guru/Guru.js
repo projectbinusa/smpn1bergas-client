@@ -69,7 +69,7 @@ function Berita() {
               timer: 1500,
             });
 
-           getAll();
+            getAll();
 
           }).catch((err) => {
             Swal.fire({
@@ -248,15 +248,15 @@ function Berita() {
                             {row.riwayat}
                           </td>
                           <td data-label="Image" style={{ textAlign: "right" }}>
-  <img
-    src={
-      row.foto
-        ? row.foto
-        : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
-    }
-    style={{ height: "4.5rem", width: "4.5rem" }}
-  />
-</td>
+                            <img
+                              src={
+                                row.foto
+                                  ? row.foto
+                                  : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                              }
+                              style={{ height: "4.5rem", width: "4.5rem" }}
+                            />
+                          </td>
 
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
