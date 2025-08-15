@@ -212,9 +212,9 @@ function AddGuru() {
                         Batal
                       </a>
                     </button>{" "}
-                    <button type="submit" className="btn-primary mt-3" disabled={loading}>
-                     {loading ? "Loading ..." : "Submit"}
-                    </button>
+                    <button type="submit" className="btn-primary mt-3">
+                        Submit
+                      </button>
                   </form>
                 </div>
               </div>

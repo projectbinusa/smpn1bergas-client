@@ -42,9 +42,6 @@ function AddCategory() {
       });
       // //console.log(data);
       history.push("/admin-berita");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();

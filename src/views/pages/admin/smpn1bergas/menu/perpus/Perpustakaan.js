@@ -94,9 +94,7 @@ function Perpustakaan() {
               timer: 1500,
             });
 
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
+            getAll();
           })
           .catch((err) => {
             Swal.fire({

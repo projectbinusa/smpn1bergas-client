@@ -106,9 +106,6 @@ function AddAlumni() {
         timer: 1500,
       });
       history.push("/admin-alumni");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();

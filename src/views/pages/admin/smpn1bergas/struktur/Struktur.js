@@ -91,9 +91,6 @@ function Struktur() {
               timer: 1500,
             });
             getAll();
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 1500);
           })
           .catch((err) => {
             Swal.fire({

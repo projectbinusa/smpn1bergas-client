@@ -109,9 +109,6 @@ function EditJenjang() {
           timer: 1500,
         });
         history.push("/admin-jenjang");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {

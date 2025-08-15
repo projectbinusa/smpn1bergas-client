@@ -696,8 +696,8 @@ function EditBeritaAdmin() {
                     Batal
                   </a>
                 </button>{" "}
-                <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
-                  {isLoading ? "Loading ..." : "Submit"}
+                <button type="submit" className="btn-primary mt-3">
+                  Simpan
                 </button>
               </form>
             </div>
