@@ -212,7 +212,7 @@ function App() {
             <Route path="/jenjangsma" component={JenjangSMA} exact />
             <Route path="/laporanbosp" component={LaporanBosp} exact />
             <Route path="/laporanbosp/:id" component={DetailLaporanBosp} exact />
-            <Route path="/laporanbosp/:id/lampiran/:index" component={LampiranModal} exact />
+            <Route path="/laporanbosp/:laporanId/lampiran/:index" component={LampiranModal} />
             <PrivateRoute path="/admin/laporanbosp" component={AdminLaporanBosp} exact />
             <PrivateRoute path="/admin/laporanbosp/add" component={AddLaporanBosp} exact />
             <PrivateRoute path="/admin/laporanbosp/edit/:id" component={EditLaporanBosp} exact />
