@@ -268,62 +268,68 @@ function AddGalery() {
                             )}
                           </div>
                         ))} */}
-                        {images.map((file, index) => (
-                          <div className="mb-3" key={index}>
-                            <div className="d-flex align-items-center gap-2">
-                              <input
-                                className="form-control"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => handleFileChange(e, index)}
-                                required={index === 0}
-                              />
-                              {images.length > 1 && (
-                                <button
-                                  type="button"
-                                  className="btn-danger"
-                                  onClick={() => removeImageInput(index)}
-                                  disabled={isSubmitting}>
-                                  Hapus
-                                </button>
-                              )}
-                              {index === images.length - 1 && (
-                                <button
-                                  type="button"
-                                  className="btn-primary"
-                                  onClick={addImageInput}
-                                  disabled={isSubmitting}>
-                                  Tambah
-                                </button>
+                      <br/>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Gambar
+                          </label>
+                          {images.map((file, index) => (
+                            <div className="mb-3" key={index}>
+                              <div className="d-flex align-items-center gap-2">
+                                <input
+                                  className="form-control"
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={(e) => handleFileChange(e, index)}
+                                  required={index === 0}
+                                />
+                                {images.length > 1 && (
+                                  <button
+                                    type="button"
+                                    className="btn-danger"
+                                    onClick={() => removeImageInput(index)}
+                                    disabled={isSubmitting}>
+                                    Hapus
+                                  </button>
+                                )}
+                                {index === images.length - 1 && (
+                                  <button
+                                    type="button"
+                                    className="btn-primary"
+                                    onClick={addImageInput}
+                                    disabled={isSubmitting}>
+                                    Tambah
+                                  </button>
+                                )}
+                              </div>
+
+                              {/* Tampilkan nama file dan preview */}
+                              {file && (
+                                <div className="mt-2">
+                                  <small className="text-muted d-block mb-1">
+                                    {file.name} - {(file.size / 1024).toFixed(2)} KB
+                                  </small>
+                                  <img
+                                    src={URL.createObjectURL(file)}
+                                    alt={`Preview ${index}`}
+                                    style={{ maxHeight: '150px', objectFit: 'contain', border: '1px solid #ccc', padding: 4 }}
+                                  />
+                                </div>
                               )}
                             </div>
+                          ))}
 
-                            {/* Tampilkan nama file dan preview */}
-                            {file && (
-                              <div className="mt-2">
-                                <small className="text-muted d-block mb-1">
-                                  {file.name} - {(file.size / 1024).toFixed(2)} KB
-                                </small>
-                                <img
-                                  src={URL.createObjectURL(file)}
-                                  alt={`Preview ${index}`}
-                                  style={{ maxHeight: '150px', objectFit: 'contain', border: '1px solid #ccc', padding: 4 }}
-                                />
-                              </div>
-                            )}
-                          </div>
-                        ))}
-
-                        {images.length === 0 && (
-                          <div>
-                            <button
-                              type="button"
-                              className="btn-primary"
-                              onClick={addImageInput}>
-                              Tambah Gambar
-                            </button>
-                          </div>
-                        )}
+                          {images.length === 0 && (
+                            <div>
+                              <button
+                                type="button"
+                                className="btn-primary"
+                                onClick={addImageInput}>
+                                Tambah Gambar
+                              </button>
+                            </div>
+                          )}
+                        </div>
                       </div>
 
                       <div className="mb-3 col-lg-12">

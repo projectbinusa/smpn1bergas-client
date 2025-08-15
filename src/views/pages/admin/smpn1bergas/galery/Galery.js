@@ -23,8 +23,7 @@ function Galery() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/galeri/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/api/galeri/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -68,9 +67,8 @@ function Galery() {
               showConfirmButton: false,
               timer: 1500,
             });
-        
+            getAll()
           })
-          getAll()
           .catch((err) => {
             Swal.fire({
               icon: "error",
@@ -135,9 +133,8 @@ function Galery() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"

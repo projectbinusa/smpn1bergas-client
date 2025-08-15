@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../utils/base_URL";
-
-import { format } from "date-fns";
-import idLocale from "date-fns/locale/id";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -15,19 +11,17 @@ import {
   TextField,
 } from "@mui/material";
 import Sidebar1 from "../../../../../component/Sidebar1";
+import { formatTanggal } from "../../../../../formatting/Formatting";
 
 function Prestasi() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults1, setSearchResults1] = useState([]);
-  const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -45,19 +39,19 @@ function Prestasi() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const getAll = async () => {
+
+  const getAll = async (pageNumber = 1, size = rowsPerPage, search = "") => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/prestasi/all/terbaru?page=${page - 1
-        }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
+        `${API_DUMMY}/api/prestasi/all/terbaru?page=${pageNumber - 1}&size=${size}&sortBy=id&sortOrder=desc&search=${search}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
+
       setList(response.data.data.content);
-      console.log(response.data.data.content);
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -92,6 +86,7 @@ function Prestasi() {
               showConfirmButton: false,
               timer: 1500,
             });
+            getAll(currentPage, rowsPerPage, searchTerm);
           }).catch((err) => {
             Swal.fire({
               icon: "error",
@@ -106,35 +101,27 @@ function Prestasi() {
   };
 
   useEffect(() => {
-    getAll(currentPage);
-  }, [currentPage, rowsPerPage]);
+    getAll(currentPage, rowsPerPage, searchTerm);
+  }, [currentPage, rowsPerPage, searchTerm]);
 
   useEffect(() => {
     AOS.init();
   }, []);
 
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
     setCurrentPage(1);
   };
 
-  const filteredList = list.filter((item) =>
-    Object.values(item).some(
-      (value) =>
-        typeof value === "string" &&
-        value.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
-
-  console.log(filteredList);
-
-  const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
     <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
@@ -162,7 +149,7 @@ function Prestasi() {
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
                 value={rowsPerPage}>
-                <option value={5}>5</option>
+                <option value={1}>1</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
               </select>
@@ -189,7 +176,7 @@ function Prestasi() {
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
                     value={rowsPerPage}>
-                    <option value={5}>5</option>
+                    <option value={1}>1</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                   </select>
@@ -232,8 +219,8 @@ function Prestasi() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ?
-                    filteredList.map((berita, no) => {
+                  {list.length > 0 ?
+                    list.map((berita, no) => {
                       return (
                         <tr key={no}>
                           <td data-label="No" className="">
@@ -246,7 +233,7 @@ function Prestasi() {
                             {berita.nama_peserta}
                           </td>
                           <td data-label="Tanggal">
-                            {format(new Date(berita.tanggal || new Date()), "dd MM yyyy", { locale: idLocale })}
+                            {formatTanggal(berita.tanggal)}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
@@ -295,10 +282,7 @@ function Prestasi() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
+                onChange={handlePageChange}
                 showFirstButton
                 showLastButton
                 color="primary"
