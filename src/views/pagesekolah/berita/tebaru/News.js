@@ -138,42 +138,36 @@ const News = () => {
                 </div>
                 <p>Memuat berita...</p>
               </div>
-            ) : (
+            ) : berita.length > 0 ? (
               <>
-                {berita.length > 0 ? (
-                  berita.map((newsItem) => (
-                    <CardBerita
-                      key={newsItem.id}
-                      image={newsItem.image}
-                      id={newsItem.id}
-                      title={newsItem.judulBerita}
-                      link={"news"}
-                      date={newsItem.createdDate}
-                    />
+                {berita.map((newsItem) => (
+                  <CardBerita
+                    key={newsItem.id}
+                    image={newsItem.image}
+                    id={newsItem.id}
+                    title={newsItem.judulBerita}
+                    link={"news"}
+                    date={newsItem.createdDate}
+                  />
+                ))}
 
-                  ))
-                ) : (
-                  <div className="no-news">
-                    <img src="/images/no-data.svg" alt="No news" />
-                    <h5>Tidak ada berita tersedia</h5>
-                  </div>
-                )}
-
-                {totalPages > 1 && (
-                  <div className="pagination-container">
-                    <Pagination
-                      count={totalPages}
-                      page={currentPage}
-                      onChange={handlePageChange}
-                      color="primary"
-                      variant="outlined"
-                      shape="rounded"
-                      showFirstButton
-                      showLastButton
-                    />
-                  </div>
-                )}
+                <div className="pagination-container">
+                  <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="primary"
+                    shape="rounded"
+                    showFirstButton
+                    showLastButton
+                  />
+                </div>
               </>
+            ) : (
+              <div className="no-news">
+                <img src="/images/no-data.svg" alt="No news" />
+                <h5>Tidak ada berita tersedia</h5>
+              </div>
             )}
           </div>
         </div>

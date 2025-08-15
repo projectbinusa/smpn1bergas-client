@@ -98,12 +98,11 @@ function Program() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
     setCurrentPage(1);
   };
 
@@ -160,7 +159,7 @@ function Program() {
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
                 value={rowsPerPage}>
-                <option value={5}>5</option>
+                <option value={1}>1</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
               </select>
@@ -187,7 +186,7 @@ function Program() {
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
                     value={rowsPerPage}>
-                    <option value={5}>5</option>
+                    <option value={1}>1</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                   </select>

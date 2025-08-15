@@ -92,12 +92,11 @@ function CategoryGalery() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
     setCurrentPage(1);
   };
 
@@ -144,9 +143,8 @@ function CategoryGalery() {
   }
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -159,6 +157,21 @@ function CategoryGalery() {
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
+          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
+            <div className="col-auto">
+              <label className="form-label mt-2">Rows per page:</label>
+            </div>
+            <div className="col-auto">
+              <select
+                className="form-select form-select-xl w-auto"
+                onChange={handleRowsPerPageChange}
+                value={rowsPerPage}>
+                <option value={1}>1</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+              </select>
+            </div>
+          </div>
           <div className="search">
             <input
               type="search"
@@ -171,6 +184,21 @@ function CategoryGalery() {
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Data galery</p>
+              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
+                <div className="col-auto">
+                  <label className="form-label mt-2">Rows per page:</label>
+                </div>
+                <div className="col-auto">
+                  <select
+                    className="form-select form-select-sm"
+                    onChange={handleRowsPerPageChange}
+                    value={rowsPerPage}>
+                    <option value={1}>1</option>
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                  </select>
+                </div>
+              </div>
               <div className="d-flex ml-auto gap-3">
                 <input
                   type="search"
@@ -206,8 +234,8 @@ function CategoryGalery() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((galery, no) => {
-                    return (
+                  {filteredList.length > 0 ? (
+                    filteredList.map((galery, no) => (
                       <tr key={no}>
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
@@ -238,24 +266,30 @@ function CategoryGalery() {
                           </div>
                         </td>
                       </tr>
-                    );
-                  })}
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="3" className="text-center">
+                        Tidak ada data yang tersedia.
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
             <div className="card-header mt-3 d-flex justify-content-center">
-                          <Pagination
-                            count={paginationInfo.totalPages}
-                            page={currentPage}
-                            onChange={(event, value) => {
-                              setCurrentPage(value);
-                              setPage(value);
-                            }}
-                            showFirstButton
-                            showLastButton
-                            color="primary"
-                          />
-                        </div>
+              <Pagination
+                count={paginationInfo.totalPages}
+                page={currentPage}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
+                showFirstButton
+                showLastButton
+                color="primary"
+              />
+            </div>
           </div>
         </div>
       </div>

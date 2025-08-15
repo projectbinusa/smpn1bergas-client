@@ -101,7 +101,6 @@ function Jenjang() {
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
     setCurrentPage(1);
   };
 
@@ -211,60 +210,66 @@ function Jenjang() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((jenjang, no) => {
-                    return (
-                      <tr key={no}>
-                        <td data-label="No" className="">
-                          {no + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td data-label="Nama Jenjang" className="text-long">
-                          {jenjang.nama_jenjang}
-                        </td>
-                        <td data-label="Deskripsi" style={{ width: "50%" }}>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: truncateText(
-                                stripHtml(jenjang.description),
-                                20
-                              ),
-                            }}
-                          />
-                        </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit-jenjang/${jenjang.id}`}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              class="btn-warning  mr-2 btn-sm">
-                              <a
-                                className="text-light"
-                                href={"/detail-jenjang/" + jenjang.id}>
-                                <i class="fas fa-info-circle"></i>
-                              </a>
-                            </button>
-                            <button
-                              onClick={() => deleteData(jenjang.id)}
-                              type="button"
-                              className="btn-danger btn-sm">
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
+  {filteredList.length > 0 ? (
+    filteredList.map((jenjang, no) => (
+      <tr key={no}>
+        <td data-label="No" className="">
+          {no + 1 + (currentPage - 1) * rowsPerPage}
+        </td>
+        <td data-label="Nama Jenjang" className="text-long">
+          {jenjang.nama_jenjang}
+        </td>
+        <td data-label="Deskripsi" style={{ width: "50%" }}>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: truncateText(
+                stripHtml(jenjang.description),
+                20
+              ),
+            }}
+          />
+        </td>
+        <td data-label="Aksi">
+          <div className="aksi">
+            <button
+              type="button"
+              className="btn-primary btn-sm mr-2">
+              <a
+                style={{
+                  color: "white",
+                  textDecoration: "none",
+                }}
+                href={`/edit-jenjang/${jenjang.id}`}>
+                <i className="fa-solid fa-pen-to-square"></i>
+              </a>
+            </button>
+            <button
+              type="button"
+              className="btn-warning mr-2 btn-sm">
+              <a
+                className="text-light"
+                href={`/detail-jenjang/${jenjang.id}`}>
+                <i className="fas fa-info-circle"></i>
+              </a>
+            </button>
+            <button
+              onClick={() => deleteData(jenjang.id)}
+              type="button"
+              className="btn-danger btn-sm">
+              <i className="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="4" className="text-center">
+        Tidak ada data yang tersedia.
+      </td>
+    </tr>
+  )}
+</tbody>
               </table>
             </div>
           </div>
