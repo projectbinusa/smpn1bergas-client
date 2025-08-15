@@ -251,16 +251,17 @@ function Struktur() {
                         <td data-label="Jabatan">
                           {berita.jabatan}
                         </td>
-                        <td data-label="Foto" className="">
-                          <img
-                            src={
-                              berita.foto
-                                ? berita.foto
-                                : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
-                            }
-                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
-                          />
-                        </td>
+                        <td data-label="Foto" style={{ textAlign: "right" }}>
+  <img
+    src={
+      berita.foto
+        ? berita.foto
+        : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+    }
+    style={{ height: "4.5rem", width: "4.5rem" }}
+  />
+</td>
+
                         <td data-label="Aksi" className="action">
                           <div className="d-flex justify-content-center align-items-center">
                             <button

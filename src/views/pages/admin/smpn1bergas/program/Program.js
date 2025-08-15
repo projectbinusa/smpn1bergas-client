@@ -232,58 +232,72 @@ function Program() {
                   {filteredList.length > 0 ?
                     filteredList.map((berita, no) => {
                       return (
-                        <tr key={no}>
-                          <td data-label="No">
-                            {no + 1 + (currentPage - 1) * rowsPerPage}
-                          </td>
-                          <td data-label="Nama Program" style={{ textAlign: "left", maxWidth: "250px" }}>
-                            <span style={{
-                              display: "-webkit-box",
-                              WebkitBoxOrient: "vertical",
-                              WebkitLineClamp: 3,
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}>
-                              {berita.namaProgram}
-                            </span>
-                          </td>
-                          <td data-label="Judul Program" style={{ textAlign: "left", maxWidth: "250px" }}>
-                            {berita.categoryProgram.category ? berita.categoryProgram.category : ""}
-                          </td>
-                          <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2">
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit-program/${berita.id}`}>
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
+  <tr key={no}>
+    <td data-label="No" style={{ textAlign: "right" }}>
+      {no + 1 + (currentPage - 1) * rowsPerPage}
+    </td>
 
-                              <button
-                                type="button"
-                                class="btn-warning  mr-2 btn-sm">
-                                <a
-                                  className="text-light"
-                                  href={"/detail-program/" + berita.id}>
-                                  <i class="fas fa-info-circle"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(berita.id)}
-                                type="button"
-                                className="btn-danger btn-sm">
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      );
+    <td data-label="Nama Program">
+      <span
+        style={{
+          display: "-webkit-box",
+          WebkitBoxOrient: "vertical",
+          WebkitLineClamp: 3,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          textAlign: "right",
+        }}
+      >
+        {berita.namaProgram}
+      </span>
+    </td>
+
+    <td data-label="Judul Program">
+      <span
+        style={{
+          display: "-webkit-box",
+          WebkitBoxOrient: "vertical",
+          WebkitLineClamp: 3,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          textAlign: "right",
+        }}
+      >
+      {berita.categoryProgram.category ? berita.categoryProgram.category : ""}
+      </span>
+    </td>
+
+    <td data-label="Aksi" style={{ textAlign: "right" }}>
+      <div className="d-flex justify-content-end align-items-center">
+        <button type="button" className="btn-primary btn-sm mr-2">
+          <a
+            style={{
+              color: "white",
+              textDecoration: "none",
+            }}
+            href={`/edit-program/${berita.id}`}
+          >
+            <i className="fa-solid fa-pen-to-square"></i>
+          </a>
+        </button>
+
+        <button type="button" className="btn-warning mr-2 btn-sm">
+          <a className="text-light" href={"/detail-program/" + berita.id}>
+            <i className="fas fa-info-circle"></i>
+          </a>
+        </button>
+
+        <button
+          onClick={() => deleteData(berita.id)}
+          type="button"
+          className="btn-danger btn-sm"
+        >
+          <i className="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    </td>
+  </tr>
+);
                     }) : <tr>
                       <td colSpan="4" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
