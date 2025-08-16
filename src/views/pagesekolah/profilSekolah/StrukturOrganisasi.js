@@ -6,11 +6,16 @@ import axios from "axios";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 import strukturSLBC from "../../../aset/slbcpelita/WhatsApp Image 2025-07-18 at 13.29.06_c81c4ecb.jpg";
 import Aos from "aos";
+import { Pagination } from "@mui/material";
 
 function StrukturOrganisasi() {
   const [currentPage, setCurrentPage] = useState(1);
   const [struktur, setStruktur] = useState([]);
   const [totalPages, setTotalPage] = useState(1);
+  const [paginationInfo, setPaginationInfo] = useState({
+    totalPages: 1,
+    totalElements: 0,
+  });
 
   const getAllStruktur = async (page = 1) => {
     try {
@@ -18,9 +23,12 @@ function StrukturOrganisasi() {
         `${API_DUMMY}/api/struktur/all?page=${page - 1}&size=10`
       );
       setStruktur(response.data.data.content);
-      setTotalPage(response.data.data.totalPages);
+      setPaginationInfo({
+        totalPages: response.data.data.totalPages,
+        totalElements: response.data.data.totalElements,
+      });
     } catch (error) {
-      console.log("get all", error);
+      console.error("Terjadi Kesalahan", error);
     }
   };
 
@@ -67,7 +75,7 @@ function StrukturOrganisasi() {
                 </h2>
               </div>
               {struktur.length > 0 && (
-                  <div className="mb-5">
+                <div className="mb-5">
                   <button
                     onClick={download}
                     style={{
@@ -114,6 +122,18 @@ function StrukturOrganisasi() {
               </div>
             )}
           </div>
+          {struktur.length > 0 && (
+            <div className="d-flex justify-content-center mt-4">
+              <Pagination
+                count={paginationInfo.totalPages}
+                page={currentPage}
+                onChange={(event, value) => setCurrentPage(value)}
+                showFirstButton
+                showLastButton
+                color="primary"
+              />
+            </div>
+          )}
         </div>
       </div>
       <FooterSekolah />
