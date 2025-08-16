@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../../utils/base_URL";
+import { API_DUMMY } from "../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import Sidebar1 from "../../../../../../component/Sidebar1";
+
 
 function GuruAllPage() {
   const [list, setList] = useState([]);
@@ -96,7 +96,7 @@ function GuruAllPage() {
         <i className="fas fa-bars"></i>
       </a>
 
-      <Sidebar1 toggleSidebar={toggleSidebar} />
+     
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"

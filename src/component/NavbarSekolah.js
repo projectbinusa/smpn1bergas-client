@@ -126,20 +126,36 @@ const NavbarSekolah = () => {
               ))}
             </ul>
           </li>
-          <li className={`navbars-item ${activeMenu === "galeri" ? "active" : ""}`}>
-            <a href="#galeri" className="has-submenu" onClick={(e) => handleMenuClick(e, "galeri")}>
-              Galeri<i class="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
-            </a>
-            <ul className="submenu">
-              {listKategori.map((data) => {
-                return (
-                  <li key={data.id}>
-                    <a href={"/galery/kategori_galeri/" + data.id}>{data.category}</a>
-                  </li>
-                );
-              })}
-            </ul>
-          </li>
+         <li className={`navbars-item ${activeMenu === "guru" ? "active" : ""}`}>
+  <a
+    href="#guru"
+    className="has-submenu"
+    onClick={(e) => handleMenuClick(e, "guru")}
+  >
+    Guru <i className="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
+  </a>
+  <ul className="submenu">
+    <li>
+      <Link to="/guru-All">Data Guru</Link>
+    </li>
+  </ul>
+</li>
+
+          <li className={`navbars-item ${activeMenu === "guru" ? "active" : ""}`}>
+  <span
+    className="has-submenu"
+    style={{ color: "#fff" }}
+    onClick={(e) => handleMenuClick(e, "guru")}
+  >
+    Guru <i className="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
+  </span>
+  <ul className="submenu">
+    <li>
+      <Link to="/guru-All">Data Guru</Link>
+    </li>
+  </ul>
+</li>
+
 
           <li className="navbars-item">
             <Link to="/all-prestasi" style={{ textTransform: "uppercase", fontWeight: "600" }}>PRESTASI</Link>
