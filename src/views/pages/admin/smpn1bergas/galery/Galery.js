@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
+import { Link } from "react-router-dom";
 
 import { Pagination } from "@mui/material";
 import { API_DUMMY } from "../../../../../utils/base_URL";
@@ -199,11 +200,11 @@ function Galery() {
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
                     <button className="active btn-focus p-2 rounded">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add-galery">
+                        to="/add-galery">
                         Tambah Galeri
-                      </a>
+                      </Link>
                     </button>
                   </div>
                 </div>
@@ -268,28 +269,28 @@ function Galery() {
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2">
-                                <a
+                                <Link
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit-galery/${berita.id}`}>
+                                  to={`/edit-galery/${berita.id}`}>
                                   {" "}
                                   <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                </Link>
                               </button>
                               <button
                                 type="button"
                                 className="btn-warning btn-sm mr-2">
-                                <a
+                                <Link
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/detail-admin-galery/${berita.id}`}>
+                                  to={`/detail-admin-galery/${berita.id}`}>
                                   {" "}
                                   <i className="fas fa-info-circle"></i>
-                                </a>
+                                </Link>
                               </button>
                               <button
                                 onClick={() => deleteData(berita.id)}

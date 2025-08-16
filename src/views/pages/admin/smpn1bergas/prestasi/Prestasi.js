@@ -3,6 +3,7 @@ import { API_DUMMY } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
+import { Link } from "react-router-dom";
 
 import {
   IconButton,
@@ -193,11 +194,11 @@ function Prestasi() {
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
                     <button className="active btn-focus p-2 rounded">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add-prestasi">
+                        to="/add-prestasi">
                         Tambah prestasi
-                      </a>
+                      </Link>
                     </button>
                   </div>
                 </div>
@@ -240,23 +241,21 @@ function Prestasi() {
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2">
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit-prestasi/${berita.id}`}>
+                                <Link
+                                  style={{ color: "white", textDecoration: "none" }}
+                                  to={`/edit-prestasi/${berita.id}`}>
                                   <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                </Link>
                               </button>
                               <button
                                 type="button"
                                 class="btn-warning  mr-2 btn-sm">
-                                <a
+                                <Link
                                   className="text-light"
-                                  href={"/admin-detail-prestasi/" + berita.id}>
-                                  <i class="fas fa-info-circle"></i>
-                                </a>
+                                  to={`/admin-detail-prestasi/${berita.id}`}>
+                                  <i className="fas fa-info-circle"></i>
+                                </Link>
+
                               </button>
                               <button
                                 onClick={() => deleteData(berita.id)}

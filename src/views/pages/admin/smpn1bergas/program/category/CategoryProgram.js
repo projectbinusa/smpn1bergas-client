@@ -6,6 +6,7 @@ import AOS from "aos";
 
 import { Pagination } from "@mui/material";
 import Sidebar1 from "../../../../../../component/Sidebar1";
+import { Link } from "react-router-dom";
 
 function CategoryProgram() {
   const [list, setList] = useState([]);
@@ -186,11 +187,11 @@ function CategoryProgram() {
             <div className="btn-actions-pane-right">
               <div role="group" className="btn-group-sm btn-group">
                 <button className="active btn-focus p-2 rounded">
-                  <a
+                  <Link
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/add-category-program">
+                    to="/add-category-program">
                     Tambah Kategori
-                  </a>
+                  </Link>
                 </button>
               </div>
             </div>
@@ -232,16 +233,16 @@ function CategoryProgram() {
                       <td data-label="Aksi" className="action">
                         <div className="d-flex justify-content-end align-items-center">
                           <button type="button" className="btn-primary btn-sm mr-2">
-                            <a
+                            <Link
                               style={{
                                 color: "white",
                                 textDecoration: "none",
                                 textAlign: "right",
                               }}
-                              href={`/edit-category-program/${berita.id}`}
+                              to={`/edit-category-program/${berita.id}`}
                             >
                               <i className="fa-solid fa-pen-to-square"></i>
-                            </a>
+                            </Link>
                           </button>
                           <button
                             onClick={() => deleteData(berita.id)}

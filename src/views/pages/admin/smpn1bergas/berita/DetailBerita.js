@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import Sidebar1 from "../../../../../component/Sidebar1";
 
@@ -62,141 +63,140 @@ function DetailBerita() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-       <a
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background:"#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <Sidebar1 toggleSidebar={toggleSidebar} />
-        <div style={{marginTop:"10px"}} className="page-content1 mt-3 mb-3 app-main__outer">
-          <div className="container box-tabel">
-            <form className="card shadow w-100">
-              <h1 className="title card-header fw-bold fs-3">Detail Berita</h1>
-              <br />
-              <div className="card-body">
-                <div style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginBottom: "20px"
-                }}>
-                  {image === null ? (
+      <div style={{ marginTop: "10px" }} className="page-content1 mt-3 mb-3 app-main__outer">
+        <div className="container box-tabel">
+          <form className="card shadow w-100">
+            <h1 className="title card-header fw-bold fs-3">Detail Berita</h1>
+            <br />
+            <div className="card-body">
+              <div style={{
+                display: "flex",
+                justifyContent: "center",
+                marginBottom: "20px"
+              }}>
+                {image === null ? (
+                  <img
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "400px",
+                      borderRadius: "8px",
+                      objectFit: "contain"
+                    }}
+                    src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+                    alt="Default Berita"
+                  />
+                ) : (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginBottom: "20px"
+                    }}
+                  >
                     <img
                       style={{
                         maxWidth: "100%",
+                        height: "auto",
                         maxHeight: "400px",
                         borderRadius: "8px",
-                        objectFit: "contain"
+                        objectFit: "cover", // atau "contain" kalau mau full tanpa crop
                       }}
-                      src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
-                      alt="Default Berita"
+                      src={
+                        image
+                          ? image
+                          : "https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+                      }
+                      alt="Berita"
                     />
-                  ) : (
-                    <div
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    marginBottom: "20px"
-  }}
->
-  <img
-    style={{
-      maxWidth: "100%",
-      height: "auto",
-      maxHeight: "400px",
-      borderRadius: "8px",
-      objectFit: "cover", // atau "contain" kalau mau full tanpa crop
-    }}
-    src={
-      image
-        ? image
-        : "https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
-    }
-    alt="Berita"
-  />
-</div>
+                  </div>
 
-                  )}
-                </div>
-                <br />
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Judul Berita</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={judulBerita}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Author</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={author}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tanggal Dibuat</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={format(
-                      new Date(createdDate || new Date()),
-                      "dd MMMM yyyy",
-                      { locale: idLocale }
-                    )}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tanggal Update</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={format(
-                      new Date(updateDate || new Date()),
-                      "dd MMMM yyyy",
-                      { locale: idLocale }
-                    )}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Kategori Berita</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={categoryBerita}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Isi Berita</label>
-                  <div
-                    className="form-control"
-                    style={{ height: "fit-content", background: "#e9ecef" }}
-                    dangerouslySetInnerHTML={{ __html: isiBerita }}
-                  />
-                </div>
+                )}
               </div>
-              <button
-                type="submit"
-                className="btn-kembali btn-danger mt-3 mr-3">
-                <a
-                  href="/admin-berita"
-                  style={{ color: "white", textDecoration: "none" }}>
-                  Kembali
-                </a>
-              </button>
-            </form>
-          </div>
+              <br />
+              <div class="mb-3">
+                <label class="form-label fw-bold">Judul Berita</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={judulBerita}
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Author</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={author}
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Tanggal Dibuat</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={format(
+                    new Date(createdDate || new Date()),
+                    "dd MMMM yyyy",
+                    { locale: idLocale }
+                  )}
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Tanggal Update</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={format(
+                    new Date(updateDate || new Date()),
+                    "dd MMMM yyyy",
+                    { locale: idLocale }
+                  )}
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Kategori Berita</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={categoryBerita}
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Isi Berita</label>
+                <div
+                  className="form-control"
+                  style={{ height: "fit-content", background: "#e9ecef" }}
+                  dangerouslySetInnerHTML={{ __html: isiBerita }}
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="btn-kembali btn-danger mt-3 mr-3">
+              <Link
+                to="/admin-berita"
+                style={{ color: "white", textDecoration: "none" }}>
+                Kembali
+              </Link>
+            </button>
+          </form>
         </div>
+      </div>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
+import { Link } from "react-router-dom";
 
 function AddGuru() {
   const [namaGuru, setNamaGuru] = useState("");
@@ -20,54 +21,54 @@ function AddGuru() {
 
   //add
   const add = async (e) => {
-      e.preventDefault();
-      setLoading(true);
-  
-      const formData = new FormData();
-      const guruData = {
-        nama_guru: namaGuru,
-        mapel: mapel,
-        nip: nip,
-        riwayat: riwayat 
-      };
-  
-      formData.append(
-        "guru",
-        new Blob([JSON.stringify(guruData)], { type: "application/json" })
-      );
-  
-      if (image) {
-        formData.append("files", image);
-      }
-  
-      try {
-        await axios.post(`${API_DUMMY}/api/guru/add`, formData, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        history.push("/admin-guru");
-        setShow(false);
-        Swal.fire({
-          icon: "success",
-          title: "Data Berhasil Ditambahkan",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        // history.push("/admin-guru")
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData();
+    const guruData = {
+      nama_guru: namaGuru,
+      mapel: mapel,
+      nip: nip,
+      riwayat: riwayat
     };
+
+    formData.append(
+      "guru",
+      new Blob([JSON.stringify(guruData)], { type: "application/json" })
+    );
+
+    if (image) {
+      formData.append("files", image);
+    }
+
+    try {
+      await axios.post(`${API_DUMMY}/api/guru/add`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      history.push("/admin-guru");
+      setShow(false);
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil Ditambahkan",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // history.push("/admin-guru")
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     AOS.init();
@@ -93,9 +94,8 @@ function AddGuru() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -206,15 +206,15 @@ function AddGuru() {
                       </div>
                     </div>
                     <button type="button" className="btn-danger mt-3 mr-3">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin-guru">
+                        to="/admin-guru">
                         Batal
-                      </a>
+                      </Link>
                     </button>{" "}
                     <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
+                      Submit
+                    </button>
                   </form>
                 </div>
               </div>

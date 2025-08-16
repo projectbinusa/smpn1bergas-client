@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
+import { Link } from "react-router-dom";
 
 import {
   IconButton,
@@ -203,11 +204,11 @@ function Struktur() {
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
                     <button className="active btn-focus p-2 rounded">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add-struktur">
+                        to="/add-struktur">
                         Tambah Struktur
-                      </a>
+                      </Link>
                     </button>
                   </div>
                 </div>
@@ -264,14 +265,14 @@ function Struktur() {
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2">
-                                <a
+                                <Link
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit-struktur/${berita.id}`}>
+                                  to={`/edit-struktur/${berita.id}`}>
                                   <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                </Link>
                               </button>
                               <button
                                 onClick={() => deleteData(berita.id)}

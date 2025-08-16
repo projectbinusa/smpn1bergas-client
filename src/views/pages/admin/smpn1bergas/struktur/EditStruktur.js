@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../component/Sidebar1";
+import { Link } from "react-router-dom";
 
 function EditStruktur() {
   const [image, setImage] = useState(null);
@@ -147,7 +148,7 @@ function EditStruktur() {
                             Tugas
                           </label>
                           <input
-                          required
+                            required
                             value={tugas}
                             onChange={(e) => setTugas(e.target.value)}
                             type="text"
@@ -160,7 +161,7 @@ function EditStruktur() {
                             Nama Struktur
                           </label>
                           <input
-                          required
+                            required
                             value={nama}
                             onChange={(e) => setNama(e.target.value)}
                             type="text"
@@ -173,7 +174,7 @@ function EditStruktur() {
                             Jabatan
                           </label>
                           <input
-                          required
+                            required
                             value={jabatan}
                             onChange={(e) => setJabatan(e.target.value)}
                             type="text"
@@ -228,11 +229,11 @@ function EditStruktur() {
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
+                        <Link
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-struktur">
+                          to="/admin-struktur">
                           Batal
-                        </a>
+                        </Link>
                       </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit

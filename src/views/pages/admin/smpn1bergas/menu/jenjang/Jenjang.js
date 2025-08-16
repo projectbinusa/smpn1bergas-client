@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
+import { Link } from "react-router-dom";
 
 import { Pagination } from "@mui/material";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
@@ -147,9 +148,8 @@ function Jenjang() {
   }
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -185,11 +185,11 @@ function Jenjang() {
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
                     <button className="active btn-focus p-2 rounded">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add-jenjang">
+                        to="/add-jenjang">
                         Tambah Data
-                      </a>
+                      </Link>
                     </button>
                   </div>
                 </div>
@@ -210,66 +210,66 @@ function Jenjang() {
                   </tr>
                 </thead>
                 <tbody>
-  {filteredList.length > 0 ? (
-    filteredList.map((jenjang, no) => (
-      <tr key={no}>
-        <td data-label="No" className="">
-          {no + 1 + (currentPage - 1) * rowsPerPage}
-        </td>
-        <td data-label="Nama Jenjang" className="text-long">
-          {jenjang.nama_jenjang}
-        </td>
-        <td data-label="Deskripsi" style={{ width: "50%" }}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: truncateText(
-                stripHtml(jenjang.description),
-                20
-              ),
-            }}
-          />
-        </td>
-        <td data-label="Aksi">
-          <div className="aksi">
-            <button
-              type="button"
-              className="btn-primary btn-sm mr-2">
-              <a
-                style={{
-                  color: "white",
-                  textDecoration: "none",
-                }}
-                href={`/edit-jenjang/${jenjang.id}`}>
-                <i className="fa-solid fa-pen-to-square"></i>
-              </a>
-            </button>
-            <button
-              type="button"
-              className="btn-warning mr-2 btn-sm">
-              <a
-                className="text-light"
-                href={`/detail-jenjang/${jenjang.id}`}>
-                <i className="fas fa-info-circle"></i>
-              </a>
-            </button>
-            <button
-              onClick={() => deleteData(jenjang.id)}
-              type="button"
-              className="btn-danger btn-sm">
-              <i className="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="4" className="text-center">
-        Tidak ada data yang tersedia.
-      </td>
-    </tr>
-  )}
-</tbody>
+                  {filteredList.length > 0 ? (
+                    filteredList.map((jenjang, no) => (
+                      <tr key={no}>
+                        <td data-label="No" className="">
+                          {no + 1 + (currentPage - 1) * rowsPerPage}
+                        </td>
+                        <td data-label="Nama Jenjang" className="text-long">
+                          {jenjang.nama_jenjang}
+                        </td>
+                        <td data-label="Deskripsi" style={{ width: "50%" }}>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: truncateText(
+                                stripHtml(jenjang.description),
+                                20
+                              ),
+                            }}
+                          />
+                        </td>
+                        <td data-label="Aksi">
+                          <div className="aksi">
+                            <button
+                              type="button"
+                              className="btn-primary btn-sm mr-2">
+                              <Link
+                                style={{
+                                  color: "white",
+                                  textDecoration: "none",
+                                }}
+                                to={`/edit-jenjang/${jenjang.id}`}>
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </Link>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-warning mr-2 btn-sm">
+                              <Link
+                                className="text-light"
+                                to={`/detail-jenjang/${jenjang.id}`}>
+                                <i className="fas fa-info-circle"></i>
+                              </Link>
+                            </button>
+                            <button
+                              onClick={() => deleteData(jenjang.id)}
+                              type="button"
+                              className="btn-danger btn-sm">
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="4" className="text-center">
+                        Tidak ada data yang tersedia.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
               </table>
             </div>
           </div>

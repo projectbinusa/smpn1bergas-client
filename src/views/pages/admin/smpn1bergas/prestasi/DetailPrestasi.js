@@ -6,6 +6,7 @@ import axios from "axios";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import Sidebar1 from "../../../../../component/Sidebar1";
 
@@ -53,7 +54,7 @@ function DetailPrestasi() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -66,20 +67,19 @@ function DetailPrestasi() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer">
           <div className="box-tabel">
             <form className="card shadow w-100">
@@ -167,15 +167,14 @@ function DetailPrestasi() {
                   />
                 </div>
               </div>
-              <button
-                type="submit"
-                className="btn-kembali btn-danger mt-3 mr-3">
-                <a
-                  href="/admin-prestasi"
-                  style={{ color: "white", textDecoration: "none" }}>
+              <Link to="/admin-prestasi">
+                <button
+                  type="button"
+                  className="btn-kembali btn-danger mt-3 mr-3">
                   Kembali
-                </a>
-              </button>
+                </button>
+              </Link>
+
             </form>
           </div>
         </div>
