@@ -171,6 +171,7 @@ import DetailAdminGalery from "./views/pages/admin/smpn1bergas/galery/DetailAdmi
 import AdminDetailLaporanBosp from "./views/pelitailmu/laporanbosp/AdminDetailLaporanBosp";
 import GaleryByCategory from "./views/pagesekolah/berita/gambar/GaleryByCategory";
 import LampiranModal from "./views/pelitailmu/laporanbosp/LampiranModal";
+import GuruAllPage from "./views/pages/admin/smpn1bergas/menu/guru/GuruAllPage";
 
 
 function App() {
@@ -676,7 +677,13 @@ function App() {
               component={EditCategoryGalery}
               exact
             />
+            <Route
+              path="/guru-All"
+              component={GuruAllPage}
+              exact
+            />
             <PrivateRoute path="/detail-admin-galery/:id" component={DetailAdminGalery} exact />
+
           </Switch>
         </main>
         <LogPageView />
