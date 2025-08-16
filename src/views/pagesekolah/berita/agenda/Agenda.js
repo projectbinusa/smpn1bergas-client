@@ -10,6 +10,7 @@ import { API_DUMMY } from '../../../../utils/base_URL';
 import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
 import Aos from 'aos';
 import news from "../../../../aset/smpn1bergas/News-rafiki.png";
+import { Link } from "react-router-dom";
 
 const newsData = [
     { id: 1, title: 'Local School Wins Award', content: 'The local school has been recognized for its outstanding achievements in academics and sports.', image: 'https://via.placeholder.com/300x200?text=Award', category: 'Berita Sekolah', date: '2024-08-10' },
@@ -72,11 +73,11 @@ const Agenda = () => {
                             <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
                             <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
                             <ul className="category-berita">
-                                <li><a href="/news">Berita Terbaru</a></li>
+                                <li><Link to="/news">Berita Terbaru</Link></li>
                                 <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                                <li><a href="/info">Info Sekolah</a></li>
+                                <li><Link to="/info">Info Sekolah</Link></li>
                                 <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                                <li><a href="/agenda">Agenda</a></li>
+                                <li><Link to="/agenda">Agenda</Link></li>
                             </ul>
                         </div>
                         <br />

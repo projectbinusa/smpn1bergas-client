@@ -4,7 +4,7 @@ import Aos from "aos";
 import { API_DUMMY } from "../../../utils/base_URL";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 import FooterSekolah from "../../../component/FooterSekolah";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
+import { useParams, Link } from "react-router-dom/cjs/react-router-dom";
 // import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function JenjangSD() {
@@ -44,9 +44,9 @@ function JenjangSD() {
         <div className="header-berita">
           <ul>
             <li>
-              <a href="/">
+              <Link to="/">
                 <i className="fas fa-home"></i> Beranda
-              </a>
+              </Link>
             </li>
             <li>
               <i className="fas fa-angle-right"></i>{" "}
@@ -57,7 +57,7 @@ function JenjangSD() {
         <div style={{ lineHeight: "1.8", textAlign: "justify" }}>
           <div style={{ margin: "0 auto 0", padding: "0" }} data-aos="fade-up">
             {jenjang.nama_jenjang === "Data tidak tersedia" ||
-            jenjang.description === "Data tidak tersedia" ? (
+              jenjang.description === "Data tidak tersedia" ? (
               <p
                 style={{
                   fontSize: "1.1em",

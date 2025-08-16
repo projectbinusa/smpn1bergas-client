@@ -7,6 +7,7 @@ import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 import strukturSLBC from "../../../aset/slbcpelita/WhatsApp Image 2025-07-18 at 13.29.06_c81c4ecb.jpg";
 import Aos from "aos";
 import { Pagination } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function StrukturOrganisasi() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,9 +55,9 @@ function StrukturOrganisasi() {
           <div className="header-struktur" data-aos="fade-down">
             <ul>
               <li>
-                <a href="/">
+                <Link to="/">
                   <i className="fas fa-home"></i> Beranda
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="/">

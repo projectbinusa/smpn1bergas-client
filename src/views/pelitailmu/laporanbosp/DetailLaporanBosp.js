@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 import ImageCard from "../../pagesekolah/berita/gambar/ImageCard";
 import ImageCardLaporan from "./ImageCardLaporan";
+import { Link } from "react-router-dom";
 
 function DetailLaporanBosp() {
   const [files, setFiles] = useState([null]);
@@ -62,15 +63,15 @@ function DetailLaporanBosp() {
         <div className="header-berita">
           <ul>
             <li>
-              <a href="/">
+              <Link to="/">
                 <i className="fas fa-home"></i> Beranda
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/all-prestasi">
+              <Link to="/laporanbosp">
                 <i className="fas fa-angle-right"></i>{" "}
                 <span style={{ fontWeight: "normal" }}>Laporan BOSP</span>
-              </a>
+              </Link>
             </li>
             <li>
               <i className="fas fa-angle-right"></i>{" "}
@@ -107,9 +108,9 @@ function DetailLaporanBosp() {
             <div>
               <div className="laporanbosp-container mb-5">
                 {files.map((url, index) => (
-                  <a
+                  <Link
                     key={index}
-                    href={`/laporanbosp/${param.id}/lampiran/${index}`}
+                    to={`/laporanbosp/${param.id}/lampiran/${index}`}
                     style={{ display: "block" }}
                   >
                     <img
@@ -122,7 +123,7 @@ function DetailLaporanBosp() {
                         marginBottom: "10px"
                       }}
                     />
-                  </a>
+                  </Link>
                 ))}
               </div>
 

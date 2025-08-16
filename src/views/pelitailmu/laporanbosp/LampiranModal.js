@@ -5,6 +5,7 @@ import { API_DUMMY } from "../../../utils/base_URL";
 import axios from "axios";
 import Aos from "aos";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LampiranModal() {
     const { laporanId, index } = useParams();
@@ -44,14 +45,14 @@ function LampiranModal() {
                 <div className="header-berita">
                     <ul>
                         <li>
-                            <a href="/">
+                            <Link to="/">
                                 <i className="fas fa-home"></i> Beranda
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="/laporanbosp">
+                            <Link to="/laporanbosp">
                                 <i className="fas fa-angle-right"></i> Laporan BOSP
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <i className="fas fa-angle-right"></i>{" "}

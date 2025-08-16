@@ -10,6 +10,7 @@ import { API_DUMMY } from "../../../../utils/base_URL";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import Aos from "aos";
 import news from "../../../../aset/smpn1bergas/News-rafiki.png";
+import { Link } from "react-router-dom";
 
 const newsData = [
   {
@@ -159,7 +160,7 @@ const Info = () => {
               />
               <ul className="category-berita">
                 <li>
-                  <a href="/news">Berita Terbaru</a>
+                  <Link to="/news">Berita Terbaru</Link>
                 </li>
                 <hr
                   style={{
@@ -170,7 +171,7 @@ const Info = () => {
                   }}
                 />
                 <li>
-                  <a href="/info">Info Sekolah</a>
+                  <Link to="/info">Info Sekolah</Link>
                 </li>
                 <hr
                   style={{
@@ -181,7 +182,7 @@ const Info = () => {
                   }}
                 />
                 <li>
-                  <a href="/agenda">Agenda</a>
+                  <Link to="/agenda">Agenda</Link>
                 </li>
               </ul>
             </div>

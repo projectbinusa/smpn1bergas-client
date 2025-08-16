@@ -4,6 +4,7 @@ import { API_DUMMY } from "../../../../utils/base_URL";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import Aos from "aos";
+import { Link } from "react-router-dom";
 
 function VisiMisiSekolah() {
   const [visiMisiData, setVisiMisiData] = useState({
@@ -40,9 +41,9 @@ function VisiMisiSekolah() {
         <div className="header-berita" data-aos="fade-down">
           <ul>
             <li>
-              <a href="/">
+              <Link to="/">
                 <i className="fas fa-home"></i> Beranda
-              </a>
+              </Link>
             </li>
             <li>
               <i className="fas fa-angle-right"></i>{" "}
@@ -58,8 +59,8 @@ function VisiMisiSekolah() {
           }}>
           <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "0" }}>
             {visiMisiData.visi === "Data tidak tersedia" ||
-            visiMisiData.misi === "Data tidak tersedia" ||
-            visiMisiData.tujuan === "Data tidak tersedia" ? (
+              visiMisiData.misi === "Data tidak tersedia" ||
+              visiMisiData.tujuan === "Data tidak tersedia" ? (
               <p
                 data-aos="fade-up"
                 style={{
