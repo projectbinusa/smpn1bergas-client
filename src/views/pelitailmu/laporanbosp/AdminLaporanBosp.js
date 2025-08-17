@@ -5,6 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import news from "../../../aset/smpn1bergas/News-rafiki.png";
+import { Link } from "react-router-dom";
 
 import { Pagination } from "@mui/material";
 import Sidebar1 from "../../../component/Sidebar1";
@@ -209,11 +210,11 @@ function AdminLaporanBosp() {
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
                     <button className="active btn-focus p-2 rounded">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin/laporanbosp/add">
+                        to="/admin/laporanbosp/add">
                         Tambah
-                      </a>
+                      </Link>
                     </button>
                   </div>
                 </div>
@@ -245,13 +246,13 @@ function AdminLaporanBosp() {
                           </td>
                           <td data-label="Deskripsi">
                             <div
-                            dangerouslySetInnerHTML={{
-                              __html: truncateText(
-                                stripHtml(berita.deskripsi),
-                                20
-                              ),
-                            }}
-                          />
+                              dangerouslySetInnerHTML={{
+                                __html: truncateText(
+                                  stripHtml(berita.deskripsi),
+                                  20
+                                ),
+                              }}
+                            />
                           </td>
                           {/* <td>
                          {berita.files && (
@@ -273,23 +274,23 @@ function AdminLaporanBosp() {
                                 type="button"
                                 className="btn-primary btn-sm mr-2"
                                 style={{ height: '100%' }}>
-                                <a
+                                <Link
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/admin/laporanbosp/edit/${berita.id}`}>
+                                  to={`/admin/laporanbosp/edit/${berita.id}`}>
                                   <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                </Link>
                               </button>
                               <button
                                 type="button"
                                 className="btn-warning mr-2 btn-sm">
-                                <a
+                                <Link
                                   className="text-light"
-                                  href={"/admin/laporanbosp/detail/" + berita.id}>
+                                  to={"/admin/laporanbosp/detail/" + berita.id}>
                                   <i className="fas fa-info-circle"></i>
-                                </a>
+                                </Link>
                               </button>
                               <button
                                 onClick={() => deleteData(berita.id)}

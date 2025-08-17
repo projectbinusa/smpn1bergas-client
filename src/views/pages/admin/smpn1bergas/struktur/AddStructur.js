@@ -9,6 +9,7 @@ import {
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import Sidebar1 from "../../../../../component/Sidebar1";
 
@@ -194,11 +195,11 @@ function AddStructur() {
                         </div> */}
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
+                        <Link
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-struktur">
+                          to="/admin-struktur">
                           Batal
-                        </a>
+                        </Link>
                       </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit

@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
+import { Link } from "react-router-dom";
 
 function DetailSejarah() {
   const [judul, setJudul] = useState("");
@@ -141,14 +142,14 @@ function DetailSejarah() {
                     <button
                       type="button"
                       className="btn-primary btn-sm mr-2">
-                      <a
+                      <Link
                         style={{
                           color: "white",
                           textDecoration: "none",
                         }}
-                        href={`/edit-sejarah/${id}`}>
+                        to={`/edit-sejarah/${id}`}>
                         <i className="fa-solid fa-pen-to-square"></i>
-                      </a>
+                      </Link>
                     </button>
                     <button
                       onClick={() => deleteData(id)}
@@ -159,11 +160,11 @@ function DetailSejarah() {
                   </div>
                 </>) : (<>
                   <button className="active btn-focus p-2 rounded">
-                    <a
+                    <Link
                       style={{ color: "white", textDecoration: "none" }}
-                      href="/add-sejarah">
+                      to="/add-sejarah">
                       Tambah Data
-                    </a>
+                    </Link>
                   </button>
                 </>)}
               </div>

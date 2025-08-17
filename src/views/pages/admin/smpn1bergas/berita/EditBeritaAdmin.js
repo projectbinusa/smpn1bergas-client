@@ -403,7 +403,7 @@ function EditBeritaAdmin() {
                           Gambar Baru
                         </label>
                         <img
-                              src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                          src={typeof image === "string" ? image : URL.createObjectURL(image)}
                           alt="Current Image"
                           style={{ maxWidth: "100%", height: "auto" }}
                         />
@@ -689,13 +689,13 @@ function EditBeritaAdmin() {
                           /> */}
                   </div>
                 </div>
-                <button type="button" className="btn-danger mt-3">
-                  <a
-                    style={{ color: "white", textDecoration: "none" }}
-                    href="/admin-berita">
-                    Batal
-                  </a>
-                </button>{" "}
+                <button
+                  type="button"
+                  className="btn-danger mt-3"
+                  onClick={() => history.push("/admin-berita")}
+                >
+                  Batal
+                </button>
                 <button type="submit" className="btn-primary mt-3">
                   Simpan
                 </button>

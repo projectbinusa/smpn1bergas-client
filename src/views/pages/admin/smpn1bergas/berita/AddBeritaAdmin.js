@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -29,7 +30,6 @@ import {
   Indent,
   IndentBlock,
   Italic,
-  Link,
   LinkImage,
   List,
   ListProperties,
@@ -84,7 +84,7 @@ function AddBeritaAdmin() {
       author: author,
       judulBerita: judulBerita,
       isiBerita: isiBerita,
-      categoryBerita: categoryBerita 
+      categoryBerita: categoryBerita
     };
 
     formData.append(
@@ -599,11 +599,11 @@ function AddBeritaAdmin() {
                       </div>
                     </div>
                     <button type="button" className="btn-danger mt-3 mr-3">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin-berita">
+                        to="/admin-berita">
                         Batal
-                      </a>
+                      </Link>
                     </button>
                     <button type="submit" className="btn-primary mt-3" disabled={loading}>
                       {loading ? "Loading ... " : "Submit"}

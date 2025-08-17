@@ -4,6 +4,7 @@ import { API_DUMMY } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 import AOS from "aos";
 
 import {
@@ -203,11 +204,11 @@ function Program() {
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
                     <button className="active btn-focus p-2 rounded">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add-program">
+                        to="/add-program">
                         Tambah Program
-                      </a>
+                      </Link>
                     </button>
                   </div>
                 </div>
@@ -269,21 +270,21 @@ function Program() {
                           <td data-label="Aksi" style={{ textAlign: "right" }}>
                             <div className="d-flex justify-content-end align-items-center">
                               <button type="button" className="btn-primary btn-sm mr-2">
-                                <a
+                                <Link
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit-program/${berita.id}`}
+                                  to={`/edit-program/${berita.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                </Link>
                               </button>
 
                               <button type="button" className="btn-warning mr-2 btn-sm">
-                                <a className="text-light" href={"/detail-program/" + berita.id}>
+                                <Link className="text-light" to={"/detail-program/" + berita.id}>
                                   <i className="fas fa-info-circle"></i>
-                                </a>
+                                </Link>
                               </button>
 
                               <button

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import Sidebar1 from "../../../../../component/Sidebar1";
 
@@ -152,11 +153,11 @@ function DetailAdminGalery() {
             <button
               type="submit"
               className="btn-kembali btn-danger mt-3 mr-3">
-              <a
-                href="/admin-galery"
+              <Link
+                to="/admin-galery"
                 style={{ color: "white", textDecoration: "none" }}>
                 Kembali
-              </a>
+              </Link>
             </button>
           </form>
         </div>

@@ -9,6 +9,7 @@ import AOS from "aos";
 
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
+import { Link } from "@mui/material";
 
 function EditGuru() {
   const [namaGuru, setNamaGuru] = useState("");
@@ -247,11 +248,11 @@ function EditGuru() {
                   </div>
                 </div>
                 <button type="button" className="btn-danger mt-3 mr-3">
-                  <a
-                    href="/admin-guru"
+                  <Link
+                    TO="/admin-guru"
                     style={{ color: "white", textDecoration: "none" }}>
                     Batal
-                  </a>
+                  </Link>
                 </button>
                 <button type="submit" className="btn-primary mt-3" disabled={loading}>
                   {loading ? "Loading..." : "Simpan"}

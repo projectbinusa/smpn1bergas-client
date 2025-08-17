@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -29,7 +30,6 @@ import {
   Indent,
   IndentBlock,
   Italic,
-  Link,
   LinkImage,
   List,
   ListProperties,
@@ -252,9 +252,8 @@ function AddJenjang() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -518,11 +517,11 @@ function AddJenjang() {
                       </div>
                     </div>
                     <button type="button" className="btn-danger mt-3 mr-3">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin-jenjang">
+                        to="/admin-jenjang">
                         Batal
-                      </a>
+                      </Link>
                     </button>
                     <button type="submit" className="btn-primary mt-3">
                       Submit

@@ -8,6 +8,7 @@ import {
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../component/Sidebar1";
+import { Link } from "@mui/material";
 
 function EditPrestasi() {
   const [penyelenggara, setPenyelenggara] = useState("");
@@ -242,12 +243,12 @@ function EditPrestasi() {
                       </div>
 
                       <button type="button" className="btn btn-danger mt-3 mr-3">
-                        <a
+                        <Link
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-prestasi"
+                          to="/admin-prestasi"
                         >
                           Batal
-                        </a>
+                        </Link>
                       </button>
                       <button type="submit" className="btn btn-primary mt-3">
                         Submit

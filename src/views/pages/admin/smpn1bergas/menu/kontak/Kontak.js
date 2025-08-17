@@ -6,6 +6,7 @@ import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
 import idLocale from "date-fns/locale/id";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 function Kontak() {
   const [list, setList] = useState([]);
@@ -126,14 +127,14 @@ function Kontak() {
                     <button
                       type="button"
                       className="btn-primary btn-sm mr-2">
-                      <a
+                      <Link
                         style={{
                           color: "white",
                           textDecoration: "none",
                         }}
-                        href={`/edit-kontak/${id}`}>
+                        to={`/edit-kontak/${id}`}>
                         <i className="fa-solid fa-pen-to-square"></i>
-                      </a>
+                      </Link>
                     </button>
                     <button
                       onClick={() => deleteData(id)}
@@ -144,11 +145,11 @@ function Kontak() {
                   </div>
                 </>) : (<>
                   <button className="active btn-focus p-2 rounded">
-                    <a
+                    <Link
                       style={{ color: "white", textDecoration: "none" }}
-                      href="/add-kontak">
+                      to="/add-kontak">
                       Tambah Data
-                    </a>
+                    </Link>
                   </button>
                 </>)}
               </div>

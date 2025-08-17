@@ -10,6 +10,8 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
+import { Link } from "react-router-dom";
+
 function EditCategoryProgram() {
   const [category, setCategory] = useState("");
   const history = useHistory();
@@ -112,9 +114,8 @@ function EditCategoryProgram() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -152,11 +153,11 @@ function EditCategoryProgram() {
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
+                        <Link
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-program">
+                          to="/admin-program">
                           Batal
-                        </a>
+                        </Link>
                       </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit

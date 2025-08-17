@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import Sidebar1 from "../../../../../component/Sidebar1";
 
@@ -24,7 +25,7 @@ function AddPrestasi() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -73,7 +74,7 @@ function AddPrestasi() {
         showConfirmButton: false,
         timer: 1500,
       });
-        history.push("/admin-prestasi");
+      history.push("/admin-prestasi");
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
@@ -95,20 +96,19 @@ function AddPrestasi() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mb-3 mt-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
@@ -200,11 +200,11 @@ function AddPrestasi() {
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
+                        <Link
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-prestasi">
+                          to="/admin-prestasi">
                           Batal
-                        </a>
+                        </Link>
                       </button>{" "}
                       <button type="submit" className="btn-primary mt-3">
                         Submit

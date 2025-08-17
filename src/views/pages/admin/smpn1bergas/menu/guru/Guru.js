@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
+import { Link } from "react-router-dom";
 
 import {
   Pagination,
@@ -201,11 +202,11 @@ function Berita() {
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
                     <button className="active btn-focus p-2 rounded">
-                      <a
+                      <Link
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add-guru">
+                        to="/add-guru">
                         Tambah Guru
-                      </a>
+                      </Link>
                     </button>
                   </div>
                 </div>
@@ -262,14 +263,14 @@ function Berita() {
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2">
-                                <a
+                                <Link
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit-guru/${row.id}`}>
+                                  to={`/edit-guru/${row.id}`}>
                                   <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                </Link>
                               </button>
                               <button
                                 onClick={() => deleteData(row.id)}
