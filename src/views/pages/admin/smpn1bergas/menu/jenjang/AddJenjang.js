@@ -54,7 +54,7 @@ import {
   ClassicEditor,
   Undo,
   GeneralHtmlSupport,
-  Alignment,
+  Alignment
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import Sidebar1 from "../../../../../../component/Sidebar1";
@@ -392,7 +392,6 @@ function AddJenjang() {
                               Indent,
                               IndentBlock,
                               Italic,
-                              Link,
                               List,
                               MediaEmbed,
                               Paragraph,
@@ -409,7 +408,7 @@ function AddJenjang() {
                               Indent,
                               IndentBlock,
                               Italic,
-                              Link,
+                              // Link,
                               LinkImage,
                               List,
                               ListProperties,

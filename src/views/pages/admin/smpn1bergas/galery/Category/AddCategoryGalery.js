@@ -48,6 +48,7 @@ function AddCategoryGalery() {
           <div className="card p-3">
             <h4>Tambah Kategori Galery</h4>
             <input
+            required
               type="text"
               className="form-control my-3"
               placeholder="Masukkan kategori..."

@@ -131,6 +131,18 @@ function Galery() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  function stripHtml(html) {
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  }
+
+  function truncateText(text, maxWords) {
+    const words = text.split(" ");
+    if (words.length <= maxWords) return text;
+    return words.slice(0, maxWords).join(" ") + " ...";
+  }
+
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
@@ -238,7 +250,13 @@ function Galery() {
                           </td>
                           <td data-label="Judul">{berita.judul}</td>
                           <td data-label="Kategori">{berita.categoryGalery?.category}</td>
-                          <td data-label="Deskripsi">{berita.deskripsi}</td>
+                          <td data-label="Deskripsi"><div
+                            dangerouslySetInnerHTML={{
+                              __html: truncateText(
+                                stripHtml(berita.deskripsi),
+                                20
+                              ),
+                            }} /></td>
                           {/* <td data-label="Image">
                             <div
                               style={{
