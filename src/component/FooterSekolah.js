@@ -3,6 +3,7 @@ import "../css/gabung.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_DUMMY } from "../utils/base_URL";
+import { Link } from "react-router-dom";
 
 function FooterSekolah() {
   const [berita, setBerita] = useState([]);
@@ -166,8 +167,8 @@ function FooterSekolah() {
                         padding: "0",
                         marginBottom: "0"
                       }}>
-                        <a 
-                          href={`/detail-news-${news.id}`} 
+                        <Link 
+                          to={`/detail-news-${news.id}`} 
                           style={{ 
                             color: "#333", 
                             textDecoration: "none", 
@@ -176,7 +177,7 @@ function FooterSekolah() {
                           }}
                         >
                           {news.judulBerita}
-                        </a>
+                        </Link>
                       </div>
                       <p style={{ 
                         color: "#666", 

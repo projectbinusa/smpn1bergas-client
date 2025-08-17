@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import Footer from "../../component/FooterSekolah";
 import {
-  Link,
   Typography,
   TextField,
   Button,
@@ -20,6 +19,7 @@ import user from "../../aset/smpn1bergas/user_df.jpg"
 import banner from "../../aset/slbcpelita/banner.png"
 import Aos from "aos";
 import ImageCard from "./berita/gambar/ImageCard";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -551,9 +551,9 @@ function Home() {
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                       }}>
-                        <a href={`/detail-news-${data.id}`}>
+                        <Link to={`/detail-news-${data.id}`}>
                           {data.judulBerita}
-                        </a>
+                        </Link>
                       </h4>
                       <ul className="blog-meta">
                         <li>
@@ -623,9 +623,9 @@ function Home() {
                   </div>
                   <div class="details-wrap">
                     <h3>{item.judul}</h3>
-                    <a href={`/detail-prestasi-${item.id}`}>
+                    <Link to={`/detail-prestasi-${item.id}`}>
                       SELENGKAPNYA <i class="fas fa-arrow-right"></i>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -941,8 +941,8 @@ function Home() {
 
           <div className="row mt-4" data-aos="fade-up">
             <div className="col text-center">
-              <a
-                href="/galery"
+              <Link
+                to="/galery"
                 className="btn btn-primary"
                 style={{
                   backgroundColor: "#003366",
@@ -953,7 +953,7 @@ function Home() {
                 }}
               >
                 Tampilkan Semua Galeri
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { API_DUMMY } from "../../../utils/base_URL";
 import NavbarSekolah2 from '../../../component/NavbarSekolah2';
 import { Pagination } from "@mui/material";
 import '../../../css/prestasi/prestasiCard.css';
+import { Link } from "react-router-dom";
 
 function LaporanBosp() {
   const [laporan, setLaporan] = useState([]);
@@ -40,7 +41,7 @@ function LaporanBosp() {
       <main className="container-berita container">
         <div className="header-berita">
           <ul>
-            <li><a href="/"><i className="fas fa-home"></i> Beranda</a></li>
+            <li><Link to="/"><i className="fas fa-home"></i> Beranda</Link></li>
             <li><i className="fas fa-angle-right"></i><span style={{ fontWeight: "normal" }}> Laporan BOSP</span></li>
           </ul>
         </div>
@@ -59,9 +60,9 @@ function LaporanBosp() {
                   </div>
                   <div className="details-wrap">
                     <h3>{item.nama}</h3>
-                    <a href={`/laporanbosp/${item.id}`}>
+                    <Link to={`/laporanbosp/${item.id}`}>
                       SELENGKAPNYA <i className="fas fa-arrow-right"></i>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

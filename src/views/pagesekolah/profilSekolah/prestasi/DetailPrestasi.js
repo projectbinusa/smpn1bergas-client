@@ -5,6 +5,7 @@ import { API_DUMMY } from "../../../../utils/base_URL";
 import "../../../../css/prestasi/detailprestasi.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
+import { Link } from "react-router-dom";
 
 function DetailPrestasi() {
   const [foto, setFoto] = useState(null);
@@ -63,15 +64,15 @@ function DetailPrestasi() {
         <div className="header-berita">
           <ul>
             <li>
-              <a href="/">
+              <Link to="/">
                 <i className="fas fa-home"></i> Beranda
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/all-prestasi">
+              <Link to="/all-prestasi">
                 <i className="fas fa-angle-right"></i>{" "}
                 <span style={{ fontWeight: "normal" }}>Prestasi</span>
-              </a>
+              </Link>
             </li>
             <li>
               <i className="fas fa-angle-right"></i>{" "}

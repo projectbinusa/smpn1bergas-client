@@ -4,6 +4,7 @@ import FooterSekolah from "../../../../component/FooterSekolah";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
 import Aos from "aos";
+import { Link } from "react-router-dom";
 
 function SejarahSekolah() {
   const [sejarah, setSejarah] = useState({ judul: "", isi: "" });
@@ -41,9 +42,9 @@ function SejarahSekolah() {
         <div className="header-berita">
           <ul>
             <li>
-              <a href="/">
+              <Link to="/">
                 <i className="fas fa-home"></i> Beranda
-              </a>
+              </Link>
             </li>
             <li>
               <i className="fas fa-angle-right"></i>{" "}
@@ -54,7 +55,7 @@ function SejarahSekolah() {
         <div style={{ lineHeight: "1.8", textAlign: "justify" }}>
           <div style={{ margin: "0 auto 0", padding: "0" }} data-aos="fade-up">
             {sejarah.judul === "Data tidak tersedia" ||
-            sejarah.isi === "Data tidak tersedia" ? (
+              sejarah.isi === "Data tidak tersedia" ? (
               <p
                 style={{
                   fontSize: "1.1em",
