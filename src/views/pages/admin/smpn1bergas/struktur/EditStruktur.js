@@ -235,8 +235,8 @@ function EditStruktur() {
                           Batal
                         </Link>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={loading}>
+                        {loading ? "Loading..." : "Submit"  }
                       </button>
                     </form>
                   </div>

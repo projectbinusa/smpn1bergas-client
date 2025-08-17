@@ -104,13 +104,17 @@ const NavbarSekolah = () => {
             </ul>
           </li>
           <li className={`navbars-item ${activeMenu === "jenjang" ? "active" : ""}`}>
-            <Link to="#jenjang" className="has-submenu" onClick={(e) => handleMenuClick(e, "jenjang")}>
+            <span
+              className="has-submenu"
+              style={{ color: "#fff" }}
+              onClick={(e) => handleMenuClick(e, "jenjang")}
+            >
               Jenjang<i className="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
-            </Link>
+            </span>
             <ul className="submenu">
               {list.map((data) => (
                 <li key={data.id}>
-                  <Link to={`/jenjang/${data.link}`}>{data.nama_jenjang}</Link>
+                  <a href={`/jenjang/${data.link}`}>{data.link}</a>
                 </li>
               ))}
             </ul>
@@ -127,20 +131,6 @@ const NavbarSekolah = () => {
               ))}
             </ul>
           </li>
-          <li className={`navbars-item ${activeMenu === "guru" ? "active" : ""}`}>
-  <a
-    href="#guru"
-    className="has-submenu"
-    onClick={(e) => handleMenuClick(e, "guru")}
-  >
-    Guru <i className="fa-solid fa-caret-down" style={{ paddingLeft: "5px" }}></i>
-  </a>
-  <ul className="submenu">
-    <li>
-      <Link to="/guru-All">Data Guru</Link>
-    </li>
-  </ul>
-</li>
 
           <li className="navbars-item">
             <Link to="/all-prestasi" style={{ textTransform: "uppercase", fontWeight: "600" }}>PRESTASI</Link>

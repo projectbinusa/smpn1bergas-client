@@ -124,6 +124,7 @@ function AddStructur() {
                             Nama
                           </label>
                           <input
+                          required
                             value={nama}
                             onChange={(e) => setNama(e.target.value)}
                             type="text"
@@ -160,6 +161,7 @@ function AddStructur() {
                             Tugas
                           </label>
                           <input
+                          required
                             value={tugas}
                             onChange={(e) => setTugas(e.target.value)}
                             type="text"
@@ -172,6 +174,7 @@ function AddStructur() {
                             Jabatan
                           </label>
                           <input
+                          required
                             value={jabatan}
                             onChange={(e) => setJabatan(e.target.value)}
                             type="text"
@@ -201,8 +204,8 @@ function AddStructur() {
                           Batal
                         </Link>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={loading}>
+                        {loading ? "Loading..." : "Submit"}
                       </button>
                     </form>
                   </div>

@@ -66,6 +66,7 @@ function AddLaporanBosp() {
   const [documents, setDocuments] = useState([null]);
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const [loading, setLoading] = useState(false);  
 
   useEffect(() => {
     AOS.init();
@@ -249,7 +250,7 @@ function AddLaporanBosp() {
       formData.append("files", file);
     }
   });
-
+  setLoading(true);
   try {
     await axios.post(`${API_DUMMY}/api/laporanbosp/add`, formData, {
       headers: {
@@ -264,7 +265,7 @@ function AddLaporanBosp() {
       showConfirmButton: false,
       timer: 1500,
     });
-    history("/admin/laporanbosp")
+    history.push("/admin/laporanbosp")
   } catch (error) {
     console.error("Gagal menambahkan data laporan:", error);
     Swal.fire({
@@ -274,6 +275,8 @@ function AddLaporanBosp() {
         error.response?.data?.description || error.response?.data?.message,
       showConfirmButton: true,
     });
+  } finally {
+    setLoading(false);
   }
 };
 
@@ -366,6 +369,7 @@ function AddLaporanBosp() {
                           Deskripsi
                         </label>
                         <CKEditor
+                        required
                           editor={ClassicEditor}
                           data={deskripsi} // Gunakan 'data' untuk set initial value
                           onChange={(event, editor) => {
@@ -603,8 +607,8 @@ function AddLaporanBosp() {
                         Batal
                       </a>
                     </button>
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
+                    <button type="submit" className="btn-primary mt-3" disabled={loading}>
+                      {loading ? "Loading..." : "Submit"}
                     </button>
                   </form>
                 </div>

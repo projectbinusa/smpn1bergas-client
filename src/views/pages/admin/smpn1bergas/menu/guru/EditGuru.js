@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
+  Link,
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
@@ -9,7 +10,6 @@ import AOS from "aos";
 
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
-import { Link } from "@mui/material";
 
 function EditGuru() {
   const [namaGuru, setNamaGuru] = useState("");
@@ -80,7 +80,7 @@ function EditGuru() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-guru");
+      // history.push("/admin-guru");
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
@@ -167,7 +167,6 @@ function EditGuru() {
                     </label>
                     {/* {image && ( */}
                     <input
-                      required
                       onChange={(e) => {
                         if (setFile) {
                           setFile(e.target.files[0]);
@@ -249,7 +248,7 @@ function EditGuru() {
                 </div>
                 <button type="button" className="btn-danger mt-3 mr-3">
                   <Link
-                    TO="/admin-guru"
+                    to="/admin-guru"
                     style={{ color: "white", textDecoration: "none" }}>
                     Batal
                   </Link>

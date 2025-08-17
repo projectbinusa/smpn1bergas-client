@@ -66,6 +66,7 @@ function EditLaporanBosp() {
   const [documents, setDocuments] = useState([null]);
   const [deletedAttachments, setDeletedAttachments] = useState([]);
   const [attachments1, setAttachments1] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const param = useParams();
   const history = useHistory();
@@ -323,54 +324,54 @@ function EditLaporanBosp() {
   };
 
   const updateLaporan = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // Buat FormData untuk multipart/form-data
-  const formData = new FormData();
-  formData.append(
-    "laporan",
-    new Blob(
-      [
-        JSON.stringify({
-          nama: nama,
-          deskripsi: deskripsi,
-          attachments: attachments1 // file lama yang ingin dipertahankan
-        }),
-      ],
-      { type: "application/json" }
-    )
-  );
+    // Buat FormData untuk multipart/form-data
+    const formData = new FormData();
+    formData.append(
+      "laporan",
+      new Blob(
+        [
+          JSON.stringify({
+            nama: nama,
+            deskripsi: deskripsi,
+            attachments: attachments1 // file lama yang ingin dipertahankan
+          }),
+        ],
+        { type: "application/json" }
+      )
+    );
 
-  // Append semua file baru
-  documents.forEach((file) => {
-    if (file) {
-      formData.append("files", file);
+    // Append semua file baru
+    documents.forEach((file) => {
+      if (file) {
+        formData.append("files", file);
+      }
+    });
+
+    try {
+      await axios.put(`${API_DUMMY}/api/laporanbosp/put/${param.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil Diedit",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // setTimeout(() => {
+      //   history.push("/admin/laporanbosp");
+      //   window.location.reload();
+      // }, 1500);
+    } catch (error) {
+      console.error("Gagal edit data:", error);
+      Swal.fire("Gagal", "Terjadi kesalahan saat update data", "error");
     }
-  });
-
-  try {
-    await axios.put(`${API_DUMMY}/api/laporanbosp/put/${param.id}`, formData, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "multipart/form-data",
-      },
-    });
-
-    Swal.fire({
-      icon: "success",
-      title: "Data Berhasil Diedit",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-    // setTimeout(() => {
-    //   history.push("/admin/laporanbosp");
-    //   window.location.reload();
-    // }, 1500);
-  } catch (error) {
-    console.error("Gagal edit data:", error);
-    Swal.fire("Gagal", "Terjadi kesalahan saat update data", "error");
-  }
-};
+  };
 
   return (
     <div
@@ -399,6 +400,7 @@ function EditLaporanBosp() {
                       Judul Laporan
                     </label>
                     <input
+                      required
                       value={nama}
                       onChange={(e) => setNama(e.target.value)}
                       type="text"
@@ -492,6 +494,7 @@ function EditLaporanBosp() {
                       Deskripsi
                     </label>
                     <CKEditor
+                      required
                       editor={ClassicEditor}
                       data={deskripsi} // Gunakan 'data' untuk set initial value
                       onChange={(event, editor) => {
@@ -729,8 +732,8 @@ function EditLaporanBosp() {
                     Batal
                   </a>
                 </button>{" "}
-                <button type="submit" className="btn-primary mt-3">
-                  Submit
+                <button type="submit" className="btn-primary mt-3"> disabled={loading}>
+                  {loading ? "Loading..." : "Submit"}
                 </button>
               </form>
             </div>

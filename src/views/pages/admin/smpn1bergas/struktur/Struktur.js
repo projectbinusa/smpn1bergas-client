@@ -44,26 +44,25 @@ function Struktur() {
   }, []);
 
   const getAll = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/struktur/all/terbaru?page=${page - 1
-        }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
-      setPaginationInfo({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
-      });
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
+  try {
+    const response = await axios.get(
+      `${API_DUMMY}/api/struktur/all/terbaru?page=${page - 1}&size=${rowsPerPage}&sortBy=id&sortOrder=desc&search=${searchTerm}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    setList(response.data.data.content);
+    setPaginationInfo({
+      totalPages: response.data.data.totalPages,
+      totalElements: response.data.data.totalElements,
+    });
+  } catch (error) {
+    console.error("Terjadi Kesalahan", error);
+  }
+};
+
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -106,8 +105,9 @@ function Struktur() {
   };
 
   useEffect(() => {
-    getAll(currentPage);
-  }, [currentPage, rowsPerPage]);
+  getAll();
+}, [currentPage, rowsPerPage, searchTerm]);
+
 
   useEffect(() => {
     AOS.init();

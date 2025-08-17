@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
+  Link,
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../component/Sidebar1";
-import { Link } from "@mui/material";
 
 function EditPrestasi() {
   const [penyelenggara, setPenyelenggara] = useState("");
@@ -171,6 +171,8 @@ function EditPrestasi() {
                             Nama Prestasi
                           </label>
                           <input
+                          required
+                          
                             value={judul}
                             onChange={(e) => setJudul(e.target.value)}
                             type="text"
@@ -183,6 +185,7 @@ function EditPrestasi() {
                             Penyelenggara
                           </label>
                           <input
+                          required
                             value={penyelenggara}
                             onChange={(e) => setPenyelenggara(e.target.value)}
                             type="text"
@@ -221,6 +224,7 @@ function EditPrestasi() {
                             Nama Peserta
                           </label>
                           <input
+                          required
                             value={namaPeserta}
                             onChange={(e) => setNamaPeserta(e.target.value)}
                             type="text"
@@ -234,6 +238,7 @@ function EditPrestasi() {
                             Tanggal Pelaksanaan
                           </label>
                           <input
+                          required
                             type="date"
                             value={tanggal}
                             onChange={(e) => setTanggal(e.target.value)}

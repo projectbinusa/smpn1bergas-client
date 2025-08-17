@@ -73,9 +73,7 @@ function AdminLaporanBosp() {
               showConfirmButton: false,
               timer: 1500,
             });
-
-            getAll();
-
+        getAll();
           });
       }
     });

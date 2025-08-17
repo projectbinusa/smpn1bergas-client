@@ -124,6 +124,7 @@ function AddGuru() {
                           Nama Guru
                         </label>
                         <input
+                        required
                           value={namaGuru}
                           onChange={(e) => setNamaGuru(e.target.value)}
                           type="text"
@@ -136,6 +137,7 @@ function AddGuru() {
                           NIP
                         </label>
                         <input
+                        required
                           value={nip}
                           onChange={(e) => setNip(e.target.value)}
                           type="text"
@@ -173,6 +175,7 @@ function AddGuru() {
                           Riwayat Pendidikan
                         </label>
                         <input
+                        required
                           value={riwayat}
                           onChange={(e) => setRiwayat(e.target.value)}
                           type="text"
@@ -197,6 +200,7 @@ function AddGuru() {
                           Mapel
                         </label>
                         <input
+                        required
                           value={mapel}
                           onChange={(e) => setMapel(e.target.value)}
                           type="text"

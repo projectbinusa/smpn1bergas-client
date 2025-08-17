@@ -679,7 +679,7 @@ function App() {
               exact
             />
             <Route
-              path="guru-All"
+              path="/guru-all"
               component={GuruAllPage}
               exact
             />

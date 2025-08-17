@@ -789,7 +789,23 @@ function Home() {
               </div>
             )}
           </div>
-
+          <div className="row mt-4" data-aos="fade-up">
+            <div className="col text-center">
+              <Link
+                to="/guru-all"
+                className="btn btn-primary"
+                style={{
+                  backgroundColor: "#003366",
+                  border: "none",
+                  padding: "10px 20px",
+                  borderRadius: "6px",
+                  fontWeight: "600",
+                }}
+              >
+                Tampilkan Semua Guru
+              </Link>
+            </div>
+          </div>
           <style>
             {`.custom-card:hover {
               transform: translateY(-6px);

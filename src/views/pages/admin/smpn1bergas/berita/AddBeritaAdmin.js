@@ -303,6 +303,7 @@ function AddBeritaAdmin() {
                           Judul Berita
                         </label>
                         <input
+                        required
                           value={judulBerita}
                           onChange={(e) => setJudulBerita(e.target.value)}
                           type="text"
@@ -315,6 +316,7 @@ function AddBeritaAdmin() {
                           Kategori Berita
                         </label>
                         <select
+                        required
                           value={categoryBerita}
                           className="form-control"
                           aria-label="Small select example"
@@ -332,6 +334,7 @@ function AddBeritaAdmin() {
                           Penulis Berita
                         </label>
                         <input
+                        required
                           value={author}
                           onChange={(e) => setAuthor(e.target.value)}
                           type="text"
@@ -345,6 +348,7 @@ function AddBeritaAdmin() {
                         </label>
                         {/* {image && ( */}
                         <input
+                        required
                           onChange={(e) => {
                             setImage(e.target.files[0]);
 
@@ -368,6 +372,7 @@ function AddBeritaAdmin() {
                           Isi Berita
                         </label>
                         <CKEditor
+                        required
                           editor={ClassicEditor}
                           data={isiBerita} // Gunakan 'data' untuk set initial value
                           onChange={(event, editor) => {
@@ -474,7 +479,7 @@ function AddBeritaAdmin() {
                               Indent,
                               IndentBlock,
                               Italic,
-                              Link,
+                              // Link,
                               List,
                               MediaEmbed,
                               Paragraph,
@@ -491,9 +496,9 @@ function AddBeritaAdmin() {
                               Indent,
                               IndentBlock,
                               Italic,
-                              Link,
+                              // Link,
                               LinkImage,
-                              List,
+                              // List,
                               ListProperties,
                               MediaEmbed,
                               Mention,
@@ -508,8 +513,8 @@ function AddBeritaAdmin() {
                               Style,
                               Subscript,
                               Superscript,
-                              Table,
-                              TableCaption,
+                              // Table,
+                              // TableCaption,
                               TableCellProperties,
                               TableColumnResize,
                               TableProperties,

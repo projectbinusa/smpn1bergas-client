@@ -28,9 +28,9 @@ function Sidebar1({ toggleSidebar }) {
     { title: "Struktur Organisasi", icon: "fa-solid fa-sitemap", path: "/admin-struktur", action: ["/add-struktur"] },
   ];
 
-  const saprasItem = [
-    { title: "Program", icon: "fas fa-tasks", path: "/admin-program", action: ["/add-program", "/edit-program", "/detail-program"] },
-  ];
+  // const saprasItem = [
+  //   { title: "Program", icon: "fas fa-tasks", path: "/admin-program", action: ["/add-program", "/edit-program", "/detail-program"] },
+  // ];
 
   useEffect(() => {
     const scrollToActive = (items, refs) => {
@@ -41,7 +41,7 @@ function Sidebar1({ toggleSidebar }) {
     };
     scrollToActive(menuItems, menuRefs);
     scrollToActive(profileItem, ProfileRefs);
-    scrollToActive(saprasItem, saprasRefs);
+    // scrollToActive(saprasItem, saprasRefs);
   }, [location.pathname]);
 
   const logout = () => {
@@ -98,7 +98,7 @@ function Sidebar1({ toggleSidebar }) {
                 </NavLink>
               </li>
             ))}
-            <li className="header-menu1"><span>Sarana Prasana</span></li>
+            {/* <li className="header-menu1"><span>Sarana Prasana</span></li>
             {saprasItem.map((data, index) => (
               <li key={index} ref={(el) => (saprasRefs.current[index] = el)}>
                 <NavLink to={data.path} style={{ background: "none" }}>
@@ -106,7 +106,7 @@ function Sidebar1({ toggleSidebar }) {
                   <span>{data.title}</span>
                 </NavLink>
               </li>
-            ))}
+            ))} */}
           </ul>
         </div>
       </div>

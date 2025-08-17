@@ -126,6 +126,7 @@ function AddPrestasi() {
                             Nama Prestasi
                           </label>
                           <input
+                          required
                             value={judul}
                             onChange={(e) => setJudul(e.target.value)}
                             type="text"
@@ -140,6 +141,7 @@ function AddPrestasi() {
                             Penyelenggara
                           </label>
                           <input
+                          required
                             value={penyelenggara}
                             onChange={(e) => setPenyelenggara(e.target.value)}
                             type="text"
@@ -154,6 +156,7 @@ function AddPrestasi() {
                             Skala
                           </label>
                           <input
+                          required
                             value={skala}
                             onChange={(e) => setSkala(e.target.value)}
                             type="text"
@@ -166,6 +169,7 @@ function AddPrestasi() {
                             Gambar
                           </label>
                           <input
+                          required
                             onChange={(e) => setImage(e.target.files[0])}
                             type="file"
                             className="form-control"
@@ -176,6 +180,7 @@ function AddPrestasi() {
                             Nama Peserta
                           </label>
                           <input
+                          required
                             value={namaPeserta}
                             onChange={(e) => setNamaPeserta(e.target.value)}
                             type="text"
@@ -189,6 +194,7 @@ function AddPrestasi() {
                           </label>
                           <div className="">
                             <input
+                            required
                               type="date"
                               value={tanggal}
                               onChange={(e) => setTanggal(e.target.value)}
