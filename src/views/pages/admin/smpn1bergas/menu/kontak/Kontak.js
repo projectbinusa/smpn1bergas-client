@@ -21,7 +21,7 @@ function Kontak() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/kontak/all/terbaru?page=0&size=1`,
+        `${API_DUMMY}/api/kontak/admin/all?page=0&size=1`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

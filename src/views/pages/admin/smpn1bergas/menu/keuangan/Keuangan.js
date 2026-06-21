@@ -27,7 +27,7 @@ function Keuangan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/keuangan/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/keuangan/admin/all?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {

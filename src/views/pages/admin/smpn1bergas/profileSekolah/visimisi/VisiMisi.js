@@ -38,7 +38,7 @@ function VisiMisi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/visiMisi/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/visiMisi/admin/all?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {

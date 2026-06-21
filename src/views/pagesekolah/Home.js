@@ -1,11 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import Footer from "../../component/FooterSekolah";
-import {
-  Typography,
-  TextField,
-  Button,
-  Grid,
-} from "@mui/material";
+import { Typography, TextField, Button, Grid } from "@mui/material";
 import "../../css/prestasi/card.css";
 import AOS from "aos";
 import axios from "axios";
@@ -14,9 +9,9 @@ import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
-import news from "../../aset/smpn1bergas/News-rafiki.png"
-import user from "../../aset/smpn1bergas/user_df.jpg"
-import banner from "../../aset/slbcpelita/banner.png"
+import news from "../../aset/smpn1bergas/News-rafiki.png";
+import user from "../../aset/smpn1bergas/user_df.jpg";
+import banner from "../../aset/smpn1bergas/bg.jpg";
 import Aos from "aos";
 import ImageCard from "./berita/gambar/ImageCard";
 import { Link } from "react-router-dom";
@@ -57,7 +52,7 @@ function Home() {
     position: "relative",
     width: "100%",
     height: "100vh",
-    overflow: "hidden"
+    overflow: "hidden",
   };
 
   const buttonStylesss = {
@@ -171,7 +166,7 @@ function Home() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=6&sort=created_date`
+        `${API_DUMMY}/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=6&sort=created_date`,
       );
       setBerita(response.data.data.content);
       console.log(response.data.data.content);
@@ -190,7 +185,7 @@ function Home() {
   const getAllEkskul = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/ekstrakulikuler/all/terbaru?page=0&size=8`
+        `${API_DUMMY}/api/ekstrakulikuler/all/terbaru?page=0&size=8`,
       );
       setEkstrakurikuler(response.data.data.content);
     } catch (error) {
@@ -208,7 +203,7 @@ function Home() {
   const getAllGuru = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/guru/all/terbaru?page=0&size=20`
+        `${API_DUMMY}/api/guru/all/terbaru?page=0&size=20`,
       );
       setGurus(response.data.data.content);
     } catch (error) {
@@ -226,7 +221,7 @@ function Home() {
   const getAllAlumni = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/alumni/all/terbaru?page=0&size=6`
+        `${API_DUMMY}/api/alumni/all/terbaru?page=0&size=6`,
       );
       setAlumnus(response.data.data.content);
     } catch (error) {
@@ -244,7 +239,7 @@ function Home() {
   const getAllPrestasi = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/prestasi/all/terbaru?page=0&size=6`
+        `${API_DUMMY}/api/prestasi/all/terbaru?page=0&size=6`,
       );
       setPrestasi(response.data.data.content);
     } catch (error) {
@@ -265,7 +260,7 @@ function Home() {
   const getAllKontak = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/kontak/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/api/kontak/all/terbaru?page=0&size=1`,
       );
       setEmail(response.data.data.content[0].email);
       setPhone(response.data.data.content[0].phone);
@@ -288,7 +283,7 @@ function Home() {
   const getAllSambutan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/sambutan/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/api/sambutan/all/terbaru?page=0&size=1`,
       );
       const res = response.data.data.content[0];
       setSambutan(res.isi || "");
@@ -413,10 +408,10 @@ function Home() {
   const getAllGalery = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/galeri/all/terbaru?page=${page - 1
-        }&size=20`
+        `${API_DUMMY}/api/galeri/all/terbaru?page=${page - 1}&size=20`,
       );
       setGalery(response.data.data.content);
+      console.log("galeri: ", response.data.data.content);
       setTotalPage(response.data.data.totalPages);
     } catch (error) {
       console.log("get all", error);
@@ -439,11 +434,7 @@ function Home() {
       <NavbarSekolah2 />
       <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-        <img
-          src={banner}
-          style={imageStyle}
-          alt=""
-        />
+        <img src={banner} style={imageStyle} alt="" />
         <div
           style={{
             position: "absolute",
@@ -455,7 +446,7 @@ function Home() {
           }}
         />
         <div style={textOverlayStyle}>
-          <p style={{ color: "white" }}>SLB C PELITA ILMU</p>
+          <p style={{ color: "white" }}>SMPN 1 Bergas</p>
         </div>
       </div>
 
@@ -513,12 +504,15 @@ function Home() {
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-7 col-md-10">
-              <div
-                class="section-title text-center"
-                data-aos="fade-down">
-                <h5 class="sub-title double-line" style={{ color: "black" }}>Berita Terbaru</h5>
+              <div class="section-title text-center" data-aos="fade-down">
+                <h5 class="sub-title double-line" style={{ color: "black" }}>
+                  Berita Terbaru
+                </h5>
                 {/* <h2 class="title">Bertemu dengan Guru Kami</h2> */}
-                <p class="content">Informasi terkini seputar aktivitas siswa, pengumuman resmi, hingga agenda pendidikan di SLB C Pelita Ilmu</p>
+                <p class="content">
+                  Informasi terkini seputar aktivitas siswa, pengumuman resmi,
+                  hingga agenda pendidikan di SMPN 1 Bergas
+                </p>
               </div>
             </div>
           </div>
@@ -540,17 +534,21 @@ function Home() {
                 <div className="col-lg-4 col-md-6" key={data.id}>
                   <div className="single-blog-inner style-2">
                     <div className="thumb">
-                      <img src={data.image ? data.image : news}
-                        alt="img" className="news" />
+                      <img
+                        src={data.image ? data.image : news}
+                        alt="img"
+                        className="news"
+                      />
                     </div>
                     <div className="details">
-                      <h4 style={{
-                        display: "-webkit-box",
-                        WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 1,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}>
+                      <h4
+                        style={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 1,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}>
                         <Link to={`/detail-news-${data.id}`}>
                           {data.judulBerita}
                         </Link>
@@ -593,12 +591,8 @@ function Home() {
               <div
                 data-aos="fade-down"
                 class="section-title style-white text-center">
-                <h5 class="sub-title double-line">
-                  Prestasi Unggulan
-                </h5>
-                <h2 class="title">
-                  Temui Para Juara Kami
-                </h2>
+                <h5 class="sub-title double-line">Prestasi Unggulan</h5>
+                <h2 class="title">Temui Para Juara Kami</h2>
                 <p class="content">
                   Kami terus mengukir prestasi di berbagai bidang, dengan
                   dedikasi dan kerja keras, kami siap untuk terus berkembang dan
@@ -696,16 +690,25 @@ function Home() {
       </div> */}
 
       {/* GURU */}
-      <div className="team-area pd-top-115 pd-bottom-90" style={{ backgroundColor: "#f8f9fa" }}>
+      <div
+        className="team-area pd-top-115 pd-bottom-90"
+        style={{ backgroundColor: "#f8f9fa" }}>
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-6" data-aos="fade-down">
               <div className="section-title style-white text-center">
-                <h5 className="sub-title double-line" style={{ color: "black" }}>Guru</h5>
-                <h2 className="title" style={{ color: "black" }}>Bertemu dengan Guru Kami</h2>
+                <h5
+                  className="sub-title double-line"
+                  style={{ color: "black" }}>
+                  Guru
+                </h5>
+                <h2 className="title" style={{ color: "black" }}>
+                  Bertemu dengan Guru Kami
+                </h2>
                 <p className="content" style={{ color: "black" }}>
-                  Para guru kami adalah profesional yang berdedikasi. Dengan pengalaman dan keahlian yang luas,
-                  mereka siap membimbing setiap siswa menuju kesuksesan.
+                  Para guru kami adalah profesional yang berdedikasi. Dengan
+                  pengalaman dan keahlian yang luas, mereka siap membimbing
+                  setiap siswa menuju kesuksesan.
                 </p>
               </div>
             </div>
@@ -729,8 +732,7 @@ function Home() {
                       alignItems: "center",
                       textAlign: "center",
                     }}
-                    className="custom-card"
-                  >
+                    className="custom-card">
                     <img
                       src={
                         item.foto ||
@@ -764,9 +766,8 @@ function Home() {
                           letterSpacing: "0.6px",
                           whiteSpace: "nowrap",
                           wordBreak: "keep-all",
-                          maxWidth: "100%"
-                        }}
-                      >
+                          maxWidth: "100%",
+                        }}>
                         {item.nama_guru}
                       </div>
                     </div>
@@ -776,8 +777,7 @@ function Home() {
                         margin: "12px 0",
                         fontSize: "14px",
                         color: "#777",
-                      }}
-                    >
+                      }}>
                       {item.mapel || "-"}
                     </p>
                   </div>
@@ -800,8 +800,7 @@ function Home() {
                   padding: "10px 20px",
                   borderRadius: "6px",
                   fontWeight: "600",
-                }}
-              >
+                }}>
                 Tampilkan Semua Guru
               </Link>
             </div>
@@ -914,9 +913,12 @@ function Home() {
                 <h5 class="sub-title double-line" style={{ color: "white" }}>
                   Galeri Foto
                 </h5>
-                <h2 class="title" style={{ color: "white" }}>Kumpulan Kenangan Kami</h2>
+                <h2 class="title" style={{ color: "white" }}>
+                  Kumpulan Kenangan Kami
+                </h2>
                 <p class="content" style={{ color: "white" }}>
-                  Dokumentasi berbagai kegiatan sekolah yang penuh semangat dan kebersamaan, mulai dari pembelajaran hingga acara spesial.
+                  Dokumentasi berbagai kegiatan sekolah yang penuh semangat dan
+                  kebersamaan, mulai dari pembelajaran hingga acara spesial.
                 </p>
               </div>
             </div>
@@ -927,10 +929,15 @@ function Home() {
               galery.slice(0, 6).map((item) => (
                 <div className="col-lg-4 col-md-6 mb-4" key={item.id}>
                   <div className="card h-100 border-0 shadow-sm">
-
-                    <div style={{ height: "250px", overflow: "hidden", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
+                    <div
+                      style={{
+                        height: "250px",
+                        overflow: "hidden",
+                        borderTopLeftRadius: "10px",
+                        borderTopRightRadius: "10px",
+                      }}>
                       <img
-                        src={JSON.parse(item.foto)[0]}
+                        src={item.foto || ""}
                         alt={item.nama_kegiatan || item.judul}
                         style={{
                           width: "100%",
@@ -938,10 +945,11 @@ function Home() {
                           objectFit: "cover",
                         }}
                       />
-
                     </div>
                     <div className="card-body text-center">
-                      <h6 className="mb-0" style={{ fontWeight: "600", color: "#003366" }}>
+                      <h6
+                        className="mb-0"
+                        style={{ fontWeight: "600", color: "#003366" }}>
                         {item.nama_kegiatan}
                       </h6>
                     </div>
@@ -966,8 +974,7 @@ function Home() {
                   padding: "10px 20px",
                   borderRadius: "6px",
                   fontWeight: "600",
-                }}
-              >
+                }}>
                 Tampilkan Semua Galeri
               </Link>
             </div>
@@ -1329,7 +1336,6 @@ function Home() {
           </form>
         </section>
       </div> */}
-
 
       <div class="client-area-area bg-base pt-5 pb-2">
         <div class="container">

@@ -29,7 +29,7 @@ function Sarana() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/sarana/all/terbaru?page=${
+        `${API_DUMMY}/api/sarana/admin/all?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {

@@ -48,7 +48,7 @@ function MateriAjar() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/materi_ajar/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/materi_ajar/admin/all?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {

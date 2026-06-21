@@ -70,7 +70,7 @@ function EditBeritaAdmin() {
   const [isiBerita, setIsiBerita] = useState("");
   const [show, setShow] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const param = useParams();
   const history = useHistory();
@@ -112,10 +112,9 @@ function EditBeritaAdmin() {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
-          }
+          },
         );
       }
-
 
       setShow(false);
       Swal.fire({
@@ -124,7 +123,7 @@ function EditBeritaAdmin() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-berita")
+      history.push("/admin-berita");
     } catch (error) {
       if (error.response && error.response.status === 401) {
         localStorage.clear();
@@ -142,7 +141,6 @@ function EditBeritaAdmin() {
       setIsLoading(false); // berhenti loading di semua kondisi
     }
   };
-
 
   useEffect(() => {
     axios
@@ -315,8 +313,9 @@ function EditBeritaAdmin() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -403,7 +402,11 @@ function EditBeritaAdmin() {
                           Gambar Baru
                         </label>
                         <img
-                          src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                          src={
+                            typeof image === "string"
+                              ? image
+                              : URL.createObjectURL(image)
+                          }
                           alt="Current Image"
                           style={{ maxWidth: "100%", height: "auto" }}
                         />
@@ -689,16 +692,68 @@ function EditBeritaAdmin() {
                           /> */}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="btn-danger mt-3"
-                  onClick={() => history.push("/admin-berita")}
-                >
-                  Batal
-                </button>
-                <button type="submit" className="btn-primary mt-3">
-                  Simpan
-                </button>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    marginTop: "20px",
+                  }}>
+                  <button
+                    type="button"
+                    onClick={() => (window.location.href = "/admin-berita")}
+                    style={{
+                      background: "#dc3545",
+                      color: "#fff",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      border: "none",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                    }}>
+                    <i
+                      className="fa-solid fa-arrow-left"
+                      style={{ marginRight: "8px" }}
+                    />
+                    Batal
+                  </button>
+
+                  <button
+                    type="submit"
+                    style={{
+                      background: "#0d6efd",
+                      color: "#fff",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      border: "none",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      minWidth: "120px",
+                    }}>
+                    {/* {loading ? (
+                      <>
+                        <i
+                          className="fa-solid fa-spinner fa-spin"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Loading...
+                      </>
+                    ) : ( */}
+                    <>
+                      <i
+                        className="fa-solid fa-paper-plane"
+                        style={{ marginRight: "8px" }}
+                      />
+                      Submit
+                    </>
+                    {/* )} */}
+                  </button>
+                </div>
               </form>
             </div>
           </div>

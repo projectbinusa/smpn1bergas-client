@@ -21,7 +21,7 @@ function Ekskul() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/ekstrakulikuler/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/ekstrakulikuler/admin/all?page=${page - 1
         }&size=${rowsPerPage}&sort=createdDate`,
         {
           headers: {

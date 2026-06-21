@@ -22,7 +22,7 @@ function Alumni() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/alumni/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/alumni/admin/all?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {

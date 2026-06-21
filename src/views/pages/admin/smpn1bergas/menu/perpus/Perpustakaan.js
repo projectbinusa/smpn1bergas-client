@@ -49,7 +49,7 @@ function Perpustakaan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/perpustakaan/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/perpustakaan/admin/all?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {

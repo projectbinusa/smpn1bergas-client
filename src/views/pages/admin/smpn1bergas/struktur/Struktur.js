@@ -46,7 +46,7 @@ function Struktur() {
   const getAll = async () => {
   try {
     const response = await axios.get(
-      `${API_DUMMY}/api/struktur/all/terbaru?page=${page - 1}&size=${rowsPerPage}&sortBy=id&sortOrder=desc&search=${searchTerm}`,
+      `${API_DUMMY}/api/struktur/admin/all?page=${page - 1}&size=${rowsPerPage}&sortBy=id&sortOrder=desc&search=${searchTerm}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -41,7 +41,7 @@ function StrukturOrganisasi() {
   const download = () => {
     const link = document.createElement("a");
     link.href = strukturSLBC;
-    link.download = "STRUKTUR_ORG_SLBC.jpeg";
+    link.download = "STRUKTUR_ORG_SMPN1BERGAS.jpeg";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

@@ -25,7 +25,7 @@ function Berita() {
   const getAll = async (page1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/guru/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/guru/admin/all?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {

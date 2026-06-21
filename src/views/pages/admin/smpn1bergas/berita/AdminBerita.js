@@ -25,13 +25,14 @@ function AdminBerita() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/berita/all?page=${page - 1
+        `${API_DUMMY}/api/berita/admin/all?page=${
+          page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       setList(response.data.data.content);
       console.log("list berita : ", response.data.data.content);
@@ -101,8 +102,8 @@ function AdminBerita() {
     Object.values(item).some(
       (value) =>
         typeof value === "string" &&
-        value.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+        value.toLowerCase().includes(searchTerm.toLowerCase()),
+    ),
   );
 
   console.log(filteredList);
@@ -129,8 +130,9 @@ function AdminBerita() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -141,70 +143,107 @@ function AdminBerita() {
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <main className="page-content1" style={{ marginTop: "20px" }}>
         <div className="container" data-aos="fade-left">
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
+          <div
+            className="d-lg-none"
+            style={{
+              padding: "12px 16px",
+              background: "#fff",
+              borderBottom: "1px solid #eee",
+            }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}>
               <select
-                className="form-select form-select-xl w-auto"
+                className="form-select"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+                style={{
+                  width: "80px",
+                  flexShrink: 0,
+                }}>
                 <option value={1}>1</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
               </select>
+
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Cari berita..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
             </div>
-          </div>
-          <div className="search">
-            <input
-              type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div
               className="card-header"
-              style={{ display: "flex", background: "#FFF7F7" }}>
-              <p className="mt-3">Berita</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
+              style={{
+                background: "#FFF7F7",
+                padding: "12px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "12px",
+              }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "15px",
+                }}>
+                <h6
+                  style={{
+                    margin: 0,
+                    fontWeight: "600",
+                  }}>
+                  Berita
+                </h6>
+
+                {/* Desktop Only */}
+                <div className="d-none d-lg-flex align-items-center gap-2">
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                    style={{ width: "80px" }}>
                     <option value={1}>1</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                   </select>
+
+                  <input
+                    type="search"
+                    className="form-control"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style={{
+                      width: "280px",
+                    }}
+                  />
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <Link
-                        style={{ color: "white", textDecoration: "none" }}
-                        to="/add-berita-admin">
-                        Tambah Berita
-                      </Link>
-                    </button>
-                  </div>
-                </div>
-              </div>
+
+              <Link
+                to="/add-berita-admin"
+                style={{
+                  background: "#0d6efd",
+                  color: "#fff",
+                  textDecoration: "none",
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  fontWeight: "500",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}>
+                <i className="fa-solid fa-plus"></i>
+                Tambah Berita
+              </Link>
             </div>
             <div
               className="table-responsive-3"
@@ -212,12 +251,9 @@ function AdminBerita() {
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th>
-                      No
-                    </th>
+                    <th>No</th>
                     <th>Judul Berita</th>
-                    <th
-                      scope="col" style={{ minWidth: "150px" }}>
+                    <th scope="col" style={{ minWidth: "150px" }}>
                       Penulis Berita
                     </th>
                     <th>Image</th>
@@ -226,19 +262,17 @@ function AdminBerita() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ?
+                  {filteredList.length > 0 ? (
                     filteredList.map((berita, no) => {
                       return (
-                        <tr key={no}  >
+                        <tr key={no}>
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Judul Berita">
                             {berita.judulBerita}
                           </td>
-                          <td data-label="Penulis Berita">
-                            {berita.author}
-                          </td>
+                          <td data-label="Penulis Berita">{berita.author}</td>
                           <td data-label="Image" style={{ textAlign: "right" }}>
                             <img
                               src={berita.image ? berita.image : news}
@@ -252,47 +286,83 @@ function AdminBerita() {
                             {berita.categoryBerita}
                           </td>
                           <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2"
-                                style={{ height: '100%' }}>
-                                <Link
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  to={`/edit-berita-admin/${berita.id}`}>
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </Link>
-                              </button>
-                              <button
-                                type="button"
-                                className="btn-warning mr-2 btn-sm">
-                                <Link
-                                  className="text-light"
-                                  to={"/detail/berita/" + berita.id}>
-                                  <i className="fas fa-info-circle"></i>
-                                </Link>
-                              </button>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                gap: "8px",
+                              }}>
+                              {/* Edit */}
+                              <Link
+                                to={`/edit-berita-admin/${berita.id}`}
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#0d6efd",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  textDecoration: "none",
+                                  border: "none",
+                                }}
+                                title="Edit">
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </Link>
+
+                              {/* Detail */}
+                              <Link
+                                to={`/detail/berita/${berita.id}`}
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#f59e0b",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  textDecoration: "none",
+                                  border: "none",
+                                }}
+                                title="Detail">
+                                <i className="fas fa-info-circle"></i>
+                              </Link>
+
+                              {/* Hapus */}
                               <button
                                 onClick={() => deleteData(berita.id)}
                                 type="button"
-                                className="btn-danger btn-sm">
+                                title="Hapus"
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#dc3545",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  border: "none",
+                                  cursor: "pointer",
+                                }}>
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
                           </td>
                         </tr>
                       );
-                    }) :
+                    })
+                  ) : (
                     <tr>
                       <td colSpan="6" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
                       </td>
-                    </tr>}
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

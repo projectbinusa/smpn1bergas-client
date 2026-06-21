@@ -44,7 +44,7 @@ function Prestasi() {
   const getAll = async (pageNumber = 1, size = rowsPerPage, search = "") => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/prestasi/all/terbaru?page=${pageNumber - 1}&size=${size}&sortBy=id&sortOrder=desc&search=${search}`,
+        `${API_DUMMY}/api/prestasi/admin/all?page=${pageNumber - 1}&size=${size}&sortBy=id&sortOrder=desc&search=${search}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

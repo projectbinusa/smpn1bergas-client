@@ -28,7 +28,7 @@ function KondisiSekolah() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/kondisi_sekolah/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/kondisi_sekolah/admin/all?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {

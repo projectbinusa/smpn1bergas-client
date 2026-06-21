@@ -24,7 +24,7 @@ function Galery() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/galeri/all/terbaru?page=${page - 1
+        `${API_DUMMY}/api/galeri/admin/all?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {

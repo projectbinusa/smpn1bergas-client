@@ -49,7 +49,7 @@ function DetailSAmbutan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/sambutan/all/terbaru?page=0&size=1`,
+        `${API_DUMMY}/api/sambutan/admin/all?page=0&size=1`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

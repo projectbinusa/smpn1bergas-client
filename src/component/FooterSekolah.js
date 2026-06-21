@@ -156,47 +156,47 @@ function FooterSekolah() {
               {berita.length > 0 ? (
                 <div className="details" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                   {berita.map(news => (
-                    <div key={news.id} style={{ 
+                    <div key={news.id} style={{
                       backgroundColor: "white",
                       padding: "6px 12px",
                       borderRadius: "8px",
                       boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
                     }}>
-                      <div style={{ 
+                      <div style={{
                         backgroundColor: "white",
                         padding: "0",
                         marginBottom: "0"
                       }}>
-                        <Link 
-                          to={`/detail-news-${news.id}`} 
-                          style={{ 
-                            color: "#333", 
-                            textDecoration: "none", 
-                            fontWeight: "600", 
-                            fontSize: "15px" 
+                        <Link
+                          to={`/detail-news-${news.id}`}
+                          style={{
+                            color: "#333",
+                            textDecoration: "none",
+                            fontWeight: "600",
+                            fontSize: "15px"
                           }}
                         >
                           {news.judulBerita}
                         </Link>
                       </div>
-                      <p style={{ 
-                        color: "#666", 
-                        fontSize: "12px", 
+                      <p style={{
+                        color: "#666",
+                        fontSize: "12px",
                         margin: "0",
                         backgroundColor: "white",
                         padding: "0"
                       }}>
                         {formatDate(news.createdDate)}
                       </p>
-                      {/* <div 
-                        style={{ 
+                      {/* <div
+                        style={{
                           backgroundColor: "white",
                           color: "#555",
                           padding: "10px",
                           fontSize: "13px",
                           lineHeight: "1.5"
                         }}
-                        dangerouslySetInnerHTML={{ __html: news.isiBerita.length > 100 ? `${news.isiBerita.substring(0, 100)}...` : news.isiBerita }} 
+                        dangerouslySetInnerHTML={{ __html: news.isiBerita.length > 100 ? `${news.isiBerita.substring(0, 100)}...` : news.isiBerita }}
                       /> */}
                     </div>
                   ))}
@@ -246,7 +246,7 @@ function FooterSekolah() {
                     </a>
                   </li>
                 </ul> */}
-                <p>© 2025. SLB C PELITA ILMU.</p>
+                <p>© 2025. SMPN 1 Bergas.</p>
               </div>
             </div>
           </div>

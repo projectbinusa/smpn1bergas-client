@@ -69,7 +69,7 @@ function AddBeritaAdmin() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const [content, setContent] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleEditorChange = (isiBerita, editor) => {
     setIsiBerita(isiBerita);
@@ -84,12 +84,12 @@ function AddBeritaAdmin() {
       author: author,
       judulBerita: judulBerita,
       isiBerita: isiBerita,
-      categoryBerita: categoryBerita
+      categoryBerita: categoryBerita,
     };
 
     formData.append(
       "berita",
-      new Blob([JSON.stringify(beritaData)], { type: "application/json" })
+      new Blob([JSON.stringify(beritaData)], { type: "application/json" }),
     );
 
     if (image) {
@@ -111,7 +111,7 @@ function AddBeritaAdmin() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-berita")
+      history.push("/admin-berita");
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -124,8 +124,6 @@ function AddBeritaAdmin() {
       setLoading(false);
     }
   };
-
-
 
   useEffect(() => {
     AOS.init();
@@ -273,8 +271,9 @@ function AddBeritaAdmin() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -303,7 +302,7 @@ function AddBeritaAdmin() {
                           Judul Berita
                         </label>
                         <input
-                        required
+                          required
                           value={judulBerita}
                           onChange={(e) => setJudulBerita(e.target.value)}
                           type="text"
@@ -316,7 +315,7 @@ function AddBeritaAdmin() {
                           Kategori Berita
                         </label>
                         <select
-                        required
+                          required
                           value={categoryBerita}
                           className="form-control"
                           aria-label="Small select example"
@@ -334,7 +333,7 @@ function AddBeritaAdmin() {
                           Penulis Berita
                         </label>
                         <input
-                        required
+                          required
                           value={author}
                           onChange={(e) => setAuthor(e.target.value)}
                           type="text"
@@ -348,10 +347,9 @@ function AddBeritaAdmin() {
                         </label>
                         {/* {image && ( */}
                         <input
-                        required
+                          required
                           onChange={(e) => {
                             setImage(e.target.files[0]);
-
                           }}
                           type="file"
                           className="form-control"
@@ -359,20 +357,23 @@ function AddBeritaAdmin() {
                         {image && (
                           <div className="mt-3">
                             <img
-                              src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                              src={
+                                typeof image === "string"
+                                  ? image
+                                  : URL.createObjectURL(image)
+                              }
                               alt="Current Image"
                               style={{ maxWidth: "100%", height: "auto" }}
                             />
                           </div>
                         )}
-
                       </div>
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
                           Isi Berita
                         </label>
                         <CKEditor
-                        required
+                          required
                           editor={ClassicEditor}
                           data={isiBerita} // Gunakan 'data' untuk set initial value
                           onChange={(event, editor) => {
@@ -603,16 +604,68 @@ function AddBeritaAdmin() {
                         />
                       </div>
                     </div>
-                    <button type="button" className="btn-danger mt-3 mr-3">
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        marginTop: "20px",
+                      }}>
                       <Link
-                        style={{ color: "white", textDecoration: "none" }}
-                        to="/admin-berita">
+                        to="/admin-berita"
+                        style={{
+                          background: "#dc3545",
+                          color: "#fff",
+                          textDecoration: "none",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          border: "none",
+                        }}>
+                        <i
+                          className="fa-solid fa-arrow-left"
+                          style={{ marginRight: "8px" }}
+                        />
                         Batal
                       </Link>
-                    </button>
-                    <button type="submit" className="btn-primary mt-3" disabled={loading}>
-                      {loading ? "Loading ... " : "Submit"}
-                    </button>
+
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        style={{
+                          background: loading ? "#6c757d" : "#0d6efd",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: loading ? "not-allowed" : "pointer",
+                          minWidth: "120px",
+                        }}>
+                        {loading ? (
+                          <>
+                            <i
+                              className="fa-solid fa-spinner fa-spin"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            <i
+                              className="fa-solid fa-paper-plane"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Submit
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
