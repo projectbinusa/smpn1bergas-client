@@ -116,9 +116,8 @@ function DetailSejarah() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -146,40 +145,55 @@ function DetailSejarah() {
                         <Link
                           to={`/edit-sejarah/${id}`}
                           style={{
-                            background: "transparent",
-                            color: "#0d6efd",
-                            border: "none",
-                            borderRadius: "4px",
-                            padding: "4px 8px",
-                            display: "flex",
-                            alignItems: "center",
+                            background: "#0d6efd",
+                            color: "#fff",
                             textDecoration: "none",
-                            cursor: "pointer",
+                            padding: "8px 16px",
+                            borderRadius: "8px",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "8px",
+                            border: "none",
                           }}>
                           <i className="fa-solid fa-pen-to-square"></i>
+                          Edit
                         </Link>
                         <button
                           onClick={() => deleteData(id)}
                           type="button"
                           style={{
-                            background: "transparent",
-                            color: "red",
+                            background: "#dc3545",
+                            color: "#fff",
+                            padding: "8px 16px",
+                            borderRadius: "8px",
                             border: "none",
-                            borderRadius: "4px",
-                            padding: "4px 8px",
-                            display: "flex",
+                            fontWeight: "500",
+                            display: "inline-flex",
                             alignItems: "center",
+                            gap: "8px",
                             cursor: "pointer",
                           }}>
                           <i className="fa-solid fa-trash"></i>
+                          Hapus
                         </button>
                       </div>
                     ) : (
                       <Link
                         to="/add-sejarah"
-                        className="btn btn-sm d-flex align-items-center gap-1">
+                        style={{
+                          background: "#0d6efd",
+                          color: "#fff",
+                          textDecoration: "none",
+                          padding: "10px 16px",
+                          borderRadius: "8px",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "8px",
+                        }}>
                         <i className="fa-solid fa-plus"></i>
-                        <span>Tambah Data</span>
+                        Tambah Data
                       </Link>
                     ))}
                 </div>

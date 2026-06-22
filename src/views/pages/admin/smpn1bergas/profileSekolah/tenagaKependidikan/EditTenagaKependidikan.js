@@ -6,6 +6,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
+import { Link } from "react-router-dom";
 
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
@@ -15,6 +16,7 @@ function EditTenagaKependidikan() {
   const [nama, setNama] = useState("");
   const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const param = useParams();
 
@@ -36,8 +38,9 @@ function EditTenagaKependidikan() {
       });
   }, []);
 
-  const update = (e) => {
+  const update = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("file", image);
@@ -47,50 +50,56 @@ function EditTenagaKependidikan() {
       status: status,
     }
 
-    axios
-      .put(`${API_DUMMY}/api/tenaga_kependidikan/put/` + param.id, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        if (image) {
-          axios.put(`${API_DUMMY}/api/tenaga_kependidikan/put/foto/` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
-        }
-        setShow(false);
-        Swal.fire({
-          icon: "success",
-          title: "Data Berhasil Diperbarui",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        history.push("/admin-tenaga-kependidikan");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-        console.log("Berhasil diperbarui", response.data);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
+    try {
+      await axios
+        .put(`${API_DUMMY}/api/tenaga_kependidikan/put/` + param.id, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          if (image) {
+            axios.put(`${API_DUMMY}/api/tenaga_kependidikan/put/foto/` + param.id, formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }).catch((err) => {
+              console.log(err);
+            })
+          }
+          setShow(false);
           Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
+            icon: "success",
+            title: "Data Berhasil Diperbarui",
             showConfirmButton: false,
             timer: 1500,
           });
-          console.log(error);
-        }
-      });
+          history.push("/admin-tenaga-kependidikan");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+          console.log("Berhasil diperbarui", response.data);
+        })
+        .catch((error) => {
+          if (error.ressponse && error.response.status === 401) {
+            localStorage.clear();
+            history.push("/login");
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Edit Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(error);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -117,9 +126,8 @@ function EditTenagaKependidikan() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -181,16 +189,70 @@ function EditTenagaKependidikan() {
                         />
                       </div>
                     </div>
-                    <button type="button" className="btn-danger mt-3 mr-3">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/admin-tenaga-kependidikan">
+
+                    {/* Bagian button dengan gaya yang sama seperti AddBeritaAdmin */}
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        marginTop: "20px",
+                      }}>
+                      <Link
+                        to="/admin-tenaga-kependidikan"
+                        style={{
+                          background: "#dc3545",
+                          color: "#fff",
+                          textDecoration: "none",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          border: "none",
+                        }}>
+                        <i
+                          className="fa-solid fa-arrow-left"
+                          style={{ marginRight: "8px" }}
+                        />
                         Batal
-                      </a>
-                    </button>
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
-                    </button>
+                      </Link>
+
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        style={{
+                          background: loading ? "#6c757d" : "#0d6efd",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: loading ? "not-allowed" : "pointer",
+                          minWidth: "120px",
+                        }}>
+                        {loading ? (
+                          <>
+                            <i
+                              className="fa-solid fa-spinner fa-spin"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            <i
+                              className="fa-solid fa-paper-plane"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Update
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>

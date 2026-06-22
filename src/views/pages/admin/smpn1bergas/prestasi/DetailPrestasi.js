@@ -167,14 +167,36 @@ function DetailPrestasi() {
                   />
                 </div>
               </div>
-              <Link to="/admin-prestasi">
-                <button
-                  type="button"
-                  className="btn-kembali btn-danger mt-3 mr-3">
+              
+              {/* Bagian button Kembali dengan gaya seperti AddBeritaAdmin */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  marginTop: "10px",
+                  padding: "0 20px 20px 20px",
+                }}>
+                <Link
+                  to="/admin-prestasi"
+                  style={{
+                    background: "#dc3545",
+                    color: "#fff",
+                    textDecoration: "none",
+                    padding: "10px 20px",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    border: "none",
+                  }}>
+                  <i
+                    className="fa-solid fa-arrow-left"
+                    style={{ marginRight: "8px" }}
+                  />
                   Kembali
-                </button>
-              </Link>
-
+                </Link>
+              </div>
             </form>
           </div>
         </div>

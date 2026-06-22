@@ -69,7 +69,11 @@ function AddVisiMisi() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+
+  const handleCancel = () => {
+    history.push("/admin-visimisi");
+  };
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -91,7 +95,7 @@ function AddVisiMisi() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
-    setLoading(true)
+    setLoading(true);
     try {
       const data = {
         visi: visi,
@@ -112,6 +116,7 @@ function AddVisiMisi() {
         showConfirmButton: false,
         timer: 1500,
       });
+      history.push("/admin-visimisi");
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
@@ -126,7 +131,7 @@ function AddVisiMisi() {
         console.log(error);
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -1515,16 +1520,71 @@ function AddVisiMisi() {
                           />
                         </div>
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-visimisi">
+
+                      {/* Bagian button dengan gaya yang sama seperti AddPerpus */}
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          marginTop: "20px",
+                        }}>
+                        <button
+                          type="button"
+                          onClick={handleCancel}
+                          style={{
+                            background: "#dc3545",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                          }}>
+                          <i
+                            className="fa-solid fa-arrow-left"
+                            style={{ marginRight: "8px" }}
+                          />
                           Batal
-                        </a>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3" disabled={loading}>
-                        {loading ? "Loading..." : "Simpan"}
-                      </button>
+                        </button>
+
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          style={{
+                            background: loading ? "#6c757d" : "#0d6efd",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: loading ? "not-allowed" : "pointer",
+                            minWidth: "120px",
+                          }}>
+                          {loading ? (
+                            <>
+                              <i
+                                className="fa-solid fa-spinner fa-spin"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Loading...
+                            </>
+                          ) : (
+                            <>
+                              <i
+                                className="fa-solid fa-paper-plane"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Submit
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>

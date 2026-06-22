@@ -124,7 +124,7 @@ function AddGuru() {
                           Nama Guru
                         </label>
                         <input
-                        required
+                          required
                           value={namaGuru}
                           onChange={(e) => setNamaGuru(e.target.value)}
                           type="text"
@@ -137,7 +137,7 @@ function AddGuru() {
                           NIP
                         </label>
                         <input
-                        required
+                          required
                           value={nip}
                           onChange={(e) => setNip(e.target.value)}
                           type="text"
@@ -149,11 +149,9 @@ function AddGuru() {
                         <label className="form-label font-weight-bold">
                           Foto
                         </label>
-                        {/* {image && ( */}
                         <input
                           onChange={(e) => {
                             setImage(e.target.files[0]);
-
                           }}
                           required
                           type="file"
@@ -168,14 +166,13 @@ function AddGuru() {
                             />
                           </div>
                         )}
-
                       </div>
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Riwayat Pendidikan
                         </label>
                         <input
-                        required
+                          required
                           value={riwayat}
                           onChange={(e) => setRiwayat(e.target.value)}
                           type="text"
@@ -183,24 +180,12 @@ function AddGuru() {
                           placeholder="Masukkan Riwayat Pendidikan"
                         />
                       </div>
-                      {/* <div className="mb-3 co-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Gambar
-                        </label>
-                        <input
-                          onChange={(e) =>
-                            setImage(e.target.files ? e.target.files[0] : null)
-                          }
-                          type="file"
-                          className="form-control"
-                        />
-                      </div> */}
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Mapel
                         </label>
                         <input
-                        required
+                          required
                           value={mapel}
                           onChange={(e) => setMapel(e.target.value)}
                           type="text"
@@ -209,16 +194,70 @@ function AddGuru() {
                         />
                       </div>
                     </div>
-                    <button type="button" className="btn-danger mt-3 mr-3">
+
+                    {/* Bagian button dengan gaya yang sama seperti AddBeritaAdmin */}
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        marginTop: "20px",
+                      }}>
                       <Link
-                        style={{ color: "white", textDecoration: "none" }}
-                        to="/admin-guru">
+                        to="/admin-guru"
+                        style={{
+                          background: "#dc3545",
+                          color: "#fff",
+                          textDecoration: "none",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          border: "none",
+                        }}>
+                        <i
+                          className="fa-solid fa-arrow-left"
+                          style={{ marginRight: "8px" }}
+                        />
                         Batal
                       </Link>
-                    </button>{" "}
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
-                    </button>
+
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        style={{
+                          background: loading ? "#6c757d" : "#0d6efd",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: loading ? "not-allowed" : "pointer",
+                          minWidth: "120px",
+                        }}>
+                        {loading ? (
+                          <>
+                            <i
+                              className="fa-solid fa-spinner fa-spin"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            <i
+                              className="fa-solid fa-paper-plane"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Submit
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>

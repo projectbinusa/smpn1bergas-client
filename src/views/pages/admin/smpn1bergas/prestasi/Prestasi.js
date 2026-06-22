@@ -4,13 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Link } from "react-router-dom";
-
-import {
-  IconButton,
-  InputAdornment,
-  Pagination,
-  TextField,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import Sidebar1 from "../../../../../component/Sidebar1";
 import { formatTanggal } from "../../../../../formatting/Formatting";
 
@@ -37,8 +31,8 @@ function Prestasi() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const getAll = async (pageNumber = 1, size = rowsPerPage, search = "") => {
@@ -51,7 +45,6 @@ function Prestasi() {
           },
         }
       );
-
       setList(response.data.data.content);
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
@@ -88,15 +81,16 @@ function Prestasi() {
               timer: 1500,
             });
             getAll(currentPage, rowsPerPage, searchTerm);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -123,160 +117,197 @@ function Prestasi() {
     setCurrentPage(1);
   };
 
-
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-      }`}>
-      <a
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+      <button
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48", border: "none" }}>
         <i className="fas fa-bars"></i>
-      </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
+      </button>
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
+      <main className="page-content1" style={{ marginTop: "20px" }}>
+        <div className="container" data-aos="fade-left">
+
+          {/* Mobile Controls */}
+          <div
+            className="d-lg-none"
+            style={{
+              padding: "12px 16px",
+              background: "#fff",
+              borderBottom: "1px solid #eee",
+            }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <select
-                className="form-select form-select-xl w-auto"
+                className="form-select"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
-                <option value={1}>1</option>
+                value={rowsPerPage}
+                style={{ width: "80px", flexShrink: 0 }}>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
               </select>
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Cari prestasi..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
             </div>
           </div>
-          <div className="search">
-            <input
-              type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
+
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Prestasi</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
+            {/* Card Header */}
+            <div
+              className="card-header"
+              style={{
+                background: "#FFF7F7",
+                padding: "12px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "12px",
+              }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+                <h6 style={{ margin: 0, fontWeight: "600" }}>Prestasi</h6>
+
+                {/* Desktop Controls */}
+                <div className="d-none d-lg-flex align-items-center gap-2">
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
-                    <option value={1}>1</option>
+                    value={rowsPerPage}
+                    style={{ width: "80px" }}>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                   </select>
+                  <input
+                    type="search"
+                    className="form-control"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style={{ width: "280px" }}
+                  />
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <Link
-                        style={{ color: "white", textDecoration: "none" }}
-                        to="/add-prestasi">
-                        Tambah prestasi
-                      </Link>
-                    </button>
-                  </div>
-                </div>
-              </div>
+
+              <Link
+                to="/add-prestasi"
+                style={{
+                  background: "#0d6efd",
+                  color: "#fff",
+                  textDecoration: "none",
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  fontWeight: "500",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}>
+                <i className="fa-solid fa-plus"></i>
+                Tambah Prestasi
+              </Link>
             </div>
-            <div
-              className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+
+            {/* Table */}
+            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
+                    <th>No</th>
                     <th>Nama Prestasi</th>
-                    <th scope="col">
-                      Nama Perserta
-                    </th>
+                    <th>Nama Peserta</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {list.length > 0 ?
-                    list.map((berita, no) => {
-                      return (
-                        <tr key={no}>
-                          <td data-label="No" className="">
-                            {no + 1 + (currentPage - 1) * rowsPerPage}
-                          </td>
-                          <td data-label="Nama Prestasi">
-                            {berita.judul}
-                          </td>
-                          <td data-label="Nama Perserta">
-                            {berita.nama_peserta}
-                          </td>
-                          <td data-label="Tanggal">
-                            {formatTanggal(berita.tanggal)}
-                          </td>
-                          <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2">
-                                <Link
-                                  style={{ color: "white", textDecoration: "none" }}
-                                  to={`/edit-prestasi/${berita.id}`}>
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </Link>
-                              </button>
-                              <button
-                                type="button"
-                                class="btn-warning  mr-2 btn-sm">
-                                <Link
-                                  className="text-light"
-                                  to={`/admin-detail-prestasi/${berita.id}`}>
-                                  <i className="fas fa-info-circle"></i>
-                                </Link>
+                  {list.length > 0 ? (
+                    list.map((berita, no) => (
+                      <tr key={no}>
+                        <td data-label="No">
+                          {no + 1 + (currentPage - 1) * rowsPerPage}
+                        </td>
+                        <td data-label="Nama Prestasi">{berita.judul}</td>
+                        <td data-label="Nama Peserta">{berita.nama_peserta}</td>
+                        <td data-label="Tanggal">{formatTanggal(berita.tanggal)}</td>
+                        <td data-label="Aksi" className="action">
+                          <div style={{ display: "flex", justifyContent: "center", gap: "8px" }}>
+                            {/* Edit */}
+                            <Link
+                              to={`/edit-prestasi/${berita.id}`}
+                              style={{
+                                width: "34px",
+                                height: "34px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: "#0d6efd",
+                                color: "#fff",
+                                borderRadius: "8px",
+                                textDecoration: "none",
+                              }}
+                              title="Edit">
+                              <i className="fa-solid fa-pen-to-square"></i>
+                            </Link>
 
-                              </button>
-                              <button
-                                onClick={() => deleteData(berita.id)}
-                                type="button"
-                                className="btn-danger btn-sm">
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    }) : <tr>
+                            {/* Detail */}
+                            <Link
+                              to={`/admin-detail-prestasi/${berita.id}`}
+                              style={{
+                                width: "34px",
+                                height: "34px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: "#f59e0b",
+                                color: "#fff",
+                                borderRadius: "8px",
+                                textDecoration: "none",
+                              }}
+                              title="Detail">
+                              <i className="fas fa-info-circle"></i>
+                            </Link>
+
+                            {/* Hapus */}
+                            <button
+                              onClick={() => deleteData(berita.id)}
+                              type="button"
+                              title="Hapus"
+                              style={{
+                                width: "34px",
+                                height: "34px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: "#dc3545",
+                                color: "#fff",
+                                borderRadius: "8px",
+                                border: "none",
+                                cursor: "pointer",
+                              }}>
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
                       <td colSpan="5" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
                       </td>
-                    </tr>}
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
+
+            {/* Pagination */}
             <div className="card-header mt-3 d-flex justify-content-center">
               <Pagination
                 count={paginationInfo.totalPages}
@@ -289,7 +320,7 @@ function Prestasi() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

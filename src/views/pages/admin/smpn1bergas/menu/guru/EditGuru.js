@@ -80,7 +80,7 @@ function EditGuru() {
         showConfirmButton: false,
         timer: 1500,
       });
-      // history.push("/admin-guru");
+      history.push("/admin-guru");
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
@@ -246,16 +246,70 @@ function EditGuru() {
                     />
                   </div>
                 </div>
-                <button type="button" className="btn-danger mt-3 mr-3">
+
+                {/* Bagian button dengan gaya yang sama seperti AddBeritaAdmin */}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    marginTop: "20px",
+                  }}>
                   <Link
                     to="/admin-guru"
-                    style={{ color: "white", textDecoration: "none" }}>
+                    style={{
+                      background: "#dc3545",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: "none",
+                    }}>
+                    <i
+                      className="fa-solid fa-arrow-left"
+                      style={{ marginRight: "8px" }}
+                    />
                     Batal
                   </Link>
-                </button>
-                <button type="submit" className="btn-primary mt-3" disabled={loading}>
-                  {loading ? "Loading..." : "Simpan"}
-                </button>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    style={{
+                      background: loading ? "#6c757d" : "#0d6efd",
+                      color: "#fff",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      border: "none",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: loading ? "not-allowed" : "pointer",
+                      minWidth: "120px",
+                    }}>
+                    {loading ? (
+                      <>
+                        <i
+                          className="fa-solid fa-spinner fa-spin"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Loading...
+                      </>
+                    ) : (
+                      <>
+                        <i
+                          className="fa-solid fa-paper-plane"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Update
+                      </>
+                    )}
+                  </button>
+                </div>
               </form>
             </div>
           </div>

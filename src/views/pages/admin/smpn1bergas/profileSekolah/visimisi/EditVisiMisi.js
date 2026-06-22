@@ -74,6 +74,10 @@ function EditVisiMisi() {
   const param = useParams();
   const [loading, setLoading] = useState(false);
 
+  const handleCancel = () => {
+    history.push("/admin-visimisi");
+  };
+
   useEffect(() => {
     axios
       .get(`${API_DUMMY}/api/visiMisi/get/` + param.id, {
@@ -580,7 +584,7 @@ function EditVisiMisi() {
                               const data = editor.getData(); // Ambil data dari editor
                               setMisi(data); // Set state dengan data dari editor
                             }}
-                            
+
                             config={{
                               toolbar: [
                                 // --- Text alignment ---------------------------------------------------------------------------
@@ -1548,16 +1552,71 @@ function EditVisiMisi() {
                           />
                         </div>
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-visimisi">
+
+                      {/* Bagian button dengan gaya yang sama seperti AddPerpus */}
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          marginTop: "20px",
+                        }}>
+                        <button
+                          type="button"
+                          onClick={handleCancel}
+                          style={{
+                            background: "#dc3545",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                          }}>
+                          <i
+                            className="fa-solid fa-arrow-left"
+                            style={{ marginRight: "8px" }}
+                          />
                           Batal
-                        </a>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3" disabled={loading} >
-                        {loading ? "Loading..." : "Simpan"}
-                      </button>
+                        </button>
+
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          style={{
+                            background: loading ? "#6c757d" : "#0d6efd",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: loading ? "not-allowed" : "pointer",
+                            minWidth: "120px",
+                          }}>
+                          {loading ? (
+                            <>
+                              <i
+                                className="fa-solid fa-spinner fa-spin"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Loading...
+                            </>
+                          ) : (
+                            <>
+                              <i
+                                className="fa-solid fa-paper-plane"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Update
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>
