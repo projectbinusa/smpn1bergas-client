@@ -22,7 +22,7 @@ function FooterSekolah() {
       );
       const content = response.data.data.content[0]?.isi || "";
       const truncatedContent = content.length > 375 ? `${content.substring(0, 375)}...` : content;
-      setJudul(response.data.data.content[0]?.judul || "Data tidak ditemukan");
+      setJudul(response.data.data.content[0]?.judul || "Sejarah belum tersedia");
       setIsi(truncatedContent);
     } catch (error) {
       console.log("Error fetching sejarah data:", error);
@@ -246,7 +246,7 @@ function FooterSekolah() {
                     </a>
                   </li>
                 </ul> */}
-                <p>© 2025. SMPN 1 Bergas.</p>
+                <p>© 2026. SMPN 1 Bergas.</p>
               </div>
             </div>
           </div>
