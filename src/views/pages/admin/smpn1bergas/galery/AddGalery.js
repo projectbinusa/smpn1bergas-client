@@ -748,28 +748,66 @@ function AddGalery() {
                       </div>
                     </div>
 
-                    <div className="d-flex gap-2">
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        marginTop: "20px",
+                      }}>
                       <button
                         type="button"
-                        className="btn-danger"
                         onClick={() => history.push("/admin-galery")}
-                        disabled={isSubmitting}>
+                        style={{
+                          background: "#dc3545",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                        }}>
+                        <i
+                          className="fa-solid fa-arrow-left"
+                          style={{ marginRight: "8px" }}
+                        />
                         Batal
                       </button>
+
                       <button
                         type="submit"
-                        className="btn-primary"
-                        disabled={isSubmitting}>
+                        disabled={isSubmitting}
+                        style={{
+                          background: isSubmitting ? "#6c757d" : "#0d6efd",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: isSubmitting ? "not-allowed" : "pointer",
+                          minWidth: "120px",
+                        }}>
                         {isSubmitting ? (
                           <>
-                            <span
-                              className="spinner-border spinner-border-sm"
-                              role="status"
-                              aria-hidden="true"></span>
-                            Menyimpan...
+                            <i
+                              className="fa-solid fa-spinner fa-spin"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Loading...
                           </>
                         ) : (
-                          "Simpan"
+                          <>
+                            <i
+                              className="fa-solid fa-paper-plane"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Submit
+                          </>
                         )}
                       </button>
                     </div>

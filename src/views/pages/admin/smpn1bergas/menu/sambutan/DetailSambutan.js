@@ -152,34 +152,69 @@ function DetailSAmbutan() {
               <div className="title card-header d-flex justify-content-between">
                 <h1 className="fw-bold fs-3">Detail Sambutan</h1>
                 {data.length > 0 ? (<>
-                  <div>
-                    <button
-                      type="button"
-                      className="btn-primary btn-sm mr-2">
-                      <a
-                        style={{
-                          color: "white",
-                          textDecoration: "none",
-                        }}
-                        href={`/edit-sambutan/${id}`}>
-                        <i className="fa-solid fa-pen-to-square"></i>
-                      </a>
-                    </button>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    <a
+                      href={`/edit-sambutan/${id}`}
+                      style={{
+                        width: "34px",
+                        height: "34px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "#0d6efd",
+                        color: "#fff",
+                        borderRadius: "8px",
+                        textDecoration: "none",
+                      }}
+                      title="Edit"
+                    >
+                      <i className="fa-solid fa-pen-to-square"></i>
+                    </a>
+
                     <button
                       onClick={() => deleteData(id)}
                       type="button"
-                      className="btn-danger btn-sm">
+                      title="Hapus"
+                      style={{
+                        width: "34px",
+                        height: "34px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "#dc3545",
+                        color: "#fff",
+                        borderRadius: "8px",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
                       <i className="fa-solid fa-trash"></i>
                     </button>
                   </div>
                 </>) : (<>
-                  <button className="active btn-focus p-2 rounded">
-                    <a
-                      style={{ color: "white", textDecoration: "none" }}
-                      href="/add-sambutan">
-                      Tambah Data
-                    </a>
-                  </button>
+                  <a
+                    href="/add-sambutan"
+                    style={{
+                      background: "#0d6efd",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "10px 16px",
+                      borderRadius: "8px",
+                      fontWeight: "500",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    <i className="fa-solid fa-plus"></i>
+                    Tambah Data
+                  </a>
                 </>)}
               </div>
               <br />

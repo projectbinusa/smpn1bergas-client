@@ -775,30 +775,53 @@ function EditGalery() {
                       </div>
                     </div>
 
-                    <div className="d-flex gap-2">
-                      <button
-                        type="button"
-                        className="btn-danger"
-                        onClick={() => history.push("/admin-galery")}
-                        disabled={isSubmitting}
-                      >
-                        Batal
-                      </button>
-                      <button
-                        type="submit"
-                        className="btn-primary"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Menyimpan...
-                          </>
-                        ) : (
-                          "Simpan"
-                        )}
-                      </button>
-                    </div>
+                    <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    marginTop: "20px",
+                  }}>
+                  <a
+                    href="/admin-galery"
+                    style={{
+                      background: "#dc3545",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}>
+                    <i
+                      className="fa-solid fa-arrow-left"
+                      style={{ marginRight: "8px" }}
+                    />
+                    Batal
+                  </a>
+
+                  <button
+                    type="submit"
+                    style={{
+                      background: "#0d6efd",
+                      color: "#fff",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      border: "none",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      minWidth: "120px",
+                    }}>
+                    <i
+                      className="fa-solid fa-paper-plane"
+                      style={{ marginRight: "8px" }}
+                    />
+                    Simpan
+                  </button>
+                </div>
                   </form>
                 </div>
               </div>

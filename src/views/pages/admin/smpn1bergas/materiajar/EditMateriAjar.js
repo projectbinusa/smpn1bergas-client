@@ -87,7 +87,7 @@ function EditMateriAjar() {
     axios
       .get(`${API_DUMMY}/api/materi_ajar/get/` + param.id, {
         headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((ress) => {
@@ -114,7 +114,7 @@ function EditMateriAjar() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -126,20 +126,19 @@ function EditMateriAjar() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   return (
-    <div  className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 app-main__outer" data-aos="fade-left">
           <div className="card shadow">
             <div className="card-body">
@@ -210,32 +209,69 @@ function EditMateriAjar() {
                       />
                     </div>
                   </div>
-                    <div className="col-lg-12">
-                      <label className="form-label font-weight-bold">
-                        Jenis
-                      </label>
-                      <div className="">
-                        <input
-                          value={jenis}
-                          onChange={(e) => setJenis(e.target.value)}
-                          className="form-control"
-                          placeholder="Masukkan Jenis"
-                          id="floatingTextarea2"
-                          rows="5"
-                        />
-                      </div>
+                  <div className="col-lg-12">
+                    <label className="form-label font-weight-bold">
+                      Jenis
+                    </label>
+                    <div className="">
+                      <input
+                        value={jenis}
+                        onChange={(e) => setJenis(e.target.value)}
+                        className="form-control"
+                        placeholder="Masukkan Jenis"
+                        id="floatingTextarea2"
+                        rows="5"
+                      />
                     </div>
+                  </div>
                 </div>
-                <button type="button" className="btn-danger mt-3">
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    marginTop: "20px",
+                  }}>
                   <a
-                    style={{ color: "white", textDecoration: "none" }}
-                    href="/admin-materi-ajar">
+                    href="/admin-materi-ajar"
+                    style={{
+                      background: "#dc3545",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}>
+                    <i
+                      className="fa-solid fa-arrow-left"
+                      style={{ marginRight: "8px" }}
+                    />
                     Batal
                   </a>
-                </button>{" "}
-                <button type="submit" className="btn-primary mt-3">
-                  Submit
-                </button>
+
+                  <button
+                    type="submit"
+                    style={{
+                      background: "#0d6efd",
+                      color: "#fff",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      border: "none",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      minWidth: "120px",
+                    }}>
+                    <i
+                      className="fa-solid fa-paper-plane"
+                      style={{ marginRight: "8px" }}
+                    />
+                    Simpan
+                  </button>
+                </div>
               </form>
             </div>
           </div>
