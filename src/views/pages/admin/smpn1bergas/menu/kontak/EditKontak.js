@@ -96,14 +96,15 @@ function EditKontak() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -176,16 +177,59 @@ function EditKontak() {
                         />
                       </div>
                     </div>
-                    <button type="button" className="btn-danger mt-3 mr-3">
-                      <Link
-                        style={{ color: "white", textDecoration: "none" }}
-                        to="/admin-kontak">
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        marginTop: "20px",
+                      }}>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          (window.location.href = "/admin-kontak")
+                        }
+                        style={{
+                          background: "#dc3545",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                        }}>
+                        <i
+                          className="fa-solid fa-arrow-left"
+                          style={{ marginRight: "8px" }}
+                        />
                         Batal
-                      </Link>
-                    </button>
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
-                    </button>
+                      </button>
+                      <button
+                        type="submit"
+                        style={{
+                          background: "#0d6efd",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          minWidth: "120px",
+                        }}>
+                        <>
+                          <i
+                            className="fa-solid fa-paper-plane"
+                            style={{ marginRight: "8px" }}
+                          />
+                          Submit
+                        </>
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>

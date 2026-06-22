@@ -105,8 +105,8 @@ function EditSambutan() {
       isi: isiSambutan,
       nama: nama,
       judul: judulSambutan,
-      nip: nip
-    }
+      nip: nip,
+    };
 
     await axios
       .put(`${API_DUMMY}/api/sambutan/put/` + param.id, data, {
@@ -116,14 +116,16 @@ function EditSambutan() {
       })
       .then(() => {
         if (file) {
-          axios.put(`${API_DUMMY}/api/sambutan/put/foto/` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
+          axios
+            .put(`${API_DUMMY}/api/sambutan/put/foto/` + param.id, formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }
         Swal.fire({
           icon: "success",
@@ -282,7 +284,7 @@ function EditSambutan() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -290,29 +292,32 @@ function EditSambutan() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div
-    className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div style={{marginTop:"50px"}}
-      className="page-content1 mb-3 app-main__outer"
-      data-aos="fade-left">
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div
+        style={{ marginTop: "50px" }}
+        className="page-content1 mb-3 app-main__outer"
+        data-aos="fade-left">
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -610,16 +615,59 @@ function EditSambutan() {
                           />
                         </div>
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-sambutan">
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          marginTop: "20px",
+                        }}>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            (window.location.href = "/admin-sambutan")
+                          }
+                          style={{
+                            background: "#dc3545",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                          }}>
+                          <i
+                            className="fa-solid fa-arrow-left"
+                            style={{ marginRight: "8px" }}
+                          />
                           Batal
-                        </a>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
+                        </button>
+                        <button
+                          type="submit"
+                          style={{
+                            background: "#0d6efd",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                            minWidth: "120px",
+                          }}>
+                          <>
+                            <i
+                              className="fa-solid fa-paper-plane"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Submit
+                          </>
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>

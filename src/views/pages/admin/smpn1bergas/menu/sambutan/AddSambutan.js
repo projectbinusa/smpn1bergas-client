@@ -244,7 +244,7 @@ function AddSambutan() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -252,8 +252,8 @@ function AddSambutan() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -271,10 +271,13 @@ function AddSambutan() {
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"50px"}}
+      <div
+        style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
         data-aos="fade-left">
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -572,16 +575,59 @@ function AddSambutan() {
                           />
                         </div>
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-sambutan">
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          marginTop: "20px",
+                        }}>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            (window.location.href = "/admin-sambutan")
+                          }
+                          style={{
+                            background: "#dc3545",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                          }}>
+                          <i
+                            className="fa-solid fa-arrow-left"
+                            style={{ marginRight: "8px" }}
+                          />
                           Batal
-                        </a>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
+                        </button>
+                        <button
+                          type="submit"
+                          style={{
+                            background: "#0d6efd",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: "pointer",
+                            minWidth: "120px",
+                          }}>
+                          <>
+                            <i
+                              className="fa-solid fa-paper-plane"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Submit
+                          </>
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>
