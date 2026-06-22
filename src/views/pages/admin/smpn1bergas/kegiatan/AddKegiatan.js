@@ -104,8 +104,7 @@ function AddKegiatan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/kegiatan/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/api/kegiatan/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -330,9 +329,8 @@ function AddKegiatan() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -662,16 +660,53 @@ function AddKegiatan() {
                           />
                         </div>
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          marginTop: "20px",
+                        }}>
                         <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-kegiatan">
+                          href="/admin-kegiatan"
+                          style={{
+                            background: "#dc3545",
+                            color: "#fff",
+                            textDecoration: "none",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}>
+                          <i
+                            className="fa-solid fa-arrow-left"
+                            style={{ marginRight: "8px" }}
+                          />
                           Batal
                         </a>
-                      </button>{" "}
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
+
+                        <button
+                          type="submit"
+                          style={{
+                            background: "#0d6efd",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            minWidth: "120px",
+                          }}>
+                          <i
+                            className="fa-solid fa-paper-plane"
+                            style={{ marginRight: "8px" }}
+                          />
+                          Submit
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>

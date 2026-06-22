@@ -146,72 +146,108 @@ function Program() {
         <i className="fas fa-bars"></i>
       </a>
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
+      <main className="page-content1" style={{ marginTop: "20px" }}>
+        <div className="container" data-aos="fade-left">
+          <div
+            className="d-lg-none"
+            style={{
+              padding: "12px 16px",
+              background: "#fff",
+              borderBottom: "1px solid #eee",
+            }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}>
               <select
-                className="form-select form-select-xl w-auto"
+                className="form-select"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+                style={{
+                  width: "80px",
+                  flexShrink: 0,
+                }}>
                 <option value={1}>1</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
               </select>
+
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Cari program..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
             </div>
           </div>
-          <div className="search">
-            <input
-              type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Program</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
+            <div
+              className="card-header"
+              style={{
+                background: "#FFF7F7",
+                padding: "12px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "12px",
+              }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "15px",
+                }}>
+                <h6
+                  style={{
+                    margin: 0,
+                    fontWeight: "600",
+                  }}>
+                  Program
+                </h6>
+
+                <div className="d-none d-lg-flex align-items-center gap-2">
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                    style={{ width: "80px" }}>
                     <option value={1}>1</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                   </select>
+
+                  <input
+                    type="search"
+                    className="form-control"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style={{
+                      width: "280px",
+                    }}
+                  />
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <Link
-                        style={{ color: "white", textDecoration: "none" }}
-                        to="/add-program">
-                        Tambah Program
-                      </Link>
-                    </button>
-                  </div>
-                </div>
-              </div>
+
+              <Link
+                to="/add-program"
+                style={{
+                  background: "#0d6efd",
+                  color: "#fff",
+                  textDecoration: "none",
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  fontWeight: "500",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}>
+                <i className="fa-solid fa-plus"></i>
+                Tambah Program
+              </Link>
             </div>
             <div
               className="table-responsive-3"
@@ -232,7 +268,7 @@ function Program() {
                     filteredList.map((berita, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" style={{ textAlign: "right" }}>
+                          <td data-label="No">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
 
@@ -241,17 +277,16 @@ function Program() {
                               style={{
                                 display: "-webkit-box",
                                 WebkitBoxOrient: "vertical",
-                                WebkitLineClamp: 3,
+                                WebkitLineClamp: 2,
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
-                                textAlign: "right",
                               }}
                             >
                               {berita.namaProgram}
                             </span>
                           </td>
 
-                          <td data-label="Judul Program">
+                          <td data-label="Kategori Program">
                             <span
                               style={{
                                 display: "-webkit-box",
@@ -259,38 +294,66 @@ function Program() {
                                 WebkitLineClamp: 3,
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
-                                textAlign: "right",
                               }}
                             >
                               {berita.categoryProgram.category ? berita.categoryProgram.category : ""}
                             </span>
                           </td>
 
-                          <td data-label="Aksi" style={{ textAlign: "right" }}>
-                            <div className="d-flex justify-content-end align-items-center">
-                              <button type="button" className="btn-primary btn-sm mr-2">
-                                <Link
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  to={`/edit-program/${berita.id}`}
-                                >
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </Link>
-                              </button>
+                          <td data-label="Aksi" className="action">
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                gap: "8px",
+                              }}>
 
-                              <button type="button" className="btn-warning mr-2 btn-sm">
-                                <Link className="text-light" to={"/detail-program/" + berita.id}>
-                                  <i className="fas fa-info-circle"></i>
-                                </Link>
-                              </button>
+                              <Link
+                                to={`/edit-program/${berita.id}`}
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#0d6efd",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  textDecoration: "none",
+                                }}>
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </Link>
+
+                              <Link
+                                to={`/detail-program/${berita.id}`}
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#f59e0b",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  textDecoration: "none",
+                                }}>
+                                <i className="fas fa-info-circle"></i>
+                              </Link>
 
                               <button
                                 onClick={() => deleteData(berita.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#dc3545",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  border: "none",
+                                  cursor: "pointer",
+                                }}>
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
@@ -323,8 +386,8 @@ function Program() {
           </div>
           <CategoryProgram />
         </div>
-      </div>
-    </div>
+      </main>
+    </div >
   );
 }
 

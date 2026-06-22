@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -112,67 +112,117 @@ function FotoKegiatan() {
 
   return (
     <>
-      <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-        <div className="col-auto">
-          <label className="form-label mt-2">Rows per page:</label>
-        </div>
-        <div className="col-auto">
-          <select
-            className="form-select form-select-xl w-auto"
-            onChange={handleRowsPerPageChange}
-            value={rowsPerPage}>
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-          </select>
-        </div>
-      </div>
-      <div className="search">
-        <input
-          type="search"
-          className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-      </div>
       <div className="main-card box-tabel mb-3 card">
-        <div className="card-header" style={{ display: "flex" }}>
-          <p className="mt-3">Foto</p>
-          <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
-              <select
-                className="form-select form-select-sm"
-                onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-            </div>
-          </div>
-          <div className="d-flex ml-auto gap-3">
+        {/* Mobile Search */}
+        <div
+          className="d-lg-none"
+          style={{
+            padding: "12px 16px",
+            background: "#fff",
+            borderBottom: "1px solid #eee",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <select
+              className="form-select"
+              onChange={handleRowsPerPageChange}
+              value={rowsPerPage}
+              style={{
+                width: "80px",
+                flexShrink: 0,
+              }}
+            >
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+            </select>
+
             <input
               type="search"
-              className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-              placeholder="Search..."
+              className="form-control"
+              placeholder="Cari foto kegiatan..."
               value={searchTerm}
               onChange={handleSearchChange}
             />
-            <div className="btn-actions-pane-right">
-              <div role="group" className="btn-group-sm btn-group">
-                <button className="active btn-focus p-2 rounded">
-                  <a
-                    style={{ color: "white", textDecoration: "none" }}
-                    href="/add-foto-kegiatan">
-                    Tambah Foto Kegiatan
-                  </a>
-                </button>
+          </div>
+        </div>
+
+        <div className="main-card box-tabel mb-3 card">
+          <div
+            className="card-header"
+            style={{
+              background: "#FFF7F7",
+              padding: "12px 20px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "12px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
+              }}
+            >
+              <h6
+                style={{
+                  margin: 0,
+                  fontWeight: "600",
+                }}
+              >
+                Foto Kegiatan
+              </h6>
+
+              <div className="d-none d-lg-flex align-items-center gap-2">
+                <select
+                  className="form-select form-select-sm"
+                  onChange={handleRowsPerPageChange}
+                  value={rowsPerPage}
+                  style={{ width: "80px" }}
+                >
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                </select>
+
+                <input
+                  type="search"
+                  className="form-control"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  style={{
+                    width: "280px",
+                  }}
+                />
               </div>
             </div>
+
+            <Link
+              to="/add-foto-kegiatan"
+              style={{
+                background: "#0d6efd",
+                color: "#fff",
+                textDecoration: "none",
+                padding: "10px 16px",
+                borderRadius: "8px",
+                fontWeight: "500",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <i className="fa-solid fa-plus"></i>
+              Tambah Foto
+            </Link>
           </div>
         </div>
         <div
@@ -200,7 +250,12 @@ function FotoKegiatan() {
                       <td data-label="Gambar" >
                         <img
                           src={berita.foto}
-                          style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
+                          style={{
+                            height: "4.5rem",
+                            width: "4.5rem",
+                            objectFit: "cover",
+                            borderRadius: "8px",
+                          }}
                         />
                       </td>
                       <td data-label="Nama Kegiatan">
@@ -213,23 +268,47 @@ function FotoKegiatan() {
                         {berita.updatedDate}
                       </td>
                       <td data-label="Aksi" className="action">
-                        <div className="d-flex justify-content-center align-items-center">
-                          <button
-                            type="button"
-                            className="btn-primary btn-sm mr-2">
-                            <a
-                              style={{
-                                color: "white",
-                                textDecoration: "none",
-                              }}
-                              href={`/edit-foto-kegiatan/${berita.id}`}>
-                              <i className="fa-solid fa-pen-to-square"></i>
-                            </a>
-                          </button>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: "8px",
+                          }}
+                        >
+                          <Link
+                            to={`/edit-foto-kegiatan/${berita.id}`}
+                            style={{
+                              width: "34px",
+                              height: "34px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: "#0d6efd",
+                              color: "#fff",
+                              borderRadius: "8px",
+                              textDecoration: "none",
+                              border: "none",
+                            }}
+                          >
+                            <i className="fa-solid fa-pen-to-square"></i>
+                          </Link>
+
                           <button
                             onClick={() => deleteData(berita.id)}
                             type="button"
-                            className="btn-danger btn-sm">
+                            style={{
+                              width: "34px",
+                              height: "34px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: "#dc3545",
+                              color: "#fff",
+                              borderRadius: "8px",
+                              border: "none",
+                              cursor: "pointer",
+                            }}
+                          >
                             <i className="fa-solid fa-trash"></i>
                           </button>
                         </div>

@@ -91,7 +91,7 @@ function AddFotoKegiatan() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -104,10 +104,9 @@ function AddFotoKegiatan() {
   }, []);
 
   return (
-     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+    <div
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -118,68 +117,105 @@ function AddFotoKegiatan() {
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"50px"}}
+      <div style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
         data-aos="fade-left">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <div className="card shadow">
-                  <div className="card-body">
-                    <h1 className="fs-4">Form Tambah Foto Kegiatan</h1>
-                    <hr />
-                    <form onSubmit={add}>
-                      <div className="row">
-                        <div className="mb-3 co-lg-6">
-                          {/* a */}
-                          <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          {/* a */}
-                          <label className="form-label  font-weight-bold ">
-                            Kegiatan
-                          </label>
-                          <select
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => setIdKegiatan(e.target.value)}>
-                            <option selected>Pilih Kegiatan</option>
-                            {kegiatan.map((down) => {
-                              return (
-                                <option value={down.id}>{down.judul}</option>
-                              );
-                            })}
-                          </select>
-                        </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card shadow">
+                <div className="card-body">
+                  <h1 className="fs-4">Form Tambah Foto Kegiatan</h1>
+                  <hr />
+                  <form onSubmit={add}>
+                    <div className="row">
+                      <div className="mb-3 co-lg-6">
+                        {/* a */}
+                        <label className="form-label font-weight-bold">
+                          Gambar
+                        </label>
+                        <input
+                          onChange={(e) =>
+                            setImage(
+                              e.target.files ? e.target.files[0] : null
+                            )
+                          }
+                          type="file"
+                          className="form-control"
+                        />
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-kegiatan">
-                          Batal
-                        </a>
-                      </button>{" "}
-                      <button type="submit" className="btn-primary mt-3">
+                      <div className="mb-3 col-lg-12">
+                        {/* a */}
+                        <label className="form-label  font-weight-bold ">
+                          Kegiatan
+                        </label>
+                        <select
+                          className="form-control"
+                          aria-label="Small select example"
+                          onChange={(e) => setIdKegiatan(e.target.value)}>
+                          <option selected>Pilih Kegiatan</option>
+                          {kegiatan.map((down) => {
+                            return (
+                              <option value={down.id}>{down.judul}</option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        marginTop: "20px",
+                      }}>
+                      <a
+                        href="/admin-kegiatan"
+                        style={{
+                          background: "#dc3545",
+                          color: "#fff",
+                          textDecoration: "none",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}>
+                        <i
+                          className="fa-solid fa-arrow-left"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Batal
+                      </a>
+
+                      <button
+                        type="submit"
+                        style={{
+                          background: "#0d6efd",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          minWidth: "120px",
+                        }}>
+                        <i
+                          className="fa-solid fa-paper-plane"
+                          style={{ marginRight: "8px" }}
+                        />
                         Submit
                       </button>
-                    </form>
-                  </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
       {/* </div> */}
     </div>
   );

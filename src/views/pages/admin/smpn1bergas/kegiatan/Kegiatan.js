@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -118,7 +118,7 @@ function Kegiatan() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (event) => {
@@ -149,77 +149,120 @@ function Kegiatan() {
         <i className="fas fa-bars"></i>
       </a>
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
+      <main className="page-content1" style={{ marginTop: "20px" }}>
+        <div className="container" data-aos="fade-left">
+          <div
+            className="d-lg-none"
+            style={{
+              padding: "12px 16px",
+              background: "#fff",
+              borderBottom: "1px solid #eee",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
               <select
-                className="form-select form-select-xl w-auto"
+                className="form-select"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+                style={{
+                  width: "80px",
+                  flexShrink: 0,
+                }}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
               </select>
+
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Cari kegiatan..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
             </div>
           </div>
-          <div className="search">
-            <input
-              type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Kegiatan</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
+            <div
+              className="card-header"
+              style={{
+                background: "#FFF7F7",
+                padding: "12px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "12px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "15px",
+                }}
+              >
+                <h6
+                  style={{
+                    margin: 0,
+                    fontWeight: "600",
+                  }}
+                >
+                  Kegiatan
+                </h6>
+
+                <div className="d-none d-lg-flex align-items-center gap-2">
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                    style={{ width: "80px" }}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                   </select>
+
+                  <input
+                    type="search"
+                    className="form-control"
+                    placeholder="Cari kegiatan..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style={{ width: "280px" }}
+                  />
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-kegiatan">
-                        Tambah kegiatan
-                      </a>
-                    </button>
-                  </div>
-                </div>
-              </div>
+
+              <Link
+                to="/add-kegiatan"
+                style={{
+                  background: "#0d6efd",
+                  color: "#fff",
+                  textDecoration: "none",
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  fontWeight: "500",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                <i className="fa-solid fa-plus"></i>
+                Tambah Kegiatan
+              </Link>
             </div>
             <div
               className="table-responsive-3"
               style={{ overflowX: "auto", maxWidth: "100%" }}>
-              <table className="align-middle mb-0 table table-bordered table-striped table-hover">
+              <table className="align-middle mb-0 table table-hover">
                 <thead>
                   <tr>
                     <th scope="col">
@@ -254,7 +297,15 @@ function Kegiatan() {
                           <td data-label="Image" className="">
                             <img
                               src={berita.foto ? berita.foto : kegiatan}
-                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
+                              alt={berita.judul}
+                              style={{
+                                width: "60px",
+                                height: "60px",
+                                objectFit: "cover",
+                                borderRadius: "10px",
+                                display: "block",
+                                margin: "0 auto",
+                              }}
                             />
                           </td>
                           <td data-label="Tanggal Dibuat">
@@ -264,33 +315,62 @@ function Kegiatan() {
                             {berita.updatedDate}
                           </td>
                           <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2">
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit-kegiatan/${berita.id}`}>
-                                  {" "}
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                type="button"
-                                class="btn-warning  mr-2 btn-sm">
-                                <a
-                                  className="text-light"
-                                  href={"/admin-detail-kegiatan/" + berita.id}>
-                                  <i class="fas fa-info-circle"></i>
-                                </a>
-                              </button>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                gap: "8px",
+                              }}
+                            >
+                              <Link
+                                to={`/edit-kegiatan/${berita.id}`}
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#0d6efd",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  textDecoration: "none",
+                                }}
+                              >
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </Link>
+
+                              <Link
+                                to={`/admin-detail-kegiatan/${berita.id}`}
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#f59e0b",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  textDecoration: "none",
+                                }}
+                              >
+                                <i className="fas fa-info-circle"></i>
+                              </Link>
+
                               <button
                                 onClick={() => deleteData(berita.id)}
-                                type="button"
-                                className="btn-danger btn-sm">
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#dc3545",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  border: "none",
+                                  cursor: "pointer",
+                                }}
+                              >
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
@@ -323,8 +403,8 @@ function Kegiatan() {
           </div>
           <FotoKegiatan></FotoKegiatan>
         </div>
-      </div>
-    </div>
+      </main>
+    </div >
   );
 }
 

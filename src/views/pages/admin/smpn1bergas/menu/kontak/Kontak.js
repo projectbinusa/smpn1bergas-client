@@ -123,34 +123,69 @@ function Kontak() {
               <div className="title card-header d-flex justify-content-between">
                 <h1 className="fw-bold fs-3">Kontak</h1>
                 {list.length > 0 ? (<>
-                  <div>
-                    <button
-                      type="button"
-                      className="btn-primary btn-sm mr-2">
-                      <Link
-                        style={{
-                          color: "white",
-                          textDecoration: "none",
-                        }}
-                        to={`/edit-kontak/${id}`}>
-                        <i className="fa-solid fa-pen-to-square"></i>
-                      </Link>
-                    </button>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    <Link
+                      to={`/edit-kontak/${id}`}
+                      style={{
+                        width: "34px",
+                        height: "34px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "#0d6efd",
+                        color: "#fff",
+                        borderRadius: "8px",
+                        textDecoration: "none",
+                      }}
+                      title="Edit"
+                    >
+                      <i className="fa-solid fa-pen-to-square"></i>
+                    </Link>
+
                     <button
                       onClick={() => deleteData(id)}
                       type="button"
-                      className="btn-danger btn-sm">
+                      title="Hapus"
+                      style={{
+                        width: "34px",
+                        height: "34px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "#dc3545",
+                        color: "#fff",
+                        borderRadius: "8px",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
                       <i className="fa-solid fa-trash"></i>
                     </button>
                   </div>
                 </>) : (<>
-                  <button className="active btn-focus p-2 rounded">
-                    <Link
-                      style={{ color: "white", textDecoration: "none" }}
-                      to="/add-kontak">
-                      Tambah Data
-                    </Link>
-                  </button>
+                  <Link
+                    to="/add-kontak"
+                    style={{
+                      background: "#0d6efd",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "10px 16px",
+                      borderRadius: "8px",
+                      fontWeight: "500",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    <i className="fa-solid fa-plus"></i>
+                    Tambah Data
+                  </Link>
                 </>)}
               </div>
               <br />

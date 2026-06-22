@@ -228,16 +228,53 @@ function EditStruktur() {
                           )}
                         </div>
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <Link
-                          style={{ color: "white", textDecoration: "none" }}
-                          to="/admin-struktur">
-                          Batal
-                        </Link>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3" disabled={loading}>
-                        {loading ? "Loading..." : "Submit"  }
-                      </button>
+                      <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    marginTop: "20px",
+                  }}>
+                  <a
+                    href="/admin-struktur"
+                    style={{
+                      background: "#dc3545",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}>
+                    <i
+                      className="fa-solid fa-arrow-left"
+                      style={{ marginRight: "8px" }}
+                    />
+                    Batal
+                  </a>
+
+                  <button
+                    type="submit"
+                    style={{
+                      background: "#0d6efd",
+                      color: "#fff",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      border: "none",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      minWidth: "120px",
+                    }}>
+                    <i
+                      className="fa-solid fa-paper-plane"
+                      style={{ marginRight: "8px" }}
+                    />
+                    Simpan
+                  </button>
+                </div>
                     </form>
                   </div>
                 </div>

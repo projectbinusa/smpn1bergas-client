@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -118,10 +118,10 @@ function MateriAjar() {
     AOS.init();
   }, []);
 
-  const handleRowsPerPageChange = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+ const handleRowsPerPageChange = (event) => {
+  setRowsPerPage(parseInt(event.target.value, 10));
+  setCurrentPage(1);
+};
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -151,72 +151,117 @@ function MateriAjar() {
         <i className="fas fa-bars"></i>
       </a>
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
+      <main className="page-content1" style={{ marginTop: "20px" }}>
+        <div className="container" data-aos="fade-left">
+          <div
+            className="d-lg-none"
+            style={{
+              padding: "12px 16px",
+              background: "#fff",
+              borderBottom: "1px solid #eee",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
               <select
-                className="form-select form-select-xl w-auto"
+                className="form-select"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+                style={{
+                  width: "80px",
+                  flexShrink: 0,
+                }}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
               </select>
+
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Cari materi..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
             </div>
           </div>
-          <div className="search">
-            <input
-              type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Materi Ajar</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
+            <div
+              className="card-header"
+              style={{
+                background: "#FFF7F7",
+                padding: "12px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "12px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "15px",
+                }}
+              >
+                <h6
+                  style={{
+                    margin: 0,
+                    fontWeight: "600",
+                  }}
+                >
+                  Materi Ajar
+                </h6>
+
+                <div className="d-none d-lg-flex align-items-center gap-2">
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                    style={{ width: "80px" }}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                   </select>
+
+                  <input
+                    type="search"
+                    className="form-control"
+                    placeholder="Cari materi..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style={{
+                      width: "280px",
+                    }}
+                  />
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-materi-ajar">
-                        Tambah Data
-                      </a>
-                    </button>
-                  </div>
-                </div>
-              </div>
+
+              <Link
+                to="/add-materi-ajar"
+                style={{
+                  background: "#0d6efd",
+                  color: "#fff",
+                  textDecoration: "none",
+                  padding: "10px 16px",
+                  borderRadius: "8px",
+                  fontWeight: "500",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                <i className="fa-solid fa-plus"></i>
+                Tambah Data
+              </Link>
             </div>
             <div
               className="table-responsive-3"
@@ -261,33 +306,63 @@ function MateriAjar() {
                             {berita.jenis}
                           </td>
                           <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2">
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit-materi-ajar/${berita.id}`}>
-                                  {" "}
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                type="button"
-                                class="btn-warning  mr-2 btn-sm">
-                                <a
-                                  className="text-light"
-                                  href={"/detail-materi-ajar/" + berita.id}>
-                                  <i class="fas fa-info-circle"></i>
-                                </a>
-                              </button>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                gap: "8px",
+                                flexWrap: "nowrap",
+                              }}
+                            >
+                              <Link
+                                to={`/edit-materi-ajar/${berita.id}`}
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#0d6efd",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  textDecoration: "none",
+                                }}
+                              >
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </Link>
+
+                              <Link
+                                to={`/detail-materi-ajar/${berita.id}`}
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#f59e0b",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  textDecoration: "none",
+                                }}
+                              >
+                                <i className="fas fa-info-circle"></i>
+                              </Link>
+
                               <button
                                 onClick={() => deleteData(berita.id)}
-                                type="button"
-                                className="btn-danger btn-sm">
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  background: "#dc3545",
+                                  color: "#fff",
+                                  borderRadius: "8px",
+                                  border: "none",
+                                  cursor: "pointer",
+                                }}
+                              >
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
@@ -319,7 +394,7 @@ function MateriAjar() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

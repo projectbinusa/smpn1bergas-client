@@ -134,68 +134,106 @@ function CategoryProgram() {
     <>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
-      <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-        <div className="col-auto">
-          <label className="form-label mt-2">Rows per page:</label>
-        </div>
-        <div className="col-auto">
+      <div
+        className="d-lg-none"
+        style={{
+          padding: "12px 16px",
+          background: "#fff",
+          borderBottom: "1px solid #eee",
+        }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}>
           <select
-            className="form-select form-select-xl w-auto"
+            className="form-select"
             onChange={handleRowsPerPageChange}
-            value={rowsPerPage}>
+            value={rowsPerPage}
+            style={{
+              width: "80px",
+              flexShrink: 0,
+            }}>
             <option value={1}>1</option>
             <option value={10}>10</option>
             <option value={20}>20</option>
           </select>
+
+          <input
+            type="search"
+            className="form-control"
+            placeholder="Cari kategori..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
         </div>
       </div>
-      <div className="search">
-        <input
-          type="search"
-          className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-      </div>
       <div className="main-card box-tabel mb-3 card">
-        <div className="card-header" style={{ display: "flex" }}>
-          <p className="mt-3">Kategori Program</p>
-          <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
+        <div
+          className="card-header"
+          style={{
+            background: "#FFF7F7",
+            padding: "12px 20px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "12px",
+          }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "15px",
+            }}>
+            <h6
+              style={{
+                margin: 0,
+                fontWeight: "600",
+              }}>
+              Kategori Program
+            </h6>
+
+            <div className="d-none d-lg-flex align-items-center gap-2">
               <select
                 className="form-select form-select-sm"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+                style={{ width: "80px" }}>
                 <option value={1}>1</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
               </select>
+
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                style={{
+                  width: "280px",
+                }}
+              />
             </div>
           </div>
-          <div className="d-flex ml-auto gap-3">
-            <input
-              type="search"
-              className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            <div className="btn-actions-pane-right">
-              <div role="group" className="btn-group-sm btn-group">
-                <button className="active btn-focus p-2 rounded">
-                  <Link
-                    style={{ color: "white", textDecoration: "none" }}
-                    to="/add-category-program">
-                    Tambah Kategori
-                  </Link>
-                </button>
-              </div>
-            </div>
-          </div>
+
+          <Link
+            to="/add-category-program"
+            style={{
+              background: "#0d6efd",
+              color: "#fff",
+              textDecoration: "none",
+              padding: "10px 16px",
+              borderRadius: "8px",
+              fontWeight: "500",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}>
+            <i className="fa-solid fa-plus"></i>
+            Tambah Kategori
+          </Link>
         </div>
         <div
           className="table-responsive-3"
@@ -212,45 +250,57 @@ function CategoryProgram() {
               {filteredList.length > 0 ?
                 filteredList.map((berita, no) => {
                   return (
-                    <tr key={no} style={{ textAlign: "right" }}>
+                    <tr key={no}>
                       <td data-label="No">
                         {no + 1 + (currentPage - 1) * rowsPerPage}
                       </td>
                       <td data-label="Kategori Program">
-                        <span
-                          style={{
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 2,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            textAlign: "right",
-                          }}
-                        >
-                          {berita.category}
-                        </span>
+                        {berita.category}
                       </td>
                       <td data-label="Aksi" className="action">
-                        <div className="d-flex justify-content-end align-items-center">
-                          <button type="button" className="btn-primary btn-sm mr-2">
-                            <Link
-                              style={{
-                                color: "white",
-                                textDecoration: "none",
-                                textAlign: "right",
-                              }}
-                              to={`/edit-category-program/${berita.id}`}
-                            >
-                              <i className="fa-solid fa-pen-to-square"></i>
-                            </Link>
-                          </button>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: "8px",
+                          }}>
+
+                          <Link
+                            to={`/edit-category-program/${berita.id}`}
+                            style={{
+                              width: "34px",
+                              height: "34px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: "#0d6efd",
+                              color: "#fff",
+                              borderRadius: "8px",
+                              textDecoration: "none",
+                            }}
+                            title="Edit">
+                            <i className="fa-solid fa-pen-to-square"></i>
+                          </Link>
+
                           <button
                             onClick={() => deleteData(berita.id)}
                             type="button"
-                            className="btn-danger btn-sm"
-                          >
+                            title="Hapus"
+                            style={{
+                              width: "34px",
+                              height: "34px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: "#dc3545",
+                              color: "#fff",
+                              borderRadius: "8px",
+                              border: "none",
+                              cursor: "pointer",
+                            }}>
                             <i className="fa-solid fa-trash"></i>
                           </button>
+
                         </div>
                       </td>
                     </tr>
