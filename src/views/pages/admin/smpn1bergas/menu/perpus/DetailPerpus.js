@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
+import { useParams, Link } from "react-router-dom/cjs/react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -49,7 +49,7 @@ function DetailPerpus() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -62,113 +62,127 @@ function DetailPerpus() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-       <a
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background:"#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-        <div style={{marginTop:"10px"}} className="page-content1 mt-3 mb-3 app-main__outer">
-          <div className="container box-tabel">
-            <form className="card shadow w-100">
-              <h1 className="title card-header fw-bold fs-3">Detail Buku</h1>
+      <div style={{ marginTop: "10px" }} className="page-content1 mt-3 mb-3 app-main__outer">
+        <div className="container box-tabel">
+          <form className="card shadow w-100">
+            <h1 className="title card-header fw-bold fs-3">Detail Buku</h1>
+            <br />
+            <div className="card-body">
+              {image === null ? (
+                <img
+                  className="rounded-circle w-75 mr-auto ml-auto d-block"
+                  src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+                />
+              ) : (
+                <img
+                  style={{ maxWidth: "400px", maxHeight: "400px" }}
+                  className="w-75 d-block mr-auto ml-auto"
+                  src={image}
+                />
+              )}
               <br />
-              <div className="card-body">
-                {image === null ? (
-                  <img
-                    className="rounded-circle w-75 mr-auto ml-auto d-block"
-                    src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
-                  />
-                ) : (
-                  <img
-                    style={{ maxWidth: "400px", maxHeight: "400px" }}
-                    className="w-75 d-block mr-auto ml-auto"
-                    src={image}
-                  />
-                )}
-                <br />
-                <br />
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Judul Berita</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={judulBerita}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Author</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={author}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tanggal Dibuat</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={format(
-                      new Date(createdDate || new Date()),
-                      "dd MMMM yyyy",
-                      { locale: idLocale }
-                    )}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tanggal Update</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={format(
-                      new Date(updateDate || new Date()),
-                      "dd MMMM yyyy",
-                      { locale: idLocale }
-                    )}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Kategori Berita</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={categoryBerita}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Isi Berita</label>
-                  <div
-                    className="form-control"
-                    style={{ height: "fit-content", background: "#e9ecef" }}
-                    dangerouslySetInnerHTML={{ __html: isiBerita }}
-                  />
-                </div>
+              <br />
+              <div class="mb-3">
+                <label class="form-label fw-bold">Judul Berita</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={judulBerita}
+                />
               </div>
-              <button
-                type="submit"
-                className="btn-kembali btn-danger mt-3 mr-3">
-                <a
-                  href="/admin-berita"
-                  style={{ color: "white", textDecoration: "none" }}>
-                  Kembali
-                </a>
-              </button>
-            </form>
-          </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Author</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={author}
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Tanggal Dibuat</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={format(
+                    new Date(createdDate || new Date()),
+                    "dd MMMM yyyy",
+                    { locale: idLocale }
+                  )}
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Tanggal Update</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={format(
+                    new Date(updateDate || new Date()),
+                    "dd MMMM yyyy",
+                    { locale: idLocale }
+                  )}
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Kategori Berita</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  value={categoryBerita}
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Isi Berita</label>
+                <div
+                  className="form-control"
+                  style={{ height: "fit-content", background: "#e9ecef" }}
+                  dangerouslySetInnerHTML={{ __html: isiBerita }}
+                />
+              </div>
+            </div>
+            <div
+              className="btn-kembali"
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginTop: "20px",
+              }}>
+              <Link
+                to="/admin-berita"
+                style={{
+                  background: "#dc3545",
+                  color: "#fff",
+                  textDecoration: "none",
+                  padding: "10px 20px",
+                  borderRadius: "8px",
+                  fontWeight: "500",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "none",
+                }}>
+                Kembali
+              </Link>
+            </div>
+          </form>
         </div>
+      </div>
       {/* </div> */}
     </div>
   );

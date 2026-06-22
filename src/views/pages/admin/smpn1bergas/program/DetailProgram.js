@@ -94,15 +94,30 @@ function DetailProgram() {
                   <div className="form-control" style={{ height: "auto", background: "#e9ecef" }} dangerouslySetInnerHTML={{ __html: tujuan }} />
                 </div>
               </div>
-              <button
-                type="submit"
-                className="btn-kembali btn-danger mt-3 mr-3">
+              <div
+                className="btn-kembali"
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  marginTop: "20px",
+                }}>
                 <Link
                   to="/admin-program"
-                  style={{ color: "white", textDecoration: "none" }}>
+                  style={{
+                    background: "#dc3545",
+                    color: "#fff",
+                    textDecoration: "none",
+                    padding: "10px 20px",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    border: "none",
+                  }}>
                   Kembali
                 </Link>
-              </button>
+              </div>
             </form>
           </div>
         </div>

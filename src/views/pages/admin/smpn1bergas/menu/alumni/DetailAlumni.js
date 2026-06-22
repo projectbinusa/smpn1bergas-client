@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
+import { useParams, Link } from "react-router-dom/cjs/react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -52,7 +52,7 @@ function DetailAlumni() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -65,20 +65,19 @@ function DetailAlumni() {
   }, []);
 
   return (
-    <div  className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer">
           <div className="box-tabel">
             <form className="card shadow w-100">
@@ -172,16 +171,30 @@ function DetailAlumni() {
                   />
                 </div>
               </div>
-              <button
-                type="submit"
-                className="btn-kembali btn-danger mt-3 mr-3">
-                <a
-                  href="/admin-alumni"
-                  style={{ color: "white", textDecoration: "none" }}>
-                  {" "}
+              <div
+                className="btn-kembali"
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  marginTop: "20px",
+                }}>
+                <Link
+                  to="/admin-alumni"
+                  style={{
+                    background: "#dc3545",
+                    color: "#fff",
+                    textDecoration: "none",
+                    padding: "10px 20px",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    border: "none",
+                  }}>
                   Kembali
-                </a>
-              </button>
+                </Link>
+              </div>
             </form>
           </div>
         </div>
