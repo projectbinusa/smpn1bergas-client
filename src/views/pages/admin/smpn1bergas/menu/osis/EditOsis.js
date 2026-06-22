@@ -7,6 +7,7 @@ import {
 import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import "ckeditor5/ckeditor5.css";
 import Sidebar1 from "../../../../../../component/Sidebar1";
@@ -18,6 +19,7 @@ function EditOsis() {
   const [jabatan, setJabatan] = useState("");
   const [tahunJabat, setTahunJabat] = useState("");
   const [tahunTuntas, setTahunTuntas] = useState("");
+  const [loading, setLoading] = useState(false);
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -71,6 +73,7 @@ function EditOsis() {
 
   const update = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("file", image);
@@ -83,45 +86,51 @@ function EditOsis() {
       tahunTuntas: tahunTuntas
     }
 
-    await axios
-      .put(`${API_DUMMY}/api/osis/put/` + param.id, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-    .then(() => {
-        if (image) {
-          axios.put(`${API_DUMMY}/api/osis/put/foto/` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
-        }
-        Swal.fire({
-          icon: "success",
-          title: "Berhasil Mengedit Data Osis",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        history.push("/admin-osis");
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
+    try {
+      await axios
+        .put(`${API_DUMMY}/api/osis/put/` + param.id, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then(() => {
+          if (image) {
+            axios.put(`${API_DUMMY}/api/osis/put/foto/` + param.id, formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }).catch((err) => {
+              console.log(err);
+            })
+          }
           Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
+            icon: "success",
+            title: "Berhasil Mengedit Data Osis",
             showConfirmButton: false,
             timer: 1500,
           });
-          console.log(error);
-        }
-      });
+          history.push("/admin-osis");
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            localStorage.clear();
+            history.push("/login");
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Edit Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(error);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -211,17 +220,70 @@ function EditOsis() {
                     />
                   </div>
                 </div>
-                <button type="button" className="btn-danger mt-3">
-                  <a
-                    style={{ color: "white", textDecoration: "none" }}
-                    href="/admin-osis"
-                  >
+
+                {/* Bagian button dengan gaya yang sama seperti AddBeritaAdmin */}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    marginTop: "20px",
+                  }}>
+                  <Link
+                    to="/admin-osis"
+                    style={{
+                      background: "#dc3545",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: "none",
+                    }}>
+                    <i
+                      className="fa-solid fa-arrow-left"
+                      style={{ marginRight: "8px" }}
+                    />
                     Batal
-                  </a>
-                </button>{" "}
-                <button type="submit" className="btn-primary mt-3">
-                  Submit
-                </button>
+                  </Link>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    style={{
+                      background: loading ? "#6c757d" : "#0d6efd",
+                      color: "#fff",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      border: "none",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: loading ? "not-allowed" : "pointer",
+                      minWidth: "120px",
+                    }}>
+                    {loading ? (
+                      <>
+                        <i
+                          className="fa-solid fa-spinner fa-spin"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Loading...
+                      </>
+                    ) : (
+                      <>
+                        <i
+                          className="fa-solid fa-paper-plane"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Update
+                      </>
+                    )}
+                  </button>
+                </div>
               </form>
             </div>
           </div>

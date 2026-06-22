@@ -67,8 +67,13 @@ function EditSejarah() {
   const [judulSejarah, setJudulSejarah] = useState("");
   const [isiSejarah, setIsiSejarah] = useState("");
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const param = useParams();
+
+  const handleCancel = () => {
+    history.push("/admin-sejarah");
+  };
 
   useEffect(() => {
     axios
@@ -87,43 +92,51 @@ function EditSejarah() {
         console.log(error);
       });
   }, []);
+
   const update = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const data = {
       isi: isiSejarah,
       judul: judulSejarah,
     };
 
-    await axios
-      .put(`${API_DUMMY}/api/sejarah/put/` + param.id, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Berhasil Mengedit Data Sejarah",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        history.push("/admin-sejarah");
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
+    try {
+      await axios
+        .put(`${API_DUMMY}/api/sejarah/put/` + param.id, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then(() => {
           Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
+            icon: "success",
+            title: "Berhasil Mengedit Data Sejarah",
             showConfirmButton: false,
             timer: 1500,
           });
-          console.log(error);
-        }
-      });
+          history.push("/admin-sejarah");
+        })
+        .catch((error) => {
+          if (error.ressponse && error.response.status === 401) {
+            localStorage.clear();
+            history.push("/login");
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Edit Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(error);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const REDUCED_MATERIAL_COLORS = [
@@ -273,9 +286,8 @@ function EditSejarah() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -546,42 +558,69 @@ function EditSejarah() {
                         />
                       </div>
                     </div>
+
+                    {/* Bagian button dengan gaya yang sama seperti AddPerpus */}
                     <div
                       style={{
                         display: "flex",
-                        gap: "12px",
+                        gap: "10px",
                         marginTop: "20px",
                       }}>
-                      <a
-                        href="/admin-sejarah"
+                      <button
+                        type="button"
+                        onClick={handleCancel}
                         style={{
-                          background: "#6c757d",
+                          background: "#dc3545",
                           color: "#fff",
-                          textDecoration: "none",
                           padding: "10px 20px",
                           borderRadius: "8px",
+                          border: "none",
                           fontWeight: "500",
                           display: "inline-flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          minWidth: "100px",
+                          cursor: "pointer",
                         }}>
+                        <i
+                          className="fa-solid fa-arrow-left"
+                          style={{ marginRight: "8px" }}
+                        />
                         Batal
-                      </a>
+                      </button>
 
                       <button
                         type="submit"
+                        disabled={loading}
                         style={{
-                          background: "#0d6efd",
+                          background: loading ? "#6c757d" : "#0d6efd",
                           color: "#fff",
-                          border: "none",
                           padding: "10px 20px",
                           borderRadius: "8px",
+                          border: "none",
                           fontWeight: "500",
-                          minWidth: "100px",
-                          cursor: "pointer",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: loading ? "not-allowed" : "pointer",
+                          minWidth: "120px",
                         }}>
-                        Submit
+                        {loading ? (
+                          <>
+                            <i
+                              className="fa-solid fa-spinner fa-spin"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            <i
+                              className="fa-solid fa-paper-plane"
+                              style={{ marginRight: "8px" }}
+                            />
+                            Update
+                          </>
+                        )}
                       </button>
                     </div>
                   </form>

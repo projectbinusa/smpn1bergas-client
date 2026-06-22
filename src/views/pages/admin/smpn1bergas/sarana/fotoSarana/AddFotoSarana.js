@@ -7,18 +7,21 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
+import { Link } from "react-router-dom";
 
 function AddFotoSarana() {
   const [image, setImage] = useState(null);
   const [idSarana, setIdSarana] = useState("");
   const [kegiatan, setKegiatan] = useState([]);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   //add
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("id_sarana", idSarana);
@@ -59,6 +62,8 @@ function AddFotoSarana() {
         });
         console.log(error);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,9 +112,8 @@ function AddFotoSarana() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -166,16 +170,70 @@ function AddFotoSarana() {
                           </select>
                         </div>
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-sarana">
+
+                      {/* Bagian button dengan gaya yang sama seperti AddBeritaAdmin */}
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          marginTop: "20px",
+                        }}>
+                        <Link
+                          to="/admin-sarana"
+                          style={{
+                            background: "#dc3545",
+                            color: "#fff",
+                            textDecoration: "none",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "none",
+                          }}>
+                          <i
+                            className="fa-solid fa-arrow-left"
+                            style={{ marginRight: "8px" }}
+                          />
                           Batal
-                        </a>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
+                        </Link>
+
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          style={{
+                            background: loading ? "#6c757d" : "#0d6efd",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: loading ? "not-allowed" : "pointer",
+                            minWidth: "120px",
+                          }}>
+                          {loading ? (
+                            <>
+                              <i
+                                className="fa-solid fa-spinner fa-spin"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Loading...
+                            </>
+                          ) : (
+                            <>
+                              <i
+                                className="fa-solid fa-paper-plane"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Submit
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>

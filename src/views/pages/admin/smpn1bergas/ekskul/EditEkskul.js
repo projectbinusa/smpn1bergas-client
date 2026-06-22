@@ -9,6 +9,7 @@ import {
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import Sidebar1 from "../../../../../component/Sidebar1";
 import { uploadFileToS3 } from "../../../../../utils/uploadToS3";
@@ -24,6 +25,7 @@ function EditEkskul() {
   const [file, setFile] = useState("");
   const [show, setShow] = useState(false);
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const param = useParams();
 
@@ -53,6 +55,7 @@ function EditEkskul() {
 
   const update = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // const formData = new FormData();
     // formData.append("file", file);
@@ -78,54 +81,60 @@ function EditEkskul() {
       prestasi: prestasi,
     };
 
-    await axios
-      .put(`${API_DUMMY}/api/ekstrakulikuler/put/` + param.id, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => {
-        if (file) {
-          axios
-            .put(
-              `${API_DUMMY}/api/ekstrakulikuler/put/foto/` + param.id,
-              dataImage,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-              }
-            )
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-        Swal.fire({
-          icon: "success",
-          title: "Berhasil Mengedit Data Ekstrakulikuler",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          history.push("/admin-ekstrakulikuler");
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
+    try {
+      await axios
+        .put(`${API_DUMMY}/api/ekstrakulikuler/put/` + param.id, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then(() => {
+          if (file) {
+            axios
+              .put(
+                `${API_DUMMY}/api/ekstrakulikuler/put/foto/` + param.id,
+                dataImage,
+                {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                }
+              )
+              .catch((err) => {
+                console.log(err);
+              });
+          }
           Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
+            icon: "success",
+            title: "Berhasil Mengedit Data Ekstrakulikuler",
             showConfirmButton: false,
             timer: 1500,
           });
-          console.log(error);
-        }
-      });
+          setTimeout(() => {
+            history.push("/admin-ekstrakulikuler");
+            window.location.reload();
+          }, 1500);
+        })
+        .catch((error) => {
+          if (error.ressponse && error.response.status === 401) {
+            localStorage.clear();
+            history.push("/login");
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Edit Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(error);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -152,9 +161,8 @@ function EditEkskul() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -277,32 +285,71 @@ function EditEkskul() {
                             placeholder="Masukkan Gambar"
                           />
                         </div>
-                        {/* <div className="mb-3 co-lg-6">
-                        {/* <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                            required
-                          /> */}
-                        {/* </div> */}
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-ekstrakulikuler">
+
+                      {/* Bagian button dengan gaya yang sama seperti AddBeritaAdmin */}
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          marginTop: "20px",
+                        }}>
+                        <Link
+                          to="/admin-ekstrakulikuler"
+                          style={{
+                            background: "#dc3545",
+                            color: "#fff",
+                            textDecoration: "none",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "none",
+                          }}>
+                          <i
+                            className="fa-solid fa-arrow-left"
+                            style={{ marginRight: "8px" }}
+                          />
                           Batal
-                        </a>
-                      </button>{" "}
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
+                        </Link>
+
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          style={{
+                            background: loading ? "#6c757d" : "#0d6efd",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: loading ? "not-allowed" : "pointer",
+                            minWidth: "120px",
+                          }}>
+                          {loading ? (
+                            <>
+                              <i
+                                className="fa-solid fa-spinner fa-spin"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Loading...
+                            </>
+                          ) : (
+                            <>
+                              <i
+                                className="fa-solid fa-paper-plane"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Update
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>

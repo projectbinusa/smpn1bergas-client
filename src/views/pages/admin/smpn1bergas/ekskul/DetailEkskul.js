@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Sidebar1 from "../../../../../component/Sidebar1";
@@ -46,6 +47,7 @@ function DetailEkskul() {
         alert("Terjadi Kesalahan " + error);
       });
   }, [param.id]);
+  
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -63,6 +65,7 @@ function DetailEkskul() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  
   return (
     <div  className={`page-wrapper chiller-theme ${
       sidebarToggled ? "toggled" : ""
@@ -185,15 +188,36 @@ function DetailEkskul() {
                   />
                 </div>
               </div>
-              <button
-                type="submit"
-                className="btn-kembali btn-danger mt-3 mr-3">
-                <a
-                  href="/admin-ekstrakulikuler"
-                  style={{ color: "white", textDecoration: "none" }}>
+              
+              {/* Bagian button Kembali dengan gaya seperti AddBeritaAdmin */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  marginTop: "10px",
+                  padding: "0 20px 20px 20px",
+                }}>
+                <Link
+                  to="/admin-ekstrakulikuler"
+                  style={{
+                    background: "#dc3545",
+                    color: "#fff",
+                    textDecoration: "none",
+                    padding: "10px 20px",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    border: "none",
+                  }}>
+                  <i
+                    className="fa-solid fa-arrow-left"
+                    style={{ marginRight: "8px" }}
+                  />
                   Kembali
-                </a>
-              </button>
+                </Link>
+              </div>
             </form>
           </div>
         </div>

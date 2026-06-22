@@ -6,6 +6,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
+import { Link } from "react-router-dom";
 
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
@@ -15,17 +16,18 @@ function AddTenagaKependidikan() {
   const [nama, setNama] = useState("");
   const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setLoading(true);
 
     try {
       const formData = new FormData();
       formData.append("nama", nama);
       formData.append("status", status);
-      // formData.append("file", image);
 
       await axios.post(
         `${API_DUMMY}/api/tenaga_kependidikan/add`,
@@ -35,7 +37,6 @@ function AddTenagaKependidikan() {
         },
         {
           headers: {
-            // "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
@@ -64,6 +65,8 @@ function AddTenagaKependidikan() {
         });
         console.log(error);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,7 +80,7 @@ function AddTenagaKependidikan() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -88,24 +91,24 @@ function AddTenagaKependidikan() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
   return (
     <div
-    className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div style={{marginTop:"50px"}}
-      className="page-content1 mb-3 app-main__outer"
-      data-aos="fade-left">
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div style={{ marginTop: "50px" }}
+        className="page-content1 mb-3 app-main__outer"
+        data-aos="fade-left">
         <div className="container" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
@@ -143,16 +146,70 @@ function AddTenagaKependidikan() {
                           />
                         </div>
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-tenaga-kependidikan">
+
+                      {/* Bagian button dengan gaya yang sama seperti AddBeritaAdmin */}
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          marginTop: "20px",
+                        }}>
+                        <Link
+                          to="/admin-tenaga-kependidikan"
+                          style={{
+                            background: "#dc3545",
+                            color: "#fff",
+                            textDecoration: "none",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "none",
+                          }}>
+                          <i
+                            className="fa-solid fa-arrow-left"
+                            style={{ marginRight: "8px" }}
+                          />
                           Batal
-                        </a>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
+                        </Link>
+
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          style={{
+                            background: loading ? "#6c757d" : "#0d6efd",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: loading ? "not-allowed" : "pointer",
+                            minWidth: "120px",
+                          }}>
+                          {loading ? (
+                            <>
+                              <i
+                                className="fa-solid fa-spinner fa-spin"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Loading...
+                            </>
+                          ) : (
+                            <>
+                              <i
+                                className="fa-solid fa-paper-plane"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Submit
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>

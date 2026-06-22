@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
 import Sidebar1 from "../../../../../../component/Sidebar1";
+import { Link } from "react-router-dom";
 
 function AddOsis() {
   const [nama, setNama] = useState("");
@@ -17,6 +18,7 @@ function AddOsis() {
   const [tahunJabat, setTahunJabat] = useState("");
   const [tahunTuntas, setTahunTuntas] = useState("");
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -44,6 +46,7 @@ function AddOsis() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("nama", nama);
@@ -51,7 +54,6 @@ function AddOsis() {
     formData.append("kelas", kelas);
     formData.append("tahunJabat", tahunJabat);
     formData.append("tahunTuntas", tahunTuntas);
-    // formData.append("file", image);
 
     try {
       await axios.post(
@@ -91,6 +93,8 @@ function AddOsis() {
         });
         console.log(error);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,9 +107,8 @@ function AddOsis() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -186,16 +189,70 @@ function AddOsis() {
                     />
                   </div>
                 </div>
-                <button type="button" className="btn-danger mt-3">
-                  <a
-                    style={{ color: "white", textDecoration: "none" }}
-                    href="/admin-osis">
+
+                {/* Bagian button dengan gaya yang sama seperti AddBeritaAdmin */}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    marginTop: "20px",
+                  }}>
+                  <Link
+                    to="/admin-osis"
+                    style={{
+                      background: "#dc3545",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: "none",
+                    }}>
+                    <i
+                      className="fa-solid fa-arrow-left"
+                      style={{ marginRight: "8px" }}
+                    />
                     Batal
-                  </a>
-                </button>
-                <button type="submit" className="btn-primary mt-3">
-                  Submit
-                </button>
+                  </Link>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    style={{
+                      background: loading ? "#6c757d" : "#0d6efd",
+                      color: "#fff",
+                      padding: "10px 20px",
+                      borderRadius: "8px",
+                      border: "none",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: loading ? "not-allowed" : "pointer",
+                      minWidth: "120px",
+                    }}>
+                    {loading ? (
+                      <>
+                        <i
+                          className="fa-solid fa-spinner fa-spin"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Loading...
+                      </>
+                    ) : (
+                      <>
+                        <i
+                          className="fa-solid fa-paper-plane"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Submit
+                      </>
+                    )}
+                  </button>
+                </div>
               </form>
             </div>
           </div>

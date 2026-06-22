@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
+import { Link } from "react-router-dom";
 
 import Sidebar1 from "../../../../../../component/Sidebar1";
 
@@ -131,34 +132,60 @@ function DetailVisi() {
               <div className="title card-header d-flex justify-content-between">
                 <h1 className="fw-bold fs-3">Visi Misi</h1>
                 {datas.length > 0 ? (<>
-                  <div>
-                    <button
-                      type="button"
-                      className="btn-primary btn-sm mr-2">
-                      <a
-                        style={{
-                          color: "white",
-                          textDecoration: "none",
-                        }}
-                        href={`/edit-visimisi/${id}`}>
-                        <i className="fa-solid fa-pen-to-square"></i>
-                      </a>
-                    </button>
+                  <div style={{ display: "flex", gap: "8px" }}>
+                    <Link
+                      to={`/edit-visimisi/${id}`}
+                      style={{
+                        background: "#0d6efd",
+                        color: "#fff",
+                        textDecoration: "none",
+                        padding: "10px 16px",
+                        borderRadius: "8px",
+                        fontWeight: "500",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        border: "none",
+                      }}>
+                      <i className="fa-solid fa-pen-to-square"></i>
+                      Edit
+                    </Link>
                     <button
                       onClick={() => deleteData(id)}
                       type="button"
-                      className="btn-danger btn-sm">
+                      style={{
+                        background: "#dc3545",
+                        color: "#fff",
+                        padding: "10px 16px",
+                        borderRadius: "8px",
+                        border: "none",
+                        fontWeight: "500",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        cursor: "pointer",
+                      }}>
                       <i className="fa-solid fa-trash"></i>
+                      Hapus
                     </button>
                   </div>
                 </>) : (<>
-                  <button className="active btn-focus p-2 rounded">
-                    <a
-                      style={{ color: "white", textDecoration: "none" }}
-                      href="/add-visimisi">
-                      Tambah Data
-                    </a>
-                  </button>
+                  <Link
+                    to="/add-visimisi"
+                    style={{
+                      background: "#0d6efd",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "10px 16px",
+                      borderRadius: "8px",
+                      fontWeight: "500",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}>
+                    <i className="fa-solid fa-plus"></i>
+                    Tambah Data
+                  </Link>
                 </>)}
               </div>
               <br />

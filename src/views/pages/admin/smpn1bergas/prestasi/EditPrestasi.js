@@ -19,6 +19,7 @@ function EditPrestasi() {
   const [skala, setSkala] = useState("");
   const [tanggal, setTanggal] = useState("");
   const [judul, setJudul] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
@@ -50,6 +51,7 @@ function EditPrestasi() {
   // update data
   const update = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("file", image);
@@ -106,6 +108,8 @@ function EditPrestasi() {
         });
         console.log(error);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -171,8 +175,7 @@ function EditPrestasi() {
                             Nama Prestasi
                           </label>
                           <input
-                          required
-                          
+                            required
                             value={judul}
                             onChange={(e) => setJudul(e.target.value)}
                             type="text"
@@ -185,7 +188,7 @@ function EditPrestasi() {
                             Penyelenggara
                           </label>
                           <input
-                          required
+                            required
                             value={penyelenggara}
                             onChange={(e) => setPenyelenggara(e.target.value)}
                             type="text"
@@ -224,7 +227,7 @@ function EditPrestasi() {
                             Nama Peserta
                           </label>
                           <input
-                          required
+                            required
                             value={namaPeserta}
                             onChange={(e) => setNamaPeserta(e.target.value)}
                             type="text"
@@ -238,7 +241,7 @@ function EditPrestasi() {
                             Tanggal Pelaksanaan
                           </label>
                           <input
-                          required
+                            required
                             type="date"
                             value={tanggal}
                             onChange={(e) => setTanggal(e.target.value)}
@@ -247,17 +250,69 @@ function EditPrestasi() {
                         </div>
                       </div>
 
-                      <button type="button" className="btn btn-danger mt-3 mr-3">
+                      {/* Bagian button dengan gaya yang sama seperti AddBeritaAdmin */}
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          marginTop: "20px",
+                        }}>
                         <Link
-                          style={{ color: "white", textDecoration: "none" }}
                           to="/admin-prestasi"
-                        >
+                          style={{
+                            background: "#dc3545",
+                            color: "#fff",
+                            textDecoration: "none",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "none",
+                          }}>
+                          <i
+                            className="fa-solid fa-arrow-left"
+                            style={{ marginRight: "8px" }}
+                          />
                           Batal
                         </Link>
-                      </button>
-                      <button type="submit" className="btn btn-primary mt-3">
-                        Submit
-                      </button>
+
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          style={{
+                            background: loading ? "#6c757d" : "#0d6efd",
+                            color: "#fff",
+                            padding: "10px 20px",
+                            borderRadius: "8px",
+                            border: "none",
+                            fontWeight: "500",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor: loading ? "not-allowed" : "pointer",
+                            minWidth: "120px",
+                          }}>
+                          {loading ? (
+                            <>
+                              <i
+                                className="fa-solid fa-spinner fa-spin"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Loading...
+                            </>
+                          ) : (
+                            <>
+                              <i
+                                className="fa-solid fa-paper-plane"
+                                style={{ marginRight: "8px" }}
+                              />
+                              Update
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>
