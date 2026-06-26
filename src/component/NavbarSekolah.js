@@ -108,7 +108,7 @@ const NavbarSekolah = () => {
               </li>
             </ul>
           </li>
-          <li
+          {/* <li
             className={`navbars-item ${activeMenu === "keuangan" ? "active" : ""
               }`}>
             <a
@@ -128,7 +128,7 @@ const NavbarSekolah = () => {
                 <a href="/keuangan-komite">KOMITE</a>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li
             className={`navbars-item ${activeMenu === "kesiswaan" ? "active" : ""
               }`}>

@@ -13,7 +13,6 @@ function AddGuru() {
   const [namaGuru, setNamaGuru] = useState("");
   const [image, setImage] = useState(null);
   const [mapel, setMapel] = useState("");
-  const [nip, setNip] = useState("");
   const [riwayat, setRiwayat] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
@@ -28,7 +27,6 @@ function AddGuru() {
     const guruData = {
       nama_guru: namaGuru,
       mapel: mapel,
-      nip: nip,
       riwayat: riwayat
     };
 
@@ -134,19 +132,6 @@ function AddGuru() {
                       </div>
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
-                          NIP
-                        </label>
-                        <input
-                          required
-                          value={nip}
-                          onChange={(e) => setNip(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder="Masukkan NIP"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
                           Foto
                         </label>
                         <input
@@ -169,10 +154,12 @@ function AddGuru() {
                       </div>
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
-                          Riwayat Pendidikan
+                          Riwayat Pendidikan{" "}
+                          <span className="text-muted" style={{ fontWeight: 400, fontSize: "0.85em" }}>
+                            (Opsional)
+                          </span>
                         </label>
                         <input
-                          required
                           value={riwayat}
                           onChange={(e) => setRiwayat(e.target.value)}
                           type="text"

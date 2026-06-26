@@ -15,7 +15,6 @@ function EditGuru() {
   const [namaGuru, setNamaGuru] = useState("");
   const [image, setFile] = useState(null);
   const [mapel, setMapel] = useState("");
-  const [nip, setNip] = useState("");
   const [riwayat, setRiwayat] = useState("");
   const param = useParams();
   const history = useHistory();
@@ -34,7 +33,6 @@ function EditGuru() {
         setNamaGuru(response.nama_guru);
         setMapel(response.mapel);
         setImageUrl(response.foto);
-        setNip(response.nip);
         setRiwayat(response.riwayat);
         console.log("guru : ", ress.data.data);
       })
@@ -54,7 +52,6 @@ function EditGuru() {
       nama_guru: namaGuru,
       mapel: mapel,
       riwayat: riwayat,
-      nip: nip
     }
     try {
       await axios
@@ -222,22 +219,13 @@ function EditGuru() {
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
-                    <label className="form-label font-weight-bold">NIP</label>
-                    <input
-                      required
-                      value={nip}
-                      onChange={(e) => setNip(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      placeholder="Masukkan NIP"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
-                      Riwayat Pendidikan
+                      Riwayat Pendidikan{" "}
+                      <span className="text-muted" style={{ fontWeight: 400, fontSize: "0.85em" }}>
+                        (Opsional)
+                      </span>
                     </label>
                     <input
-                      required
                       value={riwayat}
                       onChange={(e) => setRiwayat(e.target.value)}
                       type="text"

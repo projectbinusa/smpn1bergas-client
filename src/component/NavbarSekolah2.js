@@ -70,7 +70,7 @@ const NavbarSekolah2 = () => {
               <li><a href="/galery">GALERI</a></li>
             </ul>
           </li>
-          <li className={`navbars-item ${activeMenu === "keuangan" ? "active" : ""}`}>
+          {/* <li className={`navbars-item ${activeMenu === "keuangan" ? "active" : ""}`}>
             <a href="#keuangan" className="has-submenu" onClick={(e) => handleMenuClick(e, "keuangan")}>
               KEUANGAN <i class="fa-solid fa-caret-down"></i>
             </a>
@@ -79,7 +79,7 @@ const NavbarSekolah2 = () => {
               <li><a href="/keuangan-apbd">APBD</a></li>
               <li><a href="/keuangan-komite">KOMITE</a></li>
             </ul>
-          </li>
+          </li> */}
           <li className={`navbars-item ${activeMenu === "kesiswaan" ? "active" : ""}`}>
             <a href="#kesiswaan" className="has-submenu" onClick={(e) => handleMenuClick(e, "kesiswaan")}>
               KESISWAAN <i class="fa-solid fa-caret-down"></i>
