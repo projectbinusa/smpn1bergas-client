@@ -37,6 +37,12 @@ body {
 	background: #103cbe;
 }
 
+.header-text img {
+  width: auto !important;
+  height: 45px !important;
+  object-fit: contain !important;
+}
+
 
 
 /*------------ For small screens------------*/

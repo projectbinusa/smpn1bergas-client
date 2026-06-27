@@ -179,26 +179,48 @@ function EditGuru() {
 
                     {image && (
                       <div className="mt-3">
-                        <label className="form-label font-weight-bold">
+                        <label
+                          className="form-label font-weight-bold"
+                          style={{ display: "block", marginBottom: "8px" }}
+                        >
                           Foto Baru
                         </label>
+
                         <img
                           src={typeof image === "string" ? image : URL.createObjectURL(image)}
-                          alt="Current Image"
-                          style={{ maxWidth: "100%", height: "auto" }}
+                          alt="Foto Baru"
+                          style={{
+                            width: "140px",
+                            height: "140px",
+                            objectFit: "cover",
+                            borderRadius: "10px",
+                            border: "1px solid #dee2e6",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                          }}
                         />
                       </div>
                     )}
 
                     {imageUrl && (
                       <div className="mt-3">
-                        <label className="form-label font-weight-bold">
+                        <label
+                          className="form-label font-weight-bold"
+                          style={{ display: "block", marginBottom: "8px" }}
+                        >
                           Foto Lama
                         </label>
+
                         <img
                           src={imageUrl}
-                          alt="Current Image"
-                          style={{ maxWidth: "100%", height: "auto" }}
+                          alt="Foto Lama"
+                          style={{
+                            width: "140px",
+                            height: "140px",
+                            objectFit: "cover",
+                            borderRadius: "10px",
+                            border: "1px solid #dee2e6",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                          }}
                         />
                       </div>
                     )}
