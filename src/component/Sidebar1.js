@@ -133,12 +133,12 @@ function Sidebar1({ toggleSidebar }) {
       path: "/admin-galery",
       action: ["/add-galery", "/edit-galery"],
     },
-    {
-      title: "Keuangan",
-      icon: "fa-solid fa-circle-dollar-to-slot",
-      path: "/admin-keuangan",
-      action: ["/add-keuangan", "/edit-keuangan", "/detail-keuangan"],
-    },
+    // {
+    //   title: "Keuangan",
+    //   icon: "fa-solid fa-circle-dollar-to-slot",
+    //   path: "/admin-keuangan",
+    //   action: ["/add-keuangan", "/edit-keuangan", "/detail-keuangan"],
+    // },
   ];
 
   const profileItem = [

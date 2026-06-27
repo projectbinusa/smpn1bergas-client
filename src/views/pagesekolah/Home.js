@@ -47,11 +47,15 @@ function Home() {
     };
   }, []);
 
+  // ===== PERBAIKAN 1: gambar dibuat proporsional dengan objectFit "cover" =====
   const imageStyle = {
     transform: `translateY(${scrollY * 0.5}px)`,
     position: "relative",
     width: "100%",
     height: "100vh",
+    objectFit: "cover",
+    objectPosition: "center",
+    display: "block",
     overflow: "hidden",
   };
 
@@ -74,18 +78,19 @@ function Home() {
     transition: "background-color 0.3s, color 0.3s, border 0.3s",
   };
 
+  // ===== PERBAIKAN 2: tulisan judul dipindah ke atas-tengah =====
   const textOverlayStyle = {
     position: "absolute",
-    top: "50%",
+    top: "45%", // <-- ganti dari isMobile ? "90px" : "130px"
     left: "50%",
-    transform: "translate(-50%, -50%)",
+    transform: "translate(-50%, -50%)", // <-- tambahin -50% di Y biar pas center
+    width: "90%",
     color: "white",
-    fontSize: "55px",
+    fontSize: isMobile ? "28px" : "55px",
     fontWeight: "800",
     textAlign: "center",
     textTransform: "uppercase",
   };
-
   const formStyle = {
     display: "flex",
     flexDirection: "column",
@@ -425,12 +430,6 @@ function Home() {
 
   return (
     <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
-      {/* <div className="navbarrr">
-        <NavbarSekolah />
-      </div>
-      <div className="navbarrr2">
-        <NavbarSekolah2 />
-      </div> */}
       <NavbarSekolah2 />
       <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
@@ -446,58 +445,9 @@ function Home() {
           }}
         />
         <div style={textOverlayStyle}>
-          <p style={{ color: "white" }}>SMPN 1 Bergas</p>
+          <p style={{ color: "white", margin: 0 }}>SMPN 1 Bergas</p>
         </div>
       </div>
-
-      {/* <div className="about-area pd-top-90 pd-bottom-120">
-        <div className="container">
-          <div className="row">
-            <div data-aos="fade-right" className="col-lg-6">
-              <div className="mask-bg-wrap mask-bg-img-3">
-                <img
-                  style={{ borderRadius: "15px", width: "70%" }}
-                  className="shape-image"
-                  src={
-                    fotoKepsek ||
-                    "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
-                  }
-                  alt="img"
-                />
-              </div>
-            </div>
-            <div data-aos="fade-left" className="col-lg-6 align-self-center">
-              <div className="section-title px-lg-5 mb-0">
-                <h5 className="sub-title left-border">
-                  Sambutan Kepala Sekolah
-                </h5>
-                {namaKepsek ? (
-                  <h2 className="title">{namaKepsek}</h2>
-                ) : (
-                  <p
-                    className="title"
-                    style={{ color: "#666", fontSize: "1rem", margin: 0 }}>
-                    Sambutan kepala sekolah tidak tersedia
-                  </p>
-                )}
-                <p
-                  className="content mt-2 mb-2 isiBerita2"
-                  style={{ color: hasData ? "inherit" : "gray" }}>
-                  <div dangerouslySetInnerHTML={{ __html: sambutan }} />
-                </p>
-                {hasData && (
-                  <>
-                    <a href="/sambutan" style={{ fontWeight: "600" }}>
-                      SELENGKAPNYA
-                    </a>
-                    <hr />
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       {/* BERITA */}
       <div class="blog-area  pd-top-115 pd-bottom-60">
@@ -508,7 +458,6 @@ function Home() {
                 <h5 class="sub-title double-line" style={{ color: "black" }}>
                   Berita Terbaru
                 </h5>
-                {/* <h2 class="title">Bertemu dengan Guru Kami</h2> */}
                 <p class="content">
                   Informasi terkini seputar aktivitas siswa, pengumuman resmi,
                   hingga agenda pendidikan di SMPN 1 Bergas
@@ -627,67 +576,6 @@ function Home() {
           </div>
         </div>
       </div>
-
-      {/* EKSTRAKULIKULER */}
-      {/* <div class="how-it-work-area bg-blue pd-top-110 pd-top-110">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div
-                class="section-title style-white text-center"
-                data-aos="fade-down">
-                <h5 class="sub-title double-line">Ekstrakurikuler</h5>
-                <h2 class="title">Cara Pelaksanaannya</h2>
-                <p class="content">
-                  Pelatihan dilakukan secara bertahap dan sistematis. Setiap
-                  sesi dirancang untuk mengembangkan keterampilan peserta.
-                  Kegiatan berlangsung dengan pendekatan yang interaktif dan
-                  kolaboratif, memastikan setiap peserta mendapatkan pengalaman
-                  belajar yang optimal.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="row" data-aos="fade-up">
-            {ekstrakurikuler.map((data, index) => (
-              <div class="col-lg-3 col-md-6">
-                <div class="single-work-inner style-two text-center">
-                  <div class="count-wrap">
-                    <div class="count-inner">
-                      <h2>{index + 1}</h2>
-                    </div>
-                  </div>
-                  <div class="details-wrap">
-                    <div class="details-inner">
-                      <h4>{data.name}</h4>
-                      <p
-                        style={{
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 3,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}>
-                        {data.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>{" "}
-          <div data-aos="fade-up">
-            <Link
-              href="/ekstrakurikuler"
-              style={buttonStylesss}
-              onMouseEnter={() => setIsHoveredss(true)}
-              onMouseLeave={() => setIsHoveredss(false)}>
-              Tampilkan Semua Ekstrakurikuler
-            </Link>
-          </div>
-          <div class="client-slider pd-top-90 owl-carousel"></div>
-        </div>
-      </div> */}
 
       {/* GURU */}
       <div
@@ -815,96 +703,7 @@ function Home() {
         </div>
       </div>
 
-      {/* ALUMNI */}
-      {/* <div class="team-area bg-blue pd-top-90 pd-bottom-90">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div
-                class="section-title style-white text-center"
-                data-aos="fade-down">
-                <h5 class="sub-title double-line">ALumni</h5>
-                <h2 class="title">Bertemu dengan Alumni Kami</h2>
-                <p class="content">
-                  Jalin koneksi dengan alumni berprestasi yang telah mengukir
-                  kesuksesan di berbagai bidang. Mereka siap berbagi pengalaman
-                  dan inspirasi untuk generasi berikutnya.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="row" data-aos="fade-up">
-            {alumnus.map((data) => (
-              <div class="col-lg-3 col-md-6">
-                <div class="single-team-inner style-4 text-center">
-                  <div class="thumb alumni-thumb">
-                    <img src={data.foto ? data.foto : user} alt="img" />
-                  </div>
-                  <div class="details-wrap">
-                    <div class="details-inner">
-                      <h4
-                        style={{
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          color: "white",
-                          width: "200px",
-                        }}>
-                        <a>{data.nama}</a>
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="hover-details-wrap">
-                    <div
-                      class="hover-details-inner"
-                      style={{ padding: "0 1.5rem" }}>
-                      <h4>
-                        <a
-                          style={{
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 3,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            color: "white",
-                            textAlign: "justify",
-                          }}
-                          href={`/detail-alumni-${data.id}`}>
-                          {data.nama}
-                        </a>
-                      </h4>
-                      <p
-                        style={{
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 3,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          color: "white",
-                          textAlign: "justify",
-                        }}>
-                        <div
-                          dangerouslySetInnerHTML={{ __html: data.biografi }}
-                        />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div data-aos="fade-up">
-            <Link
-              href="/all-alumni"
-              style={buttonStylesss}
-              onMouseEnter={() => setIsHoveredss(true)}
-              onMouseLeave={() => setIsHoveredss(false)}>
-              Tampilkan Semua Alumni
-            </Link>
-          </div>
-        </div>
-      </div> */}
-      {/* GALERI - Perbaikan tampilan agar tidak gepeng dan lebih modern */}
+      {/* GALERI */}
       <div className="team-area pd-top-115 pd-bottom-90 bg-blue">
         <div className="container">
           <div className="row justify-content-center">
@@ -981,361 +780,6 @@ function Home() {
           </div>
         </div>
       </div>
-
-      {/* KONTAK */}
-      {/* <div className="contact-section-style">
-        <section id="hubungi-kami" className="contact-section-style">
-          <div class="section-title style-white text-center">
-            <h5
-              class="sub-title double-line"
-              style={{ color: "black" }}
-              data-aos="fade-down">
-              Hubungi Kami
-            </h5>
-          </div>
-          <Grid container spacing={3} className="container">
-            <Grid item xs={12} md={6} data-aos="fade-right">
-              <Typography
-                variant="h5"
-                gutterBottom
-                style={{
-                  fontWeight: "bold",
-                  textAlign: "left",
-                  fontFamily: "'Poppins', sans-serif",
-                }}>
-                Denah Lokasi
-              </Typography>
-              <iframe
-                title="Location Map"
-                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.547254951904!2d110.4257833236675!3d-7.178215195671886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70867ffa968b85%3A0x8fd0fe0f24112880!2s${address}!5e0!3m2!1sid!2sid!4v1725417582480!5m2!1sid!2sid`}
-                style={{ width: "100%", height: "400px", border: "0" }}
-                allowFullScreen=""
-                loading="lazy"></iframe>
-            </Grid>
-
-            <Grid item xs={12} md={6} data-aos="fade-left">
-              <Typography
-                variant="h5"
-                gutterBottom
-                style={{
-                  fontWeight: "bold",
-                  textAlign: "left",
-                  fontFamily: "'Poppins', sans-serif",
-                }}>
-                Kontak
-              </Typography>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}>
-                {email !== "" ? (
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    style={{
-                      display: "flex",
-                      fontFamily: "'Poppins', sans-serif",
-                    }}>
-                    <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 24 24">
-                      <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z" />
-                      <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
-                    </svg>
-                    <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>{email}</span>
-                  </Typography>
-                ) : (
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    style={{
-                      display: "flex",
-                      fontFamily: "'Poppins', sans-serif",
-                    }}>
-                    <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 24 24">
-                      <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z" />
-                      <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
-                    </svg>
-                    <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px" }}>
-                      Email Tidak Tersedia
-                    </span>
-                  </Typography>
-                )}
-
-                {phone !== "" ? (
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    style={{
-                      display: "flex",
-                      fontFamily: "'Poppins', sans-serif",
-                    }}>
-                    <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 24 24">
-                      <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z" />
-                    </svg>
-                    <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>+62 {phone}</span>
-                  </Typography>
-                ) : (
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    style={{
-                      display: "flex",
-                      fontFamily: "'Poppins', sans-serif",
-                    }}>
-                    <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 24 24">
-                      <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z" />
-                    </svg>
-                    <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px", textAlign: "left" }}>
-                      No. Telp Tidak Tersedia
-                    </span>
-                  </Typography>
-                )}
-
-                {fax !== "" ? (
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    style={{
-                      display: "flex",
-                      fontFamily: "'Poppins', sans-serif",
-                    }}>
-                    <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 24 24">
-                      <path
-                        fillRule="evenodd"
-                        d="M11 4a1 1 0 0 0-1 1v10h10.459l.522-3H16a1 1 0 1 1 0-2h5.33l.174-1H16a1 1 0 1 1 0-2h5.852l.117-.67v-.003A1.983 1.983 0 0 0 20.06 4H11ZM9 18c0-.35.06-.687.17-1h11.66c.11.313.17.65.17 1v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1Zm-6.991-7a17.8 17.8 0 0 0 .953 6.1c.198.54 1.61.9 2.237.9h1.34c.17 0 .339-.032.495-.095a1.24 1.24 0 0 0 .41-.27c.114-.114.2-.25.254-.396a1.01 1.01 0 0 0 .055-.456l-.242-2.185a1.073 1.073 0 0 0-.395-.71 1.292 1.292 0 0 0-.819-.286H5.291c-.12-.863-.17-1.732-.145-2.602-.024-.87.024-1.74.145-2.602H6.54c.302 0 .594-.102.818-.286a1.07 1.07 0 0 0 .396-.71l.24-2.185a1.01 1.01 0 0 0-.054-.456 1.088 1.088 0 0 0-.254-.397 1.223 1.223 0 0 0-.41-.269A1.328 1.328 0 0 0 6.78 4H4.307c-.3-.001-.592.082-.838.238a1.335 1.335 0 0 0-.531.634A17.127 17.127 0 0 0 2.008 11Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>{fax}</span>
-                  </Typography>
-                ) : (
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    style={{
-                      display: "flex",
-                      fontFamily: "'Poppins', sans-serif",
-                    }}>
-                    <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 24 24">
-                      <path
-                        fillRule="evenodd"
-                        d="M11 4a1 1 0 0 0-1 1v10h10.459l.522-3H16a1 1 0 1 1 0-2h5.33l.174-1H16a1 1 0 1 1 0-2h5.852l.117-.67v-.003A1.983 1.983 0 0 0 20.06 4H11ZM9 18c0-.35.06-.687.17-1h11.66c.11.313.17.65.17 1v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1Zm-6.991-7a17.8 17.8 0 0 0 .953 6.1c.198.54 1.61.9 2.237.9h1.34c.17 0 .339-.032.495-.095a1.24 1.24 0 0 0 .41-.27c.114-.114.2-.25.254-.396a1.01 1.01 0 0 0 .055-.456l-.242-2.185a1.073 1.073 0 0 0-.395-.71 1.292 1.292 0 0 0-.819-.286H5.291c-.12-.863-.17-1.732-.145-2.602-.024-.87.024-1.74.145-2.602H6.54c.302 0 .594-.102.818-.286a1.07 1.07 0 0 0 .396-.71l.24-2.185a1.01 1.01 0 0 0-.054-.456 1.088 1.088 0 0 0-.254-.397 1.223 1.223 0 0 0-.41-.269A1.328 1.328 0 0 0 6.78 4H4.307c-.3-.001-.592.082-.838.238a1.335 1.335 0 0 0-.531.634A17.127 17.127 0 0 0 2.008 11Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px" }}>
-                      Fax Tidak Tersedia
-                    </span>
-                  </Typography>
-                )}
-
-                {address !== "" ? (
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    style={{
-                      display: "flex",
-                      fontFamily: "'Poppins', sans-serif",
-                    }}>
-                    <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 24 24">
-                      <path
-                        fillRule="evenodd"
-                        d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.577-.764 1.072 1.072 0 0 1-.182-.62A8.021 8.021 0 0 1 3.62 10.24 7.976 7.976 0 0 1 1.875 6.804a7.99 7.99 0 0 1 6.137-5.295c.2-.058.399-.106.597-.147a.969.969 0 0 1 .299-.011l.006.002ZM11.07 7.553a.5.5 0 0 1 .37-.683c.31-.085.639-.075.94.026.318.107.623.292.844.55a.5.5 0 0 1 .092.618l-1 2a.5.5 0 0 1-.866-.5l.815-1.627a.482.482 0 0 1 .127-.139ZM8 12a1 1 0 0 1 1 1v4a1 1 0 0 1-2 0v-4a1 1 0 0 1 1-1ZM7 8.585A.996.996 0 0 1 7.248 8H8v3a1 1 0 0 1-1 1h-.004a.995.995 0 0 1-.992-.891V9.415ZM13 9v4a1 1 0 0 1-1 1v-4a1 1 0 0 1 1-1Zm1-4.243a.5.5 0 0 1 .658-.237c.05.03.099.068.145.107.379.346.723.72 1.01 1.113a1.048 1.048 0 0 1 .16.305A4.477 4.477 0 0 1 14 8v1.58c0 .2-.017.4-.048.597.044.04.087.083.124.129a.5.5 0 0 1-.5.816.51.51 0 0 1-.228-.046A3.5 3.5 0 0 0 14 9.415V9a1 1 0 0 1-1-1v-.585ZM9.17 5.72a.999.999 0 0 1-.17-.176 1.001 1.001 0 0 1 .338-1.374 1.002 1.002 0 0 1 1.351.215l.825 1.2a.5.5 0 0 1 .032.497.51.51 0 0 1-.031.066l-1.05 2.2a.5.5 0 0 1-.745.122l-.18-.17a.502.502 0 0 1-.06-.672.479.479 0 0 1 .113-.135l1.307-1.935a.501.501 0 0 1 .716-.052c.278.278.438.648.438 1.041a.5.5 0 0 1-.315.415l-1.029.684c-.282.189-.432.487-.432.773a.5.5 0 0 1-.387.487.507.507 0 0 1-.452-.06l-.446-.447a1.019 1.019 0 0 1-.126-1.382Zm5.027-.98a.995.995 0 0 1 .87-.26.975.975 0 0 1 .507.164c.123.057.237.133.336.23a2.11 2.11 0 0 1 .368.295.492.492 0 0 1 .062.65l-.37.517a1.025 1.025 0 0 1-.225.171l-1.321.883a.492.492 0 0 1-.7-.228l-.493-.843a.501.501 0 0 1 .12-.694l1.068-.734a1.013 1.013 0 0 1 .647-.212Zm-.014-2.124a.5.5 0 0 1 .48.327.5.5 0 0 1-.106.603l-1.056 1.056a.5.5 0 0 1-.707-.707l.899-.9A.493.493 0 0 1 15.056 2Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px", textAlign: "left" }}>{address}</span>
-                  </Typography>
-                ) : (
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    style={{
-                      display: "flex",
-                      fontFamily: "'Poppins', sans-serif",
-                    }}>
-                    <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 24 24">
-                      <path
-                        fillRule="evenodd"
-                        d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px" }}>
-                      Alamat Tidak Tersedia
-                    </span>
-                  </Typography>
-                )}
-              </div>
-            </Grid>
-          </Grid>
-          <br /> <br />
-          <form
-            onSubmit={add}
-            style={formStyle}
-            className="container"
-            data-aos="fade-up">
-            <Typography variant="h5" gutterBottom style={titleStyle}>
-              Kotak Saran
-            </Typography>
-
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "5px",
-                marginBottom: "5px",
-              }}>
-              <p style={{ margin: 0 }}>
-                Kode Captcha:{" "}
-                <span style={captchaTextStyle}>{generatedCaptcha}</span>
-              </p>
-              <Button
-                type="button"
-                onClick={generateCaptcha}
-                disabled={isLocked}
-                style={{ width: "3%", fontSize: "18px" }}>
-                <i className="fa-solid fa-arrows-rotate"></i>
-              </Button>
-              <Button
-                type="button"
-                onClick={() => setIsLocked(!isLocked)}
-                style={{ width: "3%", fontSize: "18px" }}>
-                <i
-                  className={`fa-solid ${isLocked ? "fa-lock" : "fa-unlock"
-                    }`}></i>
-              </Button>
-            </div>
-
-            <div style={inputContainerStyle}>
-              <TextField
-                style={{ ...inputFieldStyles }}
-                label="Kode Captcha"
-                variant="outlined"
-                value={captcha}
-                onChange={(e) => setCaptcha(e.target.value)}
-                required
-                disabled={isLocked}
-              />
-              <TextField
-                style={{ ...inputFieldStyle }}
-                label="Nama"
-                variant="outlined"
-                value={namaPengirim}
-                onChange={(e) => setNamaPengirim(e.target.value)}
-                required
-              />
-            </div>
-
-            <div style={inputContainerStyle}>
-              <TextField
-                style={{ ...inputFieldStyles }}
-                label="Email"
-                type="email"
-                variant="outlined"
-                value={email1}
-                onChange={(e) => setEmail1(e.target.value)}
-                required
-              />
-              <TextField
-                style={{ ...inputFieldStyle }}
-                label="Nomor Telephon"
-                type="number"
-                variant="outlined"
-                value={telp}
-                onChange={(e) => setTelp(e.target.value)}
-              />
-            </div>
-
-            <div style={messageContainerStyle}>
-              <TextField
-                style={{ ...inputFieldStyles, width: "100%" }}
-                label="Pesan"
-                variant="outlined"
-                multiline
-                rows={6}
-                placeholder="Write your suggestions here..."
-                value={pesan}
-                onChange={(e) => setPesan(e.target.value)}
-                required
-              />
-            </div>
-
-            <Button
-              type="submit"
-              style={buttonStyless}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}>
-              Kirim
-            </Button>
-          </form>
-        </section>
-      </div> */}
 
       <div class="client-area-area bg-base pt-5 pb-2">
         <div class="container">
