@@ -25,8 +25,7 @@ function AdminBerita() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/berita/admin/all?page=${
-          page - 1
+        `${API_DUMMY}/api/berita/admin/all?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -130,9 +129,8 @@ function AdminBerita() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -273,12 +271,20 @@ function AdminBerita() {
                             {berita.judulBerita}
                           </td>
                           <td data-label="Penulis Berita">{berita.author}</td>
-                          <td data-label="Image" style={{ textAlign: "right" }}>
+                          <td data-label="Image" style={{ textAlign: "center" }}>
                             <img
                               src={berita.image ? berita.image : news}
+                              alt={berita.judulBerita || "Berita"}
                               style={{
-                                height: "4.5rem",
-                                width: "4.5rem",
+                                maxWidth: "80px",
+                                maxHeight: "80px",
+                                width: "auto",
+                                height: "auto",
+                                objectFit: "contain",
+                                borderRadius: "6px",
+                                border: "1px solid #e9ecef",
+                                padding: "4px",
+                                backgroundColor: "#fff"
                               }}
                             />
                           </td>
