@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";
 import axios from "axios";
-import logo from "../../../aset/slbcpelita/logo-slbc.png";
+import logo from "../../../aset/smpn1bergas/logo.png";
 
 function Login() {
   const [username, setUsername] = useState("");

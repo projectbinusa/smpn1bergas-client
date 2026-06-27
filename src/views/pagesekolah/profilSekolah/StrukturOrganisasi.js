@@ -4,7 +4,7 @@ import "../../../css/alumni/struktur.css";
 import { API_DUMMY } from "../../../utils/base_URL";
 import axios from "axios";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
-import strukturSLBC from "../../../aset/slbcpelita/WhatsApp Image 2025-07-18 at 13.29.06_c81c4ecb.jpg";
+import user from "../../../aset/smpn1bergas/user_df.jpg";
 import Aos from "aos";
 import { Pagination } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -40,7 +40,7 @@ function StrukturOrganisasi() {
 
   const download = () => {
     const link = document.createElement("a");
-    link.href = strukturSLBC;
+    link.href = user;
     link.download = "STRUKTUR_ORG_SMPN1BERGAS.jpeg";
     document.body.appendChild(link);
     link.click();
@@ -75,7 +75,7 @@ function StrukturOrganisasi() {
                   Struktur Dan Anggota Organisasi
                 </h2>
               </div>
-              {struktur.length > 0 && (
+              {/* {struktur.length > 0 && (
                 <div className="mb-5">
                   <button
                     onClick={download}
@@ -94,7 +94,7 @@ function StrukturOrganisasi() {
                     Download lengkap struktur di sini
                   </button>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
 
@@ -105,9 +105,9 @@ function StrukturOrganisasi() {
                   <div className="struktur-card text-center">
                     <div className="struktur-img">
                       <img
-                        src={item.foto || strukturSLBC}
+                        src={item.foto || user}
                         alt={item.nama}
-                        onError={(e) => (e.target.src = strukturSLBC)}
+                        onError={(e) => (e.target.src = user)}
                       />
                     </div>
 
