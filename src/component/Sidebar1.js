@@ -266,17 +266,19 @@ function Sidebar1({ toggleSidebar }) {
               </li>{" "}
               {menuItems.map((data, index) => (
                 <li key={index} ref={(el) => (menuRefs.current[index] = el)}>
-                  <NavLink to={data.path} style={{ background: "none" }}>
-                    <i
-                      className={`${data.icon} ${
-                        location.pathname === data.path ||
-                        data.action.includes(location.pathname)
-                          ? "active"
-                          : ""
-                      }`}></i>
-
+                  <NavLink
+                    to={data.path}
+                    style={{ background: "none" }}
+                    isActive={() =>
+                      location.pathname === data.path ||
+                      data.action.some(a => location.pathname.startsWith(a))
+                    }
+                  >
+                    <i className={`${data.icon} ${location.pathname === data.path ||
+                        data.action.some(a => location.pathname.startsWith(a))
+                        ? "active" : ""
+                      }`} />
                     <span>{data.title}</span>
-                    {/* <span class="badge badge-pill badge-primary">Beta</span> */}
                   </NavLink>
                 </li>
               ))}
@@ -287,12 +289,11 @@ function Sidebar1({ toggleSidebar }) {
                 <li key={index} ref={(el) => (ProfileRefs.current[index] = el)}>
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
-                      class={`${data.icon} ${
-                        location.pathname === data.path ||
-                        data.action.includes(location.pathname)
+                      class={`${data.icon} ${location.pathname === data.path ||
+                          data.action.includes(location.pathname)
                           ? "active"
                           : ""
-                      }`}></i>
+                        }`}></i>
                     <span>{data.title}</span>
                     {/* <span class="badge badge-pill badge-primary">Beta</span> */}
                   </NavLink>
@@ -305,12 +306,11 @@ function Sidebar1({ toggleSidebar }) {
                 <li key={index} ref={(el) => (SiswaRefs.current[index] = el)}>
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
-                      class={`${data.icon} ${
-                        location.pathname === data.path ||
-                        data.action.includes(location.pathname)
+                      class={`${data.icon} ${location.pathname === data.path ||
+                          data.action.includes(location.pathname)
                           ? "active"
                           : ""
-                      }`}></i>
+                        }`}></i>
                     <span>{data.title}</span>
                     {/* <span class="badge badge-pill badge-primary">Beta</span> */}
                   </NavLink>
@@ -323,12 +323,11 @@ function Sidebar1({ toggleSidebar }) {
                 <li key={index} ref={(el) => (saprasRefs.current[index] = el)}>
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
-                      class={`${data.icon} ${
-                        location.pathname === data.path ||
-                        data.action.includes(location.pathname)
+                      class={`${data.icon} ${location.pathname === data.path ||
+                          data.action.includes(location.pathname)
                           ? "active"
                           : ""
-                      }`}></i>
+                        }`}></i>
                     <span>{data.title}</span>
                     {/* <span class="badge badge-pill badge-primary">Beta</span> */}
                   </NavLink>
