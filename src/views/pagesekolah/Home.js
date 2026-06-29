@@ -480,23 +480,62 @@ function Home() {
               </div>
             ) : (
               berita.map((data) => (
-                <div className="col-lg-4 col-md-6" key={data.id}>
-                  <div className="single-blog-inner style-2">
-                    <div className="thumb">
+                <div
+                  className="col-lg-4 col-md-6 d-flex"
+                  key={data.id}
+                  style={{ marginBottom: "30px" }}>
+                  <div
+                    className="single-blog-inner style-2"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: "#ffffff",
+                      borderRadius: "8px",
+                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+                      overflow: "hidden",
+                      transition: "box-shadow 0.3s ease, transform 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.15)";
+                      e.currentTarget.style.transform = "translateY(-4px)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08)";
+                      e.currentTarget.style.transform = "translateY(0)";
+                    }}>
+                    <div
+                      className="thumb"
+                      style={{
+                        width: "100%",
+                        height: "220px",
+                        overflow: "hidden",
+                        borderRadius: "8px 8px 0 0",
+                        backgroundColor: "#f5f5f5",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}>
                       <img
                         src={data.image ? data.image : news}
                         alt={data.judulBerita || "Berita"}
                         style={{
                           width: "100%",
-                          height: "auto",
+                          height: "100%",
                           objectFit: "contain",
-                          borderRadius: "8px 8px 0 0",
                           display: "block",
-                          backgroundColor: "#f5f5f5"
                         }}
                       />
                     </div>
-                    <div className="details">
+                    <div
+                      className="details"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        flex: 1,
+                        padding: "16px",
+                      }}>
                       <h4
                         style={{
                           display: "-webkit-box",
@@ -518,18 +557,17 @@ function Home() {
                           {data.created_date}
                         </li>
                       </ul>
-                      <p
+                      <div
                         style={{
                           display: "-webkit-box",
                           WebkitBoxOrient: "vertical",
                           WebkitLineClamp: 3,
                           overflow: "hidden",
                           textOverflow: "ellipsis",
-                        }}>
-                        <div
-                          dangerouslySetInnerHTML={{ __html: data.isiBerita }}
-                        />
-                      </p>
+                          flex: 1,
+                        }}
+                        dangerouslySetInnerHTML={{ __html: data.isiBerita }}
+                      />
                     </div>
                   </div>
                 </div>
