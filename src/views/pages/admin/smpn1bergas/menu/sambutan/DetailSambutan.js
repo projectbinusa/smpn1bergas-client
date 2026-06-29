@@ -219,18 +219,37 @@ function DetailSAmbutan() {
               </div>
               <br />
               <div className="card-body">
-                {image === null ? (
-                  <img
-                    className="rounded-circle w-75 mr-auto ml-auto d-block"
-                    src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
-                  />
-                ) : (
-                  <img
-                    style={{ maxWidth: "400px", maxHeight: "400px" }}
-                    className="w-75 d-block mr-auto ml-auto"
-                    src={image}
-                  />
-                )}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  {image === null ? (
+                    <img
+                      className="rounded-circle"
+                      style={{
+                        width: "200px",
+                        height: "200px",
+                        objectFit: "cover",
+                      }}
+                      src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+                    />
+                  ) : (
+                    <img
+                      style={{
+                        width: "100%",
+                        maxWidth: "400px",
+                        height: "400px",
+                        objectFit: "contain",
+                        borderRadius: "8px",
+                      }}
+                      src={image}
+                    />
+                  )}
+                </div>
                 <br />
                 <br />
                 <div class="mb-3">

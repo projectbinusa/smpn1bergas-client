@@ -146,8 +146,15 @@ function AddGuru() {
                           <div className="mt-3">
                             <img
                               src={typeof image === "string" ? image : URL.createObjectURL(image)}
-                              alt="Current Image"
-                              style={{ maxWidth: "100%", height: "auto" }}
+                              alt="Preview"
+                              style={{
+                                width: "150px",
+                                height: "150px",
+                                objectFit: "cover",
+                                borderRadius: "10px",
+                                border: "1px solid #ddd",
+                                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                              }}
                             />
                           </div>
                         )}
