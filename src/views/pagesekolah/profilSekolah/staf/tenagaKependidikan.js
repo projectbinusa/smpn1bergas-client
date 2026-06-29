@@ -188,7 +188,7 @@ const TenagaKepndidkan = () => {
   };
 
   return (
-    <div style={{overflow: "hidden"}}>
+    <div style={{ overflow: "hidden" }}>
       <NavbarSekolah2 />
       <div className="container-berita container">
         <div className="header-berita" data-aos="fade-down">
@@ -271,8 +271,8 @@ const TenagaKepndidkan = () => {
                             <button
                               onClick={() => getById(item.id)}
                               type="button"
-                              class="btn-warning  mr-2 btn-sm text-light">
-                              <i class="fas fa-info-circle"></i>
+                              className="btn-detail">
+                              <i className="fas fa-info-circle"></i> Detail
                             </button>
                           </td>
                         </tr>
@@ -371,8 +371,8 @@ const TenagaKepndidkan = () => {
                             <button
                               onClick={() => getByIdKry(item.id)}
                               type="button"
-                              class="btn-warning  mr-2 btn-sm text-light">
-                              <i class="fas fa-info-circle"></i>
+                              className="btn-detail">
+                              <i className="fas fa-info-circle"></i> Detail
                             </button>
                           </td>
                         </tr>
@@ -406,11 +406,14 @@ const TenagaKepndidkan = () => {
             </div>
           </Grid>
 
-          <Card data-aos="fade-left"
-          style={{marginBottom: "2rem", marginRight: "auto", marginLeft: "auto" }}
-            // style={{ marginRight: "auto", marginLeft: "auto" }}
-            xs={6}
-            md={8}
+          <Card
+            data-aos="fade-left"
+            className="card-detail"
+            style={{
+              marginBottom: "2rem",
+              marginRight: "auto",
+              marginLeft: "auto"
+            }}
             sx={{ maxWidth: 345 }}>
             {selectedDetail === "guru" ? (
               <Container style={{ marginTop: "19px" }}>
@@ -521,7 +524,7 @@ const TenagaKepndidkan = () => {
               </Container>
             ) : (
               <>
-                <Container style={{ marginTop: "19px"}}>
+                <Container style={{ marginTop: "19px" }}>
                   <Typography
                     className="font-weight-bold"
                     variant="h5"

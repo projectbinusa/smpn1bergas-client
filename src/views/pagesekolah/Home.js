@@ -791,9 +791,14 @@ function Home() {
       <div class="client-area-area bg-base pt-5 pb-2">
         <div class="container">
           <div class="section-title style-white text-center">
-            <h6 class="title">
-              ` Pendidikan adalah kunci untuk membuka pintu dunia, tempat impian
-              menjadi kenyataan dan pengetahuan menjadi kekuatan.`
+            <h6 class="title" style={{
+              fontSize: isMobile ? "14px" : "20px",
+              lineHeight: isMobile ? "1.6" : "1.8",
+              padding: isMobile ? "0 10px" : "0",
+              fontStyle: "italic"
+            }}>
+              Pendidikan adalah kunci untuk membuka pintu dunia, tempat impiam
+              menjadi kenyataan dan pengetahuan menjadi kekuatan.
             </h6>
           </div>
         </div>
