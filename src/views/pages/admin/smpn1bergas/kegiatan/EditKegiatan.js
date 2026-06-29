@@ -106,8 +106,7 @@ function EditKegiatan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/kegiatan/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/api/kegiatan/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -188,8 +187,8 @@ function EditKegiatan() {
           timer: 1500,
         });
         setTimeout(() => {
-        history.push("/admin-kegiatan");
-        // getAll();
+          history.push("/admin-kegiatan");
+          // getAll();
           window.location.reload();
         }, 1500);
       })
@@ -363,9 +362,9 @@ function EditKegiatan() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
+      <style>{`.ck-editor__editable { min-height: 400px !important; }`}</style>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"

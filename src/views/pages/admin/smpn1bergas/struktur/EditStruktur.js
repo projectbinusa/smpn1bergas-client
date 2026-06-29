@@ -201,25 +201,23 @@ function EditStruktur() {
 
                           {/* )} */}
 
-                          {image && (
-                            <div className="mt-3">
-                              <label className="form-label font-weight-bold">
-                                Gambar Baru
-                              </label>
+                          {(image || imageUrl) && (
+                            <div className="mt-2">
+                              <small className="text-muted">
+                                {image ? "Foto baru:" : "Foto tersimpan:"}
+                              </small>
+                              <br />
                               <img
-                                src={typeof image === "string" ? image : URL.createObjectURL(image)}
-                                alt="Current Image"
-                                style={{ maxWidth: "100%", height: "auto" }}
-                              />
-                            </div>
-                          )}
-
-                          {imageUrl && (
-                            <div className="mt-3">
-                              <img
-                                src={imageUrl}
-                                alt="Current Image"
-                                style={{ maxWidth: "100%", height: "auto" }}
+                                src={image ? URL.createObjectURL(image) : imageUrl}
+                                alt="Preview"
+                                style={{
+                                  width: "150px",
+                                  height: "150px",
+                                  objectFit: "cover",
+                                  borderRadius: "8px",
+                                  border: "1px solid #dee2e6",
+                                  marginTop: "4px",
+                                }}
                               />
                             </div>
                           )}

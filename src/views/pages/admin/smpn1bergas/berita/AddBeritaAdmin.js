@@ -271,9 +271,9 @@ function AddBeritaAdmin() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
+      <style>{`.ck-editor__editable { min-height: 400px !important; }`}</style>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"

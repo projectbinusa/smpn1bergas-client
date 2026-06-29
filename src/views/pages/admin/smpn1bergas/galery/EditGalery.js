@@ -389,6 +389,7 @@ function EditGalery() {
 
   return (
     <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+      <style>{`.ck-editor__editable { min-height: 400px !important; }`}</style>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -776,52 +777,52 @@ function EditGalery() {
                     </div>
 
                     <div
-                  style={{
-                    display: "flex",
-                    gap: "10px",
-                    marginTop: "20px",
-                  }}>
-                  <a
-                    href="/admin-galery"
-                    style={{
-                      background: "#dc3545",
-                      color: "#fff",
-                      textDecoration: "none",
-                      padding: "10px 20px",
-                      borderRadius: "8px",
-                      fontWeight: "500",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}>
-                    <i
-                      className="fa-solid fa-arrow-left"
-                      style={{ marginRight: "8px" }}
-                    />
-                    Batal
-                  </a>
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        marginTop: "20px",
+                      }}>
+                      <a
+                        href="/admin-galery"
+                        style={{
+                          background: "#dc3545",
+                          color: "#fff",
+                          textDecoration: "none",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}>
+                        <i
+                          className="fa-solid fa-arrow-left"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Batal
+                      </a>
 
-                  <button
-                    type="submit"
-                    style={{
-                      background: "#0d6efd",
-                      color: "#fff",
-                      padding: "10px 20px",
-                      borderRadius: "8px",
-                      border: "none",
-                      fontWeight: "500",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      minWidth: "120px",
-                    }}>
-                    <i
-                      className="fa-solid fa-paper-plane"
-                      style={{ marginRight: "8px" }}
-                    />
-                    Simpan
-                  </button>
-                </div>
+                      <button
+                        type="submit"
+                        style={{
+                          background: "#0d6efd",
+                          color: "#fff",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                          border: "none",
+                          fontWeight: "500",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          minWidth: "120px",
+                        }}>
+                        <i
+                          className="fa-solid fa-paper-plane"
+                          style={{ marginRight: "8px" }}
+                        />
+                        Simpan
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>

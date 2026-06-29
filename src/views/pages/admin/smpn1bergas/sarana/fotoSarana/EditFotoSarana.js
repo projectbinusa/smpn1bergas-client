@@ -13,13 +13,15 @@ import Sidebar1 from "../../../../../../component/Sidebar1";
 import { Link } from "react-router-dom";
 
 function EditFotoSarana() {
-  const [image, setImage] = useState(null);
   const [idSarana, setIdSarana] = useState("");
   const [sarana, setSarana] = useState([]);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const param = useParams();
   const [show, setShow] = useState(false);
+  const [existingPhoto, setExistingPhoto] = useState(null);
+  const [newImage, setNewImage] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   useEffect(() => {
     axios
@@ -31,7 +33,8 @@ function EditFotoSarana() {
       .then((ress) => {
         const response = ress.data.data;
         setIdSarana(response.sarana.id);
-        setImage(response.foto);
+        setExistingPhoto(response.foto);
+        setPreview(response.foto);
         console.log("foto-sarana : ", ress.data.data);
         console.log("id sarana : ", ress.data.data.sarana.id);
       })
@@ -40,69 +43,64 @@ function EditFotoSarana() {
       });
   }, []);
 
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setNewImage(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
   //edit pengumuman
   const update = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const formData = new FormData();
-    // formData.append("id_sarana", idSarana);
-    formData.append("file", image);
-
     try {
-      await axios
-        .put(
-          `${API_DUMMY}/api/foto_sarana/put/` + param.id,
-          {
-            id_sarana: idSarana
+      await axios.put(
+        `${API_DUMMY}/api/foto_sarana/put/` + param.id,
+        { id_sarana: idSarana },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          {
-            headers: {
-              // "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        )
-        .then(() => {
-          if (image) {
-            axios.put(`${API_DUMMY}/api/foto_sarana/put/foto/` + param.id, formData, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }).catch((err) => {
-              console.log(err);
-            })
-          }
-          setShow(false);
-          Swal.fire({
-            icon: "success",
-            title: "Data Berhasil Diperbarui",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          history.push("/admin-sarana");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-          // console.log("Berhasil diperbarui", response.data);
-        })
-        .catch((error) => {
-          if (error.ressponse && error.response.status === 401) {
-            localStorage.clear();
-            history.push("/login");
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Edit Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(error);
-          }
+        }
+      );
+
+      if (newImage) {
+        const formData = new FormData();
+        formData.append("file", newImage);
+        await axios.put(`${API_DUMMY}/api/foto_sarana/put/foto/` + param.id, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil Diperbarui",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        history.push("/admin-sarana");
+      }, 1500);
+
     } catch (error) {
-      console.log(error);
+      if (error.response?.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error);
+      }
     } finally {
       setLoading(false);
     }
@@ -185,12 +183,26 @@ function EditFotoSarana() {
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
+                          {preview && (
+                            <div className="mb-2">
+                              <img
+                                src={preview}
+                                alt="Preview Foto Sarana"
+                                style={{
+                                  width: "100%",
+                                  maxHeight: "250px",
+                                  objectFit: "cover",
+                                  borderRadius: "8px",
+                                  border: "1px solid #dee2e6",
+                                }}
+                              />
+                              <small className="text-muted">
+                                {newImage ? "Preview foto baru" : "Foto tersimpan saat ini"}
+                              </small>
+                            </div>
+                          )}
                           <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
+                            onChange={handleImageChange}
                             type="file"
                             className="form-control"
                           />
