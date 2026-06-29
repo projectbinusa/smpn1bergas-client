@@ -485,8 +485,15 @@ function Home() {
                     <div className="thumb">
                       <img
                         src={data.image ? data.image : news}
-                        alt="img"
-                        className="news"
+                        alt={data.judulBerita || "Berita"}
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          objectFit: "contain",
+                          borderRadius: "8px 8px 0 0",
+                          display: "block",
+                          backgroundColor: "#f5f5f5"
+                        }}
                       />
                     </div>
                     <div className="details">
