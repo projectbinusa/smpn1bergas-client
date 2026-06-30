@@ -150,7 +150,13 @@ function AddStructur() {
                               <img
                                 src={typeof image === "string" ? image : URL.createObjectURL(image)}
                                 alt="Current Image"
-                                style={{ maxWidth: "100%", height: "auto" }}
+                                style={{
+                                  width: "150px",
+                                  height: "150px",
+                                  objectFit: "cover",
+                                  borderRadius: "8px",
+                                  border: "1px solid #dee2e6",
+                                }}
                               />
                             </div>
                           )}

@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 
 function AddFotoSarana() {
   const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
   const [idSarana, setIdSarana] = useState("");
   const [kegiatan, setKegiatan] = useState([]);
   const [show, setShow] = useState(false);
@@ -144,10 +145,30 @@ function AddFotoSarana() {
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
+                          {preview && (
+                            <div className="mb-2">
+                              <img
+                                src={preview}
+                                alt="Preview Foto"
+                                style={{
+                                  width: "100%",
+                                  maxHeight: "250px",
+                                  objectFit: "cover",
+                                  borderRadius: "8px",
+                                  border: "1px solid #dee2e6",
+                                }}
+                              />
+                            </div>
+                          )}
                           <input
-                            onChange={(e) => setImage(e.target.files[0])}
+                            onChange={(e) => {
+                              const file = e.target.files[0];
+                              setImage(file);
+                              setPreview(URL.createObjectURL(file));
+                            }}
                             type="file"
                             required
+                            accept="image/*"
                             className="form-control"
                           />
                         </div>
